@@ -5,7 +5,11 @@
 package transitapp;
 
 public class Main {
-    // test 2
-    int x = 5;
+
+    public static void main(String[] args) {
+
+        // test number 2
+
+    }
 
 }
