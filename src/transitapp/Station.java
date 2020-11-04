@@ -5,9 +5,11 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class Station extends Location implements Observer{
+	private static ArrayList<Station> ALL_STAITIONS;
 
 	public Station(String location, boolean atInjunction) {
 		super(location, atInjunction);
+		ALL_STAITIONS.add(this);
 	}
 
 	@Override
@@ -33,6 +35,10 @@ public class Station extends Location implements Observer{
 	private ArrayList<Location> getRight(Location location, TransitRoutes TransitRoute) {
 		// iterate through transitroute and add all locations after the given location
 		return null;
+	}
+	
+	public ArrayList<Station> getAllStations() {
+		return Station.ALL_STAITIONS;
 	}
 
 }

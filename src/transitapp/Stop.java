@@ -6,11 +6,11 @@ import java.util.Observer;
 
 public class Stop extends Location implements Observer {
 	
-	//private static ArrayList<Stop> ALL_STOPS;
+	private static ArrayList<Stop> ALL_STOPS;
 	
 	public Stop(String location, boolean atInjunction) {
 		super(location, atInjunction);
-		//ALL_STOPS.add(this);
+		ALL_STOPS.add(this);
 	}
 	
 	@Override
@@ -38,6 +38,10 @@ public class Stop extends Location implements Observer {
 	public void update(Observable arg0, Object TransitRoute) {
 		// TODO Auto-generated method stub
 		this.addOnRoute((TransitRoutes) TransitRoute);
+	}
+	
+	public ArrayList<Stop> getAllStops() {
+		return Stop.ALL_STOPS;
 	}
 	
 }
