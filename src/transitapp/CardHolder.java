@@ -36,9 +36,9 @@ public class CardHolder {
         Card current_card = cards.get(index); // pass in helper that finds card based on id
         if (current_card.hasBalance()) {
             if (location instanceof Station) {
-                current_card.deductFare(TransitRoutes.stationFare); //
+                current_card.deductFare(BusRoute.stationFare); //
             } else if (location instanceof Stop) {
-                current_card.deductFare(TransitRoutes.busFare); //
+                current_card.deductFare(BusRoute.busFare); //
             }
             return true;
         }
