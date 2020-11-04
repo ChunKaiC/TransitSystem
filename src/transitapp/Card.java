@@ -7,10 +7,9 @@ public class Card {
     private int card_id; // unique identifier
 
     public Card() {
-        this.balance = 0.0;
-        this.card_id = 0; // How are we going to generate a unique number?
+        this.balance = 19.0;
         CARDS_ISSUED += 1;
-        card_id = CARDS_ISSUED;
+        this.card_id = CARDS_ISSUED;
     }
 
     public static void main(String[] args) {

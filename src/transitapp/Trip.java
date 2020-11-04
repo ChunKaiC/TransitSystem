@@ -19,5 +19,6 @@ public class Trip {
 
     public int stationsTravelled(Location start, Location end) {
         return Math.abs(Location.getAllLocations().indexOf(start) -  Location.getAllLocations().indexOf(end));
+        // change to only subway ^^
     }
 }
