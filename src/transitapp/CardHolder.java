@@ -6,8 +6,8 @@ public class CardHolder {
 
     private String name;
     private String email;
-    private ArrayList<T> recent_trips;
-    private ArrayList<T> cards;
+    private ArrayList<Trip> recent_trips;
+    private ArrayList<Card> cards;
     private int currTrip;
     private boolean onRoute;
 
@@ -30,15 +30,28 @@ public class CardHolder {
         return 0;
     }
 
-    public void tapOn() {
+    public boolean tapOn(Location location, int card_id) {
         this.onRoute = true;
-
-        // TODO
+        Card current_card = cards.get(index); // pass in helper that finds card based on id
+        if (current_card.hasBalance()) {
+            if (location instanceof Station) {
+                current_card.deductFare(TransitRoutes.stationFare); //
+            } else if (location instanceof Stop) {
+                current_card.deductFare(TransitRoutes.busFare); //
+            }
+            return true;
+        }
+        return false;
     }
 
-    public void tapOff() {
+    public void tapOff(Location location, int card_id) {
         this.onRoute = false;
 
-        // TODO
+        this.onRoute = true;
+        if (location instanceof Station) {
+            // calculate number of stations travelled from Trip class
+            // and calculate cost
+            return null;
+        }
     }
 }
