@@ -25,5 +25,6 @@ public class Card {
         this.balance -= amount;
     }
 
-    public boolean hasBalance() {return this.balance >= 0; }
+    public boolean hasBalance() {
+        return this.balance >= 0; }
 }
