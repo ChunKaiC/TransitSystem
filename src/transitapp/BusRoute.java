@@ -3,11 +3,9 @@ package transitapp;
 import java.util.ArrayList;
 
 public class BusRoute extends TransitRoutes {
-
-	protected ArrayList<Stop> currRoute;
-
-	public BusRoute(LocationNode node, double fare) {
-		super(node, fare);
+	
+	public BusRoute(ArrayList<Object> route, double fare) {
+		super(route, fare);
 	}
 	
     public static void main(String[] args) {
