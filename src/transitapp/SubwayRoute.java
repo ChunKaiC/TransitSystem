@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 public class SubwayRoute extends TransitRoutes{
 
-	public SubwayRoute(ArrayList<Object> route, double fare) {
-		super(route, fare);
+	protected ArrayList<Station> currRoute;
+
+	public SubwayRoute(LocationNode node, double fare) {
+		super(node, fare);
 	}
 	
     public static void main(String[] args) {

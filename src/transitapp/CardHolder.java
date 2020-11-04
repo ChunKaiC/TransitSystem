@@ -10,6 +10,7 @@ public class CardHolder {
     private ArrayList<Card> cards;
     private int currTrip;
     private boolean onRoute;
+    private Location tapOnLocation;
 
     public CardHolder(String name, String email) {
         this.name = name;
@@ -31,28 +32,34 @@ public class CardHolder {
         return 0;
     }
 
-    public boolean tapOn(Location location, int card_id) {
+    public boolean tapOn(Location location, int card_id, TransitRoutes route) {
         this.onRoute = true;
-        Card current_card = cards.get(index); // pass in helper that finds card based on id
+        this.tapOnLocation = location;
+        Card current_card = cards.get(card_id); // Must be able to get card from the list based on its id.
         if (current_card.hasBalance()) {
-            if (location instanceof Station) {
-                current_card.deductFare(BusRoute.stationFare); //
-            } else if (location instanceof Stop) {
-                current_card.deductFare(BusRoute.busFare); //
-            }
+                current_card.deductFare(route.fare);
             return true;
         }
         return false;
     }
 
-    public void tapOff(Location location, int card_id) {
+    public void tapOff(Station location, int card_id, SubwayRoute route) {
         this.onRoute = false;
+        Trip trip = new Trip();
+        Card current_card = findCard(this.cards, card_id); // Must be able to get card from the list based on its id.
+            double amount = trip.stationsTravelled(this.tapOnLocation, location, route);
+            if (amount > trip.getMaxCost()) {
+                amount = trip.getMaxCost();
+            }
+            current_card.deductFare(amount * route.getFare());
+        this.tapOnLocation = null;
+    }
 
-        this.onRoute = true;
-        if (location instanceof Station) {
-            // calculate number of stations travelled from Trip class
-            // and calculate cost
-            return null;
+    public Card findCard(ArrayList<Card> cards, int id) {
+        for (Card card: cards) {
+            if (card.getCard_id() == id) {
+                return card;
+            }
         }
     }
 }

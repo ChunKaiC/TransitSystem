@@ -16,15 +16,19 @@ public class Card {
 
     }
 
-    public void addBalance(int amount) {
+    public void addBalance(double amount) {
         this.balance += amount;
         AdminUser.addRevenue(amount);
     }
 
-    public void deductFare(int amount) {
+    public void deductFare(double amount) {
         this.balance -= amount;
     }
 
     public boolean hasBalance() {
         return this.balance >= 0; }
+
+    public int getCard_id () {
+        return card_id;
+    }
 }

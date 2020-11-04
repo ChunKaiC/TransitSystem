@@ -10,7 +10,7 @@ public class AdminUser {
 	private static double busTravelCost; // the cost (expenses) for a bus to go from one stop to another.
 	private static double subwayTravelCost; // the cost (expenses) for a subway to go from one station to another.
 	// For simplicity, the travel expenses will be calculated using the 2 above ^
-	private static ArrayList<BusRoute> busRoutes;
+	protected static ArrayList<BusRoute> busRoutes;
 	
 	
 	public AdminUser(int numBuses, double busPrice, double busTravelCost, double subwayTravelCost,
