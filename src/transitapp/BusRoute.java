@@ -1,12 +1,14 @@
 package transitapp;
 
-public class BusRoute extends TransitRoutes {
+import java.util.ArrayList;
 
-	public BusRoute(LocationNode node, double fare) {
-		super(node, fare);
-	}
+public class BusRoute extends TransitRoutes {
 	
-    public static void main(String[] args) {
+    public BusRoute(ArrayList<Object> route, double fare) {
+		super(route, fare);
+	}
+
+	public static void main(String[] args) {
 
     }
 }
