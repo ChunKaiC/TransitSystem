@@ -38,7 +38,7 @@ public abstract class Location implements Observer{
 		return this.onRoutes;
 	}
 	
-	public ArrayList<Location> getAllLocations() {
+	public static ArrayList<Location> getAllLocations() {
 		return Location.ALL_LOCATIONS;
 	}
 	
