@@ -17,7 +17,11 @@ public class Trip {
 
     }
 
-    public int stationsTravelled(Location start, Location end) {
-        return Math.abs(Location.getAllLocations().indexOf(start) -  Location.getAllLocations().indexOf(end));
+    public int stationsTravelled(Location start, Location end, SubwayRoute subRoute) {
+        return Math.abs(subRoute.route.indexOf(start) -  subRoute.route.indexOf(end));
+    }
+
+    public double getMaxCost() {
+        return MAX_COST;
     }
 }

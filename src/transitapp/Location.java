@@ -10,7 +10,7 @@ public abstract class Location implements Observer{
 	 * onRoutes
 	 * ALL_LOCATIONS
 	 */
-	
+
 	private boolean atInjunction;
 	private String location;
 	private ArrayList<TransitRoutes> onRoutes;

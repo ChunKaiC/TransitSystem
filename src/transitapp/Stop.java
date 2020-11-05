@@ -5,7 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class Stop extends Location implements Observer {
-	
+
 	private static ArrayList<Stop> ALL_STOPS;
 	
 	public Stop(String location, boolean atInjunction) {
