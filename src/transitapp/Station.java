@@ -35,5 +35,9 @@ public class Station extends Location implements Observer{
 	public ArrayList<Station> getAllStations() {
 		return Station.ALL_STAITIONS;
 	}
+	
+	public String toString() {
+		return ("Subway Station: " + this.getLocation());
+	}
 
 }
