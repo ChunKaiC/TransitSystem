@@ -46,7 +46,7 @@ public class CardHolder {
         return false;
     }
 
-    public void tapOff(Station location, int card_id, SubwayRoute route) {
+    public void tapOff(Station location, int card_id, TransitRoutes route) {
         this.onRoute = false;
         this.currTrip.addLocation(location);
         Card current_card = findCard(this.cards, card_id); // Must be able to get card from the list based on its id.
