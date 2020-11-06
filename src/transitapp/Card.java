@@ -31,4 +31,12 @@ public class Card {
     public int getCard_id () {
         return card_id;
     }
+
+    public int getCardsIssued() {
+        return CARDS_ISSUED;
+    }
+
+    public double getBalance() {
+        return this.balance;
+    }
 }
