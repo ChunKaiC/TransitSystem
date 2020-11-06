@@ -6,9 +6,9 @@ public class CardHolder {
 
     private String name;
     private String email;
-    private ArrayList<Trip> recent_trips;
-    private ArrayList<Card> cards;
-    private int currTrip;
+    private ArrayList<Trip> trips = new ArrayList<Trip>();
+    private ArrayList<Card> cards = new ArrayList<Card>();
+    private Trip currTrip;
     private boolean onRoute;
     private Location tapOnLocation;
 
@@ -16,7 +16,8 @@ public class CardHolder {
         this.name = name;
         this.email = email;
         this.onRoute = false;
-   
+        this.cards.add(new Card());
+        this.currTrip = null;
     }
 
     public static void main(String[] args) {
@@ -35,6 +36,8 @@ public class CardHolder {
     public boolean tapOn(Location location, int card_id, TransitRoutes route) {
         this.onRoute = true;
         this.tapOnLocation = location;
+        this.currTrip = new Trip();
+        this.currTrip.addLocation(location);
         Card current_card = cards.get(card_id); // Must be able to get card from the list based on its id.
         if (current_card.hasBalance()) {
                 current_card.deductFare(route.getFare());
@@ -45,11 +48,11 @@ public class CardHolder {
 
     public void tapOff(Station location, int card_id, SubwayRoute route) {
         this.onRoute = false;
-        Trip trip = new Trip();
+        this.currTrip.addLocation(location);
         Card current_card = findCard(this.cards, card_id); // Must be able to get card from the list based on its id.
-            double amount = trip.stationsTravelled(this.tapOnLocation, location, route);
-            if (amount > trip.getMaxCost()) {
-                amount = trip.getMaxCost();
+            double amount = this.currTrip.stationsTravelled(this.tapOnLocation, location, route);
+            if (amount > this.currTrip.getMaxCost()) {
+                amount = this.currTrip.getMaxCost();
             }
             current_card.deductFare(amount * route.getFare());
         this.tapOnLocation = null;
