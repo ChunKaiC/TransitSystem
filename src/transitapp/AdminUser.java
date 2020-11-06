@@ -10,11 +10,11 @@ public class AdminUser {
 	private static double busTravelCost; // the cost (expenses) for a bus to go from one stop to another.
 	private static double subwayTravelCost; // the cost (expenses) for a subway to go from one station to another.
 	// For simplicity, the travel expenses will be calculated using the 2 above ^
-	protected static ArrayList<BusRoute> busRoutes;
+	protected static ArrayList<TransitRoutes> busRoutes;
 	
 	
 	public AdminUser(int numBuses, double busPrice, double busTravelCost, double subwayTravelCost,
-					 ArrayList<BusRoute> busRoutes) {
+					 ArrayList<TransitRoutes> busRoutes) {
 		totalRevenue = 0;
 		totalCost = 0;
 		AdminUser.busPrice = busPrice;
@@ -36,11 +36,11 @@ public class AdminUser {
 		totalCost += numBuses * busPrice;
 	}
 
-	public static void createNewBusRoute(BusRoute route) {
+	public static void createNewBusRoute(TransitRoutes route) {
 		AdminUser.busRoutes.add(route);
 	}
 
-	public static void deleteNewBusRoute(BusRoute route) {
+	public static void deleteNewBusRoute(TransitRoutes route) {
 		AdminUser.busRoutes.remove(route);
 	}
 
