@@ -6,24 +6,12 @@ import java.util.Observable;
 public class TransitRoutes extends Observable{
 	private String name;
 	private ArrayList<Location> route;
-	private double fare;
+	static double fare;
 	
 	public TransitRoutes(String name, ArrayList<Location> route, double fare) {
 		this.name = name;
 		this.route = route;
 		this.fare = fare;
-	}
-
-	public void addLocationToRoute(Location loc, int index) {
-		this.route.add(index, loc);
-		this.addObserver(loc);
-		this.notifyObservers(this);
-	}
-
-	public void removeLocationFromRoute(Location loc) {
-		this.route.remove(loc);
-		this.deleteObserver(loc);
-		loc.getOnRoutes().remove(this);
 	}
 
 	public double getFare() {
@@ -53,6 +41,23 @@ public class TransitRoutes extends Observable{
 	
 	public void setName(String newName) {
 		this.name = newName;
+	}
+	
+	public void addLocation() {
+		
+	}
+	
+	public void removeLocation(String name) {
+		for (int i = 0; i < this.route.size(); i++) {
+			if (this.route.get(i).getLocation() == name) {
+				this.route.remove(i);
+				return;
+			}
+		}
+	}
+	
+	public void extendRoute() {
+		
 	}
 	
     public static void main(String[] args) {
