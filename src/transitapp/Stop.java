@@ -1,7 +1,7 @@
 package transitapp;
 
 import java.util.ArrayList;
-import java.util.Observable;
+//import java.util.Observable;
 import java.util.Observer;
 
 public class Stop extends Location implements Observer {
@@ -46,12 +46,6 @@ public class Stop extends Location implements Observer {
 		}
 		return allDestinations;
 		
-	}
-
-	@Override
-	public void update(Observable arg0, Object TransitRoute) {
-		// TODO Auto-generated method stub
-		this.addOnRoute((TransitRoutes) TransitRoute);
 	}
 	
 	public ArrayList<Stop> getAllStops() {

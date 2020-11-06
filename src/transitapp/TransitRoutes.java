@@ -1,8 +1,9 @@
 package transitapp;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
-public abstract class TransitRoutes {
+public class TransitRoutes extends Observable{
 	private String name;
 	private ArrayList<Location> route;
 	private double fare;
@@ -27,6 +28,11 @@ public abstract class TransitRoutes {
 	
 	public void setRoute(ArrayList<Location> newRoute){
 		this.route = newRoute;
+		for (Location l : this.route) {
+			this.addObserver(l);
+		}
+		this.setChanged();
+		this.notifyObservers(this);
 	}
 	
 	public String getName() {

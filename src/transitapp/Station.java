@@ -1,7 +1,7 @@
 package transitapp;
 
 import java.util.ArrayList;
-import java.util.Observable;
+//import java.util.Observable;
 import java.util.Observer;
 
 public class Station extends Location implements Observer{
@@ -10,12 +10,6 @@ public class Station extends Location implements Observer{
 	public Station(String location, boolean atInjunction) {
 		super(location, atInjunction);
 		ALL_STAITIONS.add(this);
-	}
-
-	@Override
-	public void update(Observable o, Object TransitRoute) {
-		// TODO Auto-generated method stub
-		this.addOnRoute((TransitRoutes) TransitRoute);
 	}
 
 	@Override
