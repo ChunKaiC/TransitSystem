@@ -30,6 +30,20 @@ public class Stop extends Location implements Observer {
 	private ArrayList<Location> getRouteDestinations(TransitRoutes route, Location stop) {
 		ArrayList<Location> allDestinations = new ArrayList<Location>();
 		// iterate through the TransiteRoute given and add all stops after given stop to all destinations and return
+		//this.getOnRoutes();
+		for (TransitRoutes r : this.getOnRoutes()) {
+			boolean found = false;
+			for (Location l : r.getRoute()) {
+				if (found) {
+					allDestinations.add(l);
+				}
+				else {
+					if (l.getLocation().equals(stop.getLocation())) {
+						found = true;
+					}
+				}
+			}
+		}
 		return allDestinations;
 		
 	}

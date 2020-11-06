@@ -21,21 +21,22 @@ public class Station extends Location implements Observer{
 	@Override
 	public ArrayList<Location> getAllDestinations(Location location) {
 		// TODO Auto-generated method stub
-		ArrayList<Location> left = this.getLeft(location, this.getOnRoutes().get(0));
-		ArrayList<Location> right = this.getRight(location, this.getOnRoutes().get(0));
-		left.addAll(right);
-		return left;
+		ArrayList<Location> all = this.getAllDestinations(location, this.getOnRoutes().get(0));
+		return all;
 	}
 	
-	private ArrayList<Location> getLeft(Location location, TransitRoutes TransitRoute) {
+	private ArrayList<Location> getAllDestinations(Location location, TransitRoutes TransitRoute) {
 		// iterate through transitroute and add all locations until the location is reached
-		return null;
+		ArrayList<Location> leftDestinations = new ArrayList<Location>();
+		for (Location l: TransitRoute.getRoute()) {
+			if (!(l.getLocation().equals(location.getLocation()))) {
+				leftDestinations.add(l);
+			}
+		}
+		return leftDestinations;
 	}
 	
-	private ArrayList<Location> getRight(Location location, TransitRoutes TransitRoute) {
-		// iterate through transitroute and add all locations after the given location
-		return null;
-	}
+
 	
 	public ArrayList<Station> getAllStations() {
 		return Station.ALL_STAITIONS;
