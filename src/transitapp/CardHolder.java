@@ -37,7 +37,7 @@ public class CardHolder {
         this.tapOnLocation = location;
         Card current_card = cards.get(card_id); // Must be able to get card from the list based on its id.
         if (current_card.hasBalance()) {
-                current_card.deductFare(route.fare);
+                current_card.deductFare(route.getFare());
             return true;
         }
         return false;
@@ -55,11 +55,16 @@ public class CardHolder {
         this.tapOnLocation = null;
     }
 
+    /*
+    Precondition: the card id is a valid id in the list of card objects
+     */
     public Card findCard(ArrayList<Card> cards, int id) {
+        Card found = null;
         for (Card card: cards) {
             if (card.getCard_id() == id) {
-                return card;
+                found = card;
             }
         }
+        return found;
     }
 }

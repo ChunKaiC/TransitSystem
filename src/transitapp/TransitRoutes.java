@@ -14,6 +14,18 @@ public class TransitRoutes extends Observable{
 		this.fare = fare;
 	}
 
+	public void addLocationToRoute(Location loc, int index) {
+		this.route.add(index, loc);
+		this.addObserver(loc);
+		this.notifyObservers(this);
+	}
+
+	public void removeLocationFromRoute(Location loc) {
+		this.route.remove(loc);
+		this.deleteObserver(loc);
+		loc.getOnRoutes().remove(this);
+	}
+
 	public double getFare() {
 		return this.fare;
 	}

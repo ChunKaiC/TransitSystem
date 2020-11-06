@@ -40,19 +40,15 @@ public class AdminUser {
 		AdminUser.busRoutes.add(route);
 	}
 
-	public static void addStop(Stop stop, BusRoute route, int index) {
-		route.currRoute.add(index, stop);
+	public static void deleteNewBusRoute(BusRoute route) {
+		AdminUser.busRoutes.remove(route);
 	}
 
-	public static void removeStop(Stop stop, BusRoute route) {
-		route.currRoute.remove(stop);
+	public static void addLocation(Location loc, TransitRoutes route, int index) {
+		route.addLocationToRoute(loc, index);
 	}
 
-	public static void addStation(Station station, SubwayRoute route, int index) {
-		route.currRoute.add(index, station);
-	}
-
-	public static void removeStation(Station station, SubwayRoute route) {
-		route.currRoute.remove(station);
+	public static void removeLocation(Location loc, TransitRoutes route) {
+		route.removeLocationFromRoute(loc);
 	}
 }
