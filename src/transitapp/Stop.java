@@ -52,4 +52,7 @@ public class Stop extends Location implements Observer {
 		return Stop.ALL_STOPS;
 	}
 	
+	public String toString() {
+		return ("Bus Stop: " + this.getLocation());
+	}
 }
