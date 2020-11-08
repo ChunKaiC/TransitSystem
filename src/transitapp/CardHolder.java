@@ -39,8 +39,18 @@ public class CardHolder {
         this.currTrip = new Trip();
         this.currTrip.addLocation(location);
         Card current_card = cards.get(card_id); // Must be able to get card from the list based on its id.
+
         if (current_card.hasBalance()) {
+            // For bus
+            if (location instanceof Stop) {
                 current_card.deductFare(route.getFare());
+            }
+
+            // For subway
+            else if (location instanceof Station) {
+                this.tapOnLocation = location;
+                current_card.deductFare(route.getFare());
+            }
             return true;
         }
         return false;
@@ -51,10 +61,11 @@ public class CardHolder {
         this.currTrip.addLocation(location);
         Card current_card = findCard(this.cards, card_id); // Must be able to get card from the list based on its id.
             double amount = this.currTrip.stationsTravelled(this.tapOnLocation, location, route);
-            if (amount > this.currTrip.getMaxCost()) {
-                amount = this.currTrip.getMaxCost();
+            double cost = amount * route.getFare();
+            if (cost > this.currTrip.getMaxCost()) {
+                cost = this.currTrip.getMaxCost();
             }
-            current_card.deductFare(amount * route.getFare());
+            current_card.deductFare(cost);
         this.tapOnLocation = null;
     }
 
