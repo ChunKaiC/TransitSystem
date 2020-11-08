@@ -1,0 +1,6 @@
+Axel Visan,1,60
+Axel Visan,7,34
+Bogdan Simeon,2,12
+Ali Mousavidehshikh,3,6
+Tian Yu,4,50
+Danny BrokenJumpshot,5,10

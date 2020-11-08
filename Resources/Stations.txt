@@ -1,0 +1,5 @@
+Clarkson,true
+Faisal Go,false
+Nick Go,false
+Chung Chung Go,true
+Pajdakov Go,true
