@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.Observer;
 
 public class Station extends Location implements Observer{
-	private static ArrayList<Station> ALL_STAITIONS;
+	private static ArrayList<Station> ALL_STAITIONS = new ArrayList<Station>();
 
 	public Station(String location, boolean atInjunction) {
 		super(location, atInjunction);
-		ALL_STAITIONS.add(this);
+		Station.ALL_STAITIONS.add(this);
 	}
 
 	@Override

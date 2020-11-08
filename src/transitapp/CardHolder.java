@@ -19,6 +19,28 @@ public class CardHolder {
         this.cards.add(new Card());
         this.currTrip = null;
     }
+    
+    public ArrayList<Trip> getRecentTrips() {
+		return this.trips;
+    }
+    
+    public ArrayList<Card> getCards() {
+		return this.cards;
+    }
+    
+    // faisal has written the following code for controller
+    public void addCard (Card card) {
+    	this.cards.add(card);
+    }
+    
+    public String getName() {
+    	return this.name;
+    }
+    
+    public String getEmail() {
+    	return this.email;
+    }
+    // axel code bellow
 
     public static void main(String[] args) {
 
