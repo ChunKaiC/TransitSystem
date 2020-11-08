@@ -170,16 +170,58 @@ public class TransitAppController {
 		// TODO Auto-generated method stub
 		Scanner continueFactor = new Scanner(System.in);
 		boolean displayUserFunctions = true;
+		System.out.println("Name: " + currUser.getName());
+		System.out.println("Email: " + currUser.getEmail());
+		System.out.println("Active Cards: " + currUser.getCards());
+		System.out.println("Recent Trips: " + currUser.getRecentTrips());
+		System.out.println("Average Monthly Spending: " + currUser.averageCost());
+
 		while (displayUserFunctions) {
-			System.out.println(currUser.getName());
-			System.out.println(currUser.getEmail());
-			
+			System.out.println("Input From The Following List Your Desired Function. Please input '1' to '4'");
+			System.out.println("1. Create a New Card");
+			System.out.println("2. Suspend Active Card");
+			System.out.println("3. Change Name");
+			System.out.println("4. Make a trip");
+			String function = continueFactor.nextLine();
+			if (function.equals("1")) {
+				this.createCard();
+			}
+			if (function.equals("2")) {
+				this.suspendCard();
+			}
+			if (function.equals("3")) {
+				this.changeName();
+			}
+			if (function.equals("4")) {
+				break;
+			} 
+			System.out.println("\n" + "Would You Like To Commit Another User Function? Please Enter 'y' or 'n'");
+			String runNext = continueFactor.nextLine();
+			if (runNext.equals("n")) {
+				displayUserFunctions = false;
+			}
 		}
+	}
+
+	private void changeName() {
+		// TODO Auto-generated method stub
+		// write to file and ask for input
+	}
+
+	private void suspendCard() {
+		// TODO Auto-generated method stub
+		// write to file and ask for input
+	}
+
+	private void createCard() {
+		// TODO Auto-generated method stub
+		// write to file and ask for input
 	}
 
 	private void beginTrip(CardHolder currUser, String startingLocation) {
 		// TODO Auto-generated method stub
-		System.out.println("We Gucci");
+		System.out.println("Current Location: " + startingLocation);
+		
 	}
 
 	private ArrayList<Location> displayAllStarts() {

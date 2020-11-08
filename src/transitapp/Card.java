@@ -10,10 +10,11 @@ public class Card {
         CARDS_ISSUED += 1;
         this.card_id = CARDS_ISSUED;
         AdminUser.addRevenue(this.balance);
-        
     }
     
     public Card(double balance, int card_id) {
+    	this.balance = balance;
+    	this.card_id = card_id;
     	CARDS_ISSUED += 1;
     	this.card_id = card_id;
     	this.balance = balance;
