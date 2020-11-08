@@ -2,6 +2,7 @@ package transitapp;
 
 import java.lang.Math;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 public class Trip {
 
@@ -10,6 +11,8 @@ public class Trip {
     private double currTripCost;
     private int timeOnTrip; // in minutes
     private ArrayList<Location> locationsTravelled;
+    private LocalDateTime startTime;
+    private int MAX_RIDE_TIME = 180; // in minutes
 
     public Trip() {
         this.timeOnTrip = 0;
@@ -31,5 +34,25 @@ public class Trip {
 
     public double getMaxCost() {
         return MAX_COST;
+    }
+
+    public LocalDateTime getStartTime () {
+        return this.startTime;
+    }
+
+    public void setStartTime (LocalDateTime time) {
+        this.startTime = time;
+    }
+
+    public int getMAX_RIDE_TIME() {
+        return this.MAX_RIDE_TIME;
+    }
+
+    public void addTimeToTrip(int time) {
+        this.timeOnTrip += time;
+    }
+
+    public int getTimeOnTrip() {
+        return this.timeOnTrip;
     }
 }
