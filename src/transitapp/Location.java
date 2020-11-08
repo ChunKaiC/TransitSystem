@@ -15,7 +15,7 @@ public abstract class Location implements Observer{
 	private boolean atInjunction;
 	private String location;
 	private ArrayList<TransitRoutes> onRoutes;
-	private static ArrayList<Location> ALL_LOCATIONS;
+	private static ArrayList<Location> ALL_LOCATIONS = new ArrayList<Location>();
 	
 	public Location(String location, boolean atInjunction) {
 		this.atInjunction = atInjunction;

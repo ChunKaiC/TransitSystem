@@ -6,13 +6,28 @@ import java.util.Observer;
 
 public class Stop extends Location implements Observer {
 
-	private static ArrayList<Stop> ALL_STOPS;
+	private boolean atInjunction;
+	private String location;
+	private ArrayList<TransitRoutes> onRoutes;
+	private static ArrayList<Location> ALL_LOCATIONS;
+	public static ArrayList<Stop> ALL_STOPS = new ArrayList<Stop>();
 	
 	public Stop(String location, boolean atInjunction) {
 		super(location, atInjunction);
-		ALL_STOPS.add(this);
+		Stop.ALL_STOPS.add(this);
 	}
 	
+	/** just testing
+	public static void main(String[] args) {
+		Stop stop1 = new Stop("McDowell", false);
+		System.out.println("Does this work?");
+		Stop.ALL_STOPS.add(stop1);
+	}
+	*/
+	
+	//public static void addToAllStops(Stop stop) {
+	//	Stop.ALL_STOPS.add(stop);
+	//}
 	@Override
 	public ArrayList<Location> getAllDestinations(Location stop) {
 		// add return empty array if onroutes empty
