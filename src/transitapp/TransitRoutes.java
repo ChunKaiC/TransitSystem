@@ -6,14 +6,15 @@ import java.util.Observable;
 public class TransitRoutes extends Observable{
 	private String name;
 	private ArrayList<Location> route;
-	private double fare;
+	private ArrayList<Integer> travelTime;
+	static double fare;
 	
 	public TransitRoutes(String name, ArrayList<Location> route, double fare) {
 		this.name = name;
 		this.route = route;
-		this.fare = fare;
+		this.setFare(fare);
 	}
-
+	
 	public void addLocationToRoute(Location loc, int index) {
 		this.route.add(index, loc);
 		this.addObserver(loc);
@@ -27,11 +28,11 @@ public class TransitRoutes extends Observable{
 	}
 
 	public double getFare() {
-		return this.fare;
+		return fare;
 	}
 	
 	public void setFare(double newFare) {
-		this.fare = newFare;
+		fare = newFare;
 	}
 	
 	public ArrayList<Location> getRoute(){
@@ -56,6 +57,6 @@ public class TransitRoutes extends Observable{
 	}
 	
     public static void main(String[] args) {
-
+    	System.out.println("Hello World");
     }
 }
