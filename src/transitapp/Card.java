@@ -15,10 +15,17 @@ public class Card {
     public Card(double balance, int card_id) {
     	this.balance = balance;
     	this.card_id = card_id;
+    	CARDS_ISSUED += 1;
+    	this.card_id = card_id;
+    	this.balance = balance;
+    	AdminUser.addRevenue(this.balance);
     }
-    
     public static void main(String[] args) {
 
+    }
+
+    public String toString() {
+        return "Card id: " + (Integer)card_id;
     }
 
     public void addBalance(double amount) {

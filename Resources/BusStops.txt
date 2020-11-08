@@ -1,0 +1,8 @@
+Toronto Plaza,false
+Woodchester,false
+Port Credit,false
+Clarkson,true
+Lorne Park,false
+Erin Mills,false
+Chung Chung Go,true
+Pajdakov Go,true

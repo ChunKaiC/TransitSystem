@@ -2,16 +2,18 @@ package transitapp;
 
 import java.util.ArrayList;
 import java.util.Observable;
+import java.time.LocalDateTime;
 
 public class TransitRoutes extends Observable{
 	private String name;
 	private ArrayList<Location> route;
-	private ArrayList<Integer> travelTime;
+	private ArrayList<LocalDateTime> schedule; // parrallel to routes above
 	static double fare;
 	
-	public TransitRoutes(String name, ArrayList<Location> route, double fare) {
+	public TransitRoutes(String name, ArrayList<Location> route, ArrayList<LocalDateTime> schedule, double fare) {
 		this.name = name;
 		this.route = route;
+		this.schedule = schedule;
 		this.setFare(fare);
 	}
 	
