@@ -23,6 +23,10 @@ public class Card {
 
     }
 
+    public String toString() {
+        return "Card id: " + (Integer)card_id;
+    }
+
     public void addBalance(double amount) {
         this.balance += amount;
         AdminUser.addRevenue(amount);

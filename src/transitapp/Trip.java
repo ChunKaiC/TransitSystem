@@ -8,10 +8,11 @@ public class Trip {
     private static double MAX_COST;
     private static double MAX_DURATION;
     private double currTripCost;
-    private double currTime; // Time units TBD
+    private int timeOnTrip; // in minutes
     private ArrayList<Location> locationsTravelled;
 
     public Trip() {
+        this.timeOnTrip = 0;
         this.currTripCost = 0.0;
         locationsTravelled = new ArrayList<Location>();
     }
