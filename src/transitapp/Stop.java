@@ -29,20 +29,20 @@ public class Stop extends Location implements Observer {
 	//	Stop.ALL_STOPS.add(stop);
 	//}
 	@Override
-	public ArrayList<Location> getAllDestinations(Location stop) {
+	public ArrayList<Location> getAllDestinations() {
 		// add return empty array if onroutes empty
 		int i = 0;
 		ArrayList<Location> onRoutDestinations = new ArrayList<Location>();
 		while (i < this.getOnRoutes().size()) {
 			TransitRoutes route = this.getOnRoutes().get(i);
-			onRoutDestinations.addAll(getRouteDestinations(route, stop));
+			onRoutDestinations.addAll(getRouteDestinations(route));
 			i++;
 		}
 		return onRoutDestinations;
 		
 	}
 	
-	private ArrayList<Location> getRouteDestinations(TransitRoutes route, Location stop) {
+	private ArrayList<Location> getRouteDestinations(TransitRoutes route) {
 		ArrayList<Location> allDestinations = new ArrayList<Location>();
 		// iterate through the TransiteRoute given and add all stops after given stop to all destinations and return
 		//this.getOnRoutes();
@@ -53,7 +53,7 @@ public class Stop extends Location implements Observer {
 					allDestinations.add(l);
 				}
 				else {
-					if (l.getLocation().equals(stop.getLocation())) {
+					if (l.getLocation().equals(this.getLocation())) {
 						found = true;
 					}
 				}
