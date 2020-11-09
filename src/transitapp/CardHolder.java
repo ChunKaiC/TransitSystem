@@ -61,6 +61,7 @@ public class CardHolder {
         return 0;
     }
 
+    // Change if needed
     public void wipeCard() {
     	this.cards.clear();
     }
@@ -79,9 +80,18 @@ public class CardHolder {
             // deduct max cost
             current_card.deductFare(this.currTrip.getMaxCost());
             // so at this point, the person may not have balance to tap on again
+            }
+        
+        if ( this.currTrip.getTimeOnTrip() < this.currTrip.getMAX_RIDE_TIME() && 
+        		this.currTrip.getMoneySpentOnTrip() < this.currTrip.getMaxCost()) {
+            this.onRoute = true;
+            this.tapOnLocation = location;
+            this.currTrip.addLocation(location);
+        	return true;
         }
 
         if (current_card.hasBalance()) {
+        	
             this.onRoute = true;
             this.tapOnLocation = location;
             this.currTrip.addLocation(location);
@@ -107,7 +117,7 @@ public class CardHolder {
         double cost = numStations * fare;
 
         if (tapOnLocation == null) {
-            // The cardholder never tapped on, so we will charge them the max cost
+            // The cardHolder never tapped on, so we will charge them the max cost
             cost = location.getAllStations().indexOf(location) * fare;
         }
         int travelTime = (int)(Duration.between(time, this.currTrip.getStartTime()).toMinutes());
@@ -117,8 +127,10 @@ public class CardHolder {
         {
             cost = this.currTrip.getMaxCost();
         }
+        
         this.currTrip.addTimeToTrip(travelTime);
         current_card.deductFare(cost);
+        this.currTrip.addMoneySpentOnTrip(cost);
         this.tapOnLocation = null;
         this.tapOffLocation = location;
         this.currTrip.setStartTime(time);
