@@ -1,1 +1,1 @@
-SubwayRoute#1,Clarkson,Faisal Go,Nick Go,Chung Chung Go,Pajdakov Go,0.75
+SubwayRoute#1,Clarkson,10,12,Faisal Go,10,25,Nick Go,10,55,Chung Chung Go,11,15,Pajdakov Go,12,0

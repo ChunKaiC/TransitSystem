@@ -12,6 +12,7 @@ public class Trip {
     private int timeOnTrip; // in minutes
     private double moneySpentOnTrip;
     private int MINUTE_GRACE_PERIOD = 120;
+    // ^ if it reaches 2 hours, make a new trip, otherwise free if spent $6 already
     private ArrayList<Location> locationsTravelled;
     private LocalDateTime startTime;
     private int MAX_RIDE_TIME = 180; // in minutes

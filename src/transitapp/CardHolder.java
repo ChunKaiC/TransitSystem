@@ -29,6 +29,10 @@ public class CardHolder {
     public ArrayList<Trip> getRecentTrips() {
 		return this.trips;
     }
+
+    public void deleteAllCards () {
+        this.cards.clear();
+    }
     
     public ArrayList<Card> getCards() {
 		return this.cards;
