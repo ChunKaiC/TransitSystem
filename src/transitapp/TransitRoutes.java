@@ -15,6 +15,11 @@ public class TransitRoutes extends Observable{
 		this.route = route;
 		this.schedule = schedule;
 		this.setFare(fare);
+		for (Location l : this.route) {
+			this.addObserver(l);
+		}
+		this.setChanged();
+		this.notifyObservers(this);
 	}
 	
 	public void addLocationToRoute(Location loc, int index) {
