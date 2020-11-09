@@ -61,6 +61,10 @@ public class CardHolder {
         return 0;
     }
 
+    public void wipeCard() {
+    	this.cards.clear();
+    }
+    
     public boolean tapOn(Location location, int card_id, LocalDateTime time) {
         Card current_card = cards.get(card_id); // Must be able to get card from the list based on its id.
 
