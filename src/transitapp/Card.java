@@ -5,12 +5,27 @@ public class Card {
     private double balance = 19.0;
     private static int CARDS_ISSUED = 0; // total number of cards issued to all users
     private int card_id; // unique identifier
+    private boolean isActivated;
 
     public Card() {
         CARDS_ISSUED += 1;
         this.card_id = CARDS_ISSUED;
         AdminUser.addRevenue(this.balance);
+        this.isActivated = true;
     }
+
+    public boolean isActivated() {
+        return this.isActivated;
+    }
+
+    public void activate() {
+        this.isActivated = true;
+    }
+
+    public void desactivate() {
+        this.isActivated = false;
+    }
+
     
     public Card(double balance, int card_id) {
     	this.balance = balance;

@@ -1,5 +1,7 @@
 package transitapp;
 
+import com.sun.tools.corba.se.idl.InterfaceGen;
+
 import java.time.Duration;
 import java.util.ArrayList;
 import java.lang.Math;
@@ -74,17 +76,30 @@ public class CardHolder {
     }
 
     public double averageCost() {
-        // TODO
-        return 0;
-    }
+        /*
+        ArrayList<Integer> months = new ArrayList<Integer>();
+        double cost = 0.0;
 
-    // Change if needed
-    public void wipeCard() {
-    	this.cards.clear();
+        for (Trip trip : this.trips) {
+            if (!months.contains(trip.getStartTime().getMonthValue())) {
+                months.add(trip.getStartTime().getMonthValue());
+            }
+            cost += trip.getMoneySpentOnTrip();
+        }
+        if (months.size() == 0) {
+            return 0.0;
+        }
+        return cost / months.size();
+        */
+         return 0.0;
     }
     
     public boolean tapOn(Location location, int card_id, LocalDateTime time) {
         Card current_card = cards.get(card_id); // Must be able to get card from the list based on its id.
+
+        if (!current_card.isActivated()) {
+            return false;
+        }
 
         if (this.tapOffLocation != location) {
             // create a new trip if tapping on at a different location then tapped off location
@@ -126,31 +141,35 @@ public class CardHolder {
 
     public void tapOff(Station location, int card_id, LocalDateTime time) {
         // Only for subway stations
-        this.onRoute = false;
-        double fare = findFare(location);
-        this.currTrip.addLocation(location);
         Card current_card = findCard(this.cards, card_id); // Must be able to get card from the list based on its id.
-        double numStations = this.currTrip.stationsTravelled((Station) this.tapOnLocation, location, location.getAllStations());
-        double cost = numStations * fare;
-
-        if (tapOnLocation == null) {
-            // The cardHolder never tapped on, so we will charge them the max cost
-            cost = location.getAllStations().indexOf(location) * fare;
-        }
-        int travelTime = (int)(Duration.between(time, this.currTrip.getStartTime()).toMinutes());
-        if (cost > this.currTrip.getMaxCost() || travelTime > this.currTrip.getMAX_RIDE_TIME())
-        // if the trip costs more than the max ($6) or the person has been riding for
-        // more than 3 hours (180 minutes)
+        if (current_card.isActivated())
         {
-            cost = this.currTrip.getMaxCost();
+            this.onRoute = false;
+            double fare = findFare(location);
+            this.currTrip.addLocation(location);
+
+            double numStations = this.currTrip.stationsTravelled((Station) this.tapOnLocation, location, location.getAllStations());
+            double cost = numStations * fare;
+
+            if (tapOnLocation == null) {
+                // The cardHolder never tapped on, so we will charge them the max cost
+                cost = location.getAllStations().indexOf(location) * fare;
+            }
+            int travelTime = (int) (Duration.between(time, this.currTrip.getStartTime()).toMinutes());
+            if (cost > this.currTrip.getMaxCost() || travelTime > this.currTrip.getMAX_RIDE_TIME())
+            // if the trip costs more than the max ($6) or the person has been riding for
+            // more than 3 hours (180 minutes)
+            {
+                cost = this.currTrip.getMaxCost();
+            }
+
+            this.currTrip.addTimeToTrip(travelTime);
+            current_card.deductFare(cost);
+            this.currTrip.addMoneySpentOnTrip(cost);
+            this.tapOnLocation = null;
+            this.tapOffLocation = location;
+            this.currTrip.setStartTime(time);
         }
-        
-        this.currTrip.addTimeToTrip(travelTime);
-        current_card.deductFare(cost);
-        this.currTrip.addMoneySpentOnTrip(cost);
-        this.tapOnLocation = null;
-        this.tapOffLocation = location;
-        this.currTrip.setStartTime(time);
     }
 
     /*
@@ -165,6 +184,7 @@ public class CardHolder {
         }
         return found;
     }
+
 
     public double findFare(Location location) {
         double fare = 0;
