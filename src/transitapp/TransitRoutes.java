@@ -9,13 +9,11 @@ public class TransitRoutes extends Observable{
 	private ArrayList<Location> route;
 	private ArrayList<LocalTime> schedule; // parallel to routes above
 	static double busFare, subwayFare;
-	private boolean inOperation;
 	
 	public TransitRoutes(String name, ArrayList<Location> route, ArrayList<LocalTime> schedule) {
 		this.name = name;
 		this.route = route;
 		this.schedule = schedule;
-		this.inOperation = true;
 		//this.setFare(fare);
 		for (Location l : this.route) {
 			this.addObserver(l);
@@ -24,14 +22,6 @@ public class TransitRoutes extends Observable{
 		this.notifyObservers(this);
 		TransitRoutes.setBusFare(busFare);
 		TransitRoutes.setSubwayFare(subwayFare);
-	}
-
-	public boolean isInOperation() {
-		return this.inOperation;
-	}
-
-	public void setInOperation(boolean inOperation) {
-		this.inOperation = inOperation;
 	}
 
 	public void addLocationToRoute(Location loc, int index) {

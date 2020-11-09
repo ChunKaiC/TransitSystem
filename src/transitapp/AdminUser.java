@@ -40,7 +40,7 @@ public class AdminUser {
 	public void showDailyReport(LocalDate date) throws FileNotFoundException {
 		HashMap<String, CardHolder> cardHolders = StartUp.loadCardHolders();
 		ArrayList<TransitRoutes> busRoutes = StartUp.loadBusRoutes();
-		TransitRoutes subwayRoute = StartUp.loadSubwayRoute().get(0);
+		ArrayList<TransitRoutes> subwayRoutes = StartUp.loadSubwayRoute();
 		int rides = 0;
 		double revenue = 0.0;
 		DecimalFormat df2 = new DecimalFormat("0.00");
@@ -57,13 +57,15 @@ public class AdminUser {
 		System.out.println("Report " + getTransitName() + "'s summary for " + date + ":");
 		System.out.println("Number of rides: " + rides);
 		System.out.println("Total revenue: $" + df2.format(revenue));
-		System.out.println("\nBus Routes: ");
+		System.out.println("\nBus Routes: (Fare : " +  df2.format(TransitRoutes.getBusFare()) + ")");
 
 		for (TransitRoutes busRoute : busRoutes) {
-			System.out.println("Route: " + busRoute.getName() + ", In Operation: " + busRoute.isInOperation());
+			System.out.println("Route: " + busRoute.getName());
 		}
-
-		System.out.println("\nSubway Route: " + subwayRoute.getName() + ", In Operation: " + subwayRoute.isInOperation());
+		System.out.println("\nBus Routes: (Fare : " +  df2.format(TransitRoutes.getSubwayFare()) + ")");
+		for (TransitRoutes subRoute : subwayRoutes) {
+			System.out.println("Route: " + subRoute.getName());
+		}
 
 	}
 	public static void addRevenue(double rev) {
