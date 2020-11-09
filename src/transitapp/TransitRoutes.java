@@ -10,11 +10,11 @@ public class TransitRoutes extends Observable{
 	private ArrayList<LocalTime> schedule; // parrallel to routes above
 	static double busFare, subwayFare;
 	
-	public TransitRoutes(String name, ArrayList<Location> route, ArrayList<LocalTime> schedule, double busFare, double subwayFare) {
+	public TransitRoutes(String name, ArrayList<Location> route, ArrayList<LocalTime> schedule) {
 		this.name = name;
 		this.route = route;
 		this.schedule = schedule;
-		this.setFare(fare);
+		//this.setFare(fare);
 		for (Location l : this.route) {
 			this.addObserver(l);
 		}
