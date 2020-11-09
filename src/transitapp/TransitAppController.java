@@ -181,7 +181,7 @@ public class TransitAppController {
 		System.out.println("Email: " + currUser.getEmail());
 		System.out.println("Active Cards: " + currUser.getCards());
 		System.out.println("Recent Trips: " + currUser.getRecentTrips());
-		System.out.println("Average Monthly Spending: " + currUser.averageCost());
+		System.out.println("Average Monthly Spending: " + currUser.averageMonthlyCost());
 
 		while (displayUserFunctions) {
 			System.out.println("Input From The Following List Your Desired Function. Please input '1' to '4'");

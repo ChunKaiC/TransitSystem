@@ -3,6 +3,7 @@ package transitapp;
 import com.sun.tools.corba.se.idl.InterfaceGen;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.lang.Math;
 import java.time.LocalDateTime;
@@ -75,14 +76,13 @@ public class CardHolder {
         this.name = name;
     }
 
-    public double averageCost() {
-        /*
-        ArrayList<Integer> months = new ArrayList<Integer>();
+    public double averageMonthlyCost() {
+        ArrayList<LocalDate> months = new ArrayList<LocalDate>();
         double cost = 0.0;
 
         for (Trip trip : this.trips) {
-            if (!months.contains(trip.getStartTime().getMonthValue())) {
-                months.add(trip.getStartTime().getMonthValue());
+            if (!months.contains(trip.getStartTime().toLocalDate())) {
+                months.add(trip.getStartTime().toLocalDate());
             }
             cost += trip.getMoneySpentOnTrip();
         }
@@ -90,8 +90,6 @@ public class CardHolder {
             return 0.0;
         }
         return cost / months.size();
-        */
-         return 0.0;
     }
     
     public boolean tapOn(Location location, int card_id, LocalDateTime time) {
