@@ -61,13 +61,14 @@ public class CardHolder {
         return 0;
     }
 
-    public boolean tapOn(Location location, int card_id, TransitRoutes route, LocalDateTime time) {
+    public boolean tapOn(Location location, int card_id, LocalDateTime time) {
         Card current_card = cards.get(card_id); // Must be able to get card from the list based on its id.
 
         if (this.tapOffLocation != location) {
             // create a new trip if tapping on at a different location then tapped off location
             this.currTrip = new Trip();
         }
+        double fare = findFare(location);
 
         if (tapOnLocation != null) {
             // this means the person never tapped off (previous trip)
@@ -83,7 +84,7 @@ public class CardHolder {
 
             // For bus
             if (location instanceof Stop) {
-                current_card.deductFare(route.getFare());
+                current_card.deductFare(fare);
                 this.currTrip.setStartTime(time);
             }
 
@@ -92,17 +93,18 @@ public class CardHolder {
         return false;
     }
 
-    public void tapOff(Station location, int card_id, TransitRoutes route, LocalDateTime time) {
+    public void tapOff(Station location, int card_id, LocalDateTime time) {
         // Only for subway stations
         this.onRoute = false;
+        double fare = findFare(location);
         this.currTrip.addLocation(location);
         Card current_card = findCard(this.cards, card_id); // Must be able to get card from the list based on its id.
-        double numStations = this.currTrip.stationsTravelled(this.tapOnLocation, location, route);
-        double cost = numStations * route.getFare();
+        double numStations = this.currTrip.stationsTravelled((Station) this.tapOnLocation, location, location.getAllStations());
+        double cost = numStations * fare;
 
         if (tapOnLocation == null) {
             // The cardholder never tapped on, so we will charge them the max cost
-            cost = route.getRoute().indexOf(location) * route.getFare();
+            cost = location.getAllStations().indexOf(location) * fare;
         }
         int travelTime = (int)(Duration.between(time, this.currTrip.getStartTime()).toMinutes());
         if (cost > this.currTrip.getMaxCost() || travelTime > this.currTrip.getMAX_RIDE_TIME())
@@ -129,5 +131,16 @@ public class CardHolder {
             }
         }
         return found;
+    }
+
+    public double findFare(Location location) {
+        double fare = 0;
+        if (location instanceof Station) {
+            fare = TransitRoutes.getSubwayFare();
+        }
+        else if (location instanceof Stop) {
+            fare = TransitRoutes.getBusFare();
+        }
+        return fare;
     }
 }

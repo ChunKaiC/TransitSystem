@@ -39,8 +39,8 @@ public class Trip {
 
     }
 
-    public int stationsTravelled(Location start, Location end, TransitRoutes subRoute) {
-        return Math.abs(subRoute.getRoute().indexOf(start) -  subRoute.getRoute().indexOf(end));
+    public int stationsTravelled(Station start, Station end, ArrayList<Station> stations) {
+        return Math.abs(stations.indexOf(start) -  stations.indexOf(end));
     }
 
     public double getMaxCost() {

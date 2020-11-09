@@ -2,15 +2,15 @@ package transitapp;
 
 import java.util.ArrayList;
 import java.util.Observable;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class TransitRoutes extends Observable{
 	private String name;
 	private ArrayList<Location> route;
-	private ArrayList<LocalDateTime> schedule; // parrallel to routes above
-	static double fare;
+	private ArrayList<LocalTime> schedule; // parrallel to routes above
+	static double busFare, subwayFare;
 	
-	public TransitRoutes(String name, ArrayList<Location> route, ArrayList<LocalDateTime> schedule, double fare) {
+	public TransitRoutes(String name, ArrayList<Location> route, ArrayList<LocalTime> schedule, double busFare, double subwayFare) {
 		this.name = name;
 		this.route = route;
 		this.schedule = schedule;
@@ -20,6 +20,8 @@ public class TransitRoutes extends Observable{
 		}
 		this.setChanged();
 		this.notifyObservers(this);
+		TransitRoutes.setBusFare(busFare);
+		TransitRoutes.setSubwayFare(subwayFare);
 	}
 	
 	public void addLocationToRoute(Location loc, int index) {
@@ -34,12 +36,20 @@ public class TransitRoutes extends Observable{
 		loc.getOnRoutes().remove(this);
 	}
 
-	public double getFare() {
-		return fare;
+	public static double getBusFare() {
+		return busFare;
+	}
+
+	public static double getSubwayFare() {
+		return subwayFare;
 	}
 	
-	public void setFare(double newFare) {
-		fare = newFare;
+	public static void setBusFare(double newFare) {
+		busFare = newFare;
+	}
+
+	public static void setSubwayFare(double newFare) {
+		subwayFare = newFare;
 	}
 	
 	public ArrayList<Location> getRoute(){
