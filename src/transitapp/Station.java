@@ -13,17 +13,17 @@ public class Station extends Location implements Observer{
 	}
 
 	@Override
-	public ArrayList<Location> getAllDestinations(Location location) {
+	public ArrayList<Location> getAllDestinations() {
 		// TODO Auto-generated method stub
-		ArrayList<Location> all = this.getAllDestinations(location, this.getOnRoutes().get(0));
+		ArrayList<Location> all = this.getAllDestinations(this.getOnRoutes().get(0));
 		return all;
 	}
 	
-	private ArrayList<Location> getAllDestinations(Location location, TransitRoutes TransitRoute) {
+	private ArrayList<Location> getAllDestinations(TransitRoutes TransitRoute) {
 		// iterate through transitroute and add all locations until the location is reached
 		ArrayList<Location> leftDestinations = new ArrayList<Location>();
 		for (Location l: TransitRoute.getRoute()) {
-			if (!(l.getLocation().equals(location.getLocation()))) {
+			if (!(l.getLocation().equals(this.getLocation()))) {
 				leftDestinations.add(l);
 			}
 		}

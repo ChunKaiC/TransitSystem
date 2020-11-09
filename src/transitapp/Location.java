@@ -24,7 +24,7 @@ public abstract class Location implements Observer{
 		Location.ALL_LOCATIONS.add(this);
 	}
 	
-	public abstract ArrayList<Location> getAllDestinations(Location location);
+	public abstract ArrayList<Location> getAllDestinations();
 	
 	// Getters and setters
 	public boolean getAtInjuction() {
