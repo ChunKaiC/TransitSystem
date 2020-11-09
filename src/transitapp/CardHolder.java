@@ -81,8 +81,9 @@ public class CardHolder {
         double cost = 0.0;
 
         for (Trip trip : this.trips) {
-            if (!months.contains(trip.getStartTime().toLocalDate())) {
-                months.add(trip.getStartTime().toLocalDate());
+            LocalDate date = LocalDate.of(trip.getStartTime().getYear(), trip.getStartTime().getMonth(), 1);
+            if (!months.contains(date)) {
+                months.add(date);
             }
             cost += trip.getMoneySpentOnTrip();
         }
