@@ -1,5 +1,7 @@
 package transitapp;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -126,10 +128,13 @@ public class TransitAppController {
 		Stop stop2 = new Stop("GO StreetsVille", true);
 		Station streets = new Station("GO StreetsVille", true);
 		ArrayList<Location> route1 = new ArrayList<Location>();
+		ArrayList<LocalTime> schedule = new ArrayList<LocalTime>();
+		//LocalDateTime stop1time = new LocalDateTime(null, null)
+		//schedule.add()
 		route1.add(stop1);
 		route1.add(stop1_5);
 		route1.add(stop2);
-		TransitRoutes route = new TransitRoutes("Go to StreetsVille", route1, .5);
+		TransitRoutes route = new TransitRoutes("Go to StreetsVille", route1, schedule);
 		// ESSENTIAL CODE
 		while (true) {
 			Scanner continueFactor = new Scanner(System.in);
@@ -146,11 +151,13 @@ public class TransitAppController {
 			ArrayList<Location> allLocs = this.displayAllStarts();
 			boolean validLocation = false;
 			String startingLocation = "";
+			Location start = null;
 			while (!validLocation) {
 				System.out.println("please chose a starting location from above");
 				startingLocation = continueFactor.nextLine();
 				for (Location l : allLocs) {
 					if (l.toString().equals(startingLocation)) {
+						start = l;
 						validLocation = true;
 						break;
 					}
@@ -160,7 +167,7 @@ public class TransitAppController {
 				System.out.println("Invalid Location");
 				}
 			}
-			this.beginTrip(currUser, startingLocation);
+			this.beginTrip(currUser, start);
 		}
 	}
 
@@ -218,10 +225,36 @@ public class TransitAppController {
 		// write to file and ask for input
 	}
 
-	private void beginTrip(CardHolder currUser, String startingLocation) {
+	private void beginTrip(CardHolder currUser, Location startingLocation) {
 		// TODO Auto-generated method stub
+		Scanner continueFactor = new Scanner(System.in);
 		System.out.println("Current Location: " + startingLocation);
-		
+		Location currLocation = startingLocation;
+		while (true) {
+			System.out.println("Please Choose From The Following List of destinations" + "\n" + "If You Would Like To Choose a Different Start"
+					+ " input 'Change Start'" + "\n" + "To End Trip, Input 'End'");
+			ArrayList<Location> possibleDest = currLocation.getAllDestinations();
+			System.out.println(possibleDest);
+			String nextDestination = continueFactor.nextLine();
+			if (nextDestination.equals("Change Start")) {
+				break;
+			}
+			if (nextDestination.equals("End")) {
+				break;
+			}
+			boolean found = false;
+			for (Location l : possibleDest) {
+				if (l.toString().equals(possibleDest)) {
+					found = true;
+				}
+			}
+			if (found) {
+				// write event to file
+				//currUser.tapOn(currLocation, card_id, route, time)
+				// let user pick card id, then call bus trip or subway trip, for subway trip force tap off
+				
+			}
+		}
 	}
 
 	private ArrayList<Location> displayAllStarts() {
