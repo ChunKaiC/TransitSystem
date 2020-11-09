@@ -27,7 +27,20 @@ public class CardHolder {
     }
     
     public ArrayList<Trip> getRecentTrips() {
-		return this.trips;
+		if (this.trips.size() <= 2) {
+		    return this.trips;
+        }
+		else {
+            ArrayList<Trip> recents = new ArrayList<>();
+            recents.add(trips.get(trips.size() - 3));
+            recents.add(trips.get(trips.size() - 2));
+            recents.add(trips.get(trips.size() - 1));
+            return recents;
+        }
+    }
+
+    public ArrayList<Trip> getTrips() {
+        return this.trips;
     }
 
     public void deleteAllCards () {
