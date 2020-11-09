@@ -7,7 +7,7 @@ import java.time.LocalTime;
 public class TransitRoutes extends Observable{
 	private String name;
 	private ArrayList<Location> route;
-	private ArrayList<LocalTime> schedule; // parrallel to routes above
+	private ArrayList<LocalTime> schedule; // parallel to routes above
 	static double busFare, subwayFare;
 	
 	public TransitRoutes(String name, ArrayList<Location> route, ArrayList<LocalTime> schedule) {
@@ -54,6 +54,10 @@ public class TransitRoutes extends Observable{
 	
 	public ArrayList<Location> getRoute(){
 		return this.route;
+	}
+	
+	public ArrayList<LocalTime> getSchedule(){
+		return this.schedule;
 	}
 	
 	public void setRoute(ArrayList<Location> newRoute){
