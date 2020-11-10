@@ -1,33 +1,75 @@
 package transitapp;
 
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class LoginHandler implements EventHandler<ActionEvent>{
 
 	private TextField name;
 	private TextField email;
 	private TextField adminId;
+	private Stage stage;
+	private TransitGui obj;
 	
-	public LoginHandler(TextField name, TextField email) {
+	public LoginHandler(TextField name, TextField email, Stage stage, TransitGui obj) {
 		this.name = name;
 		this.email = email;
+		this.stage = stage;
+		this.obj = obj;
 	}
 	
-	public LoginHandler(TextField adminId) {
+	public LoginHandler(TextField adminId, Stage stage, TransitGui obj) {
 		this.adminId = adminId;
+		this.stage = stage;
+		this.obj = obj;
 	}
 	
 	@Override
 	public void handle(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		String source = ((Button) arg0.getSource()).getText();
+		//System.out.println("Login");
 		//System.out.println(source);
-		if (source.equals("Login")) {
-			
+		//System.out.println(source);
+		if (source.equals("Log In")) {
+			//System.out.println("Login");
+			String name = this.name.getText();
+			String email = this.email.getText();
+			System.out.println("lol");
+			try {
+				HashMap<String, CardHolder> users = StartUp.loadCardHolders();
+				System.out.print(users);
+				CardHolder user = users.get(email);
+				if (!(user == null)) {
+					String userEmail = user.getEmail();
+					String userName = user.getName();
+					if (userName.equals(name)) {
+						// user found
+						//System.out.print("User Found");
+						this.obj.userUI(this.stage, user);
+					}
+					else {
+						this.name.setText("Name and Email Do Not Match Directory of Users");
+					}
+				}
+				else {
+					this.email.setText("User Not Found!");
+				}
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				System.out.println("How do i fix this?");
+				e.printStackTrace();
+			}
+		}
+		if (source.equals("Admin Log In")) {
+			this.obj.adminUI(this.stage);
 		}
 	}
 
