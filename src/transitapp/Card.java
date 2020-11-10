@@ -2,24 +2,68 @@ package transitapp;
 
 public class Card {
 
-    private double balance;
-    private static int CARDS_ISSUED; // total number of cards issued to all users
+    private double balance = 19.0;
+    private static int CARDS_ISSUED = 0; // total number of cards issued to all users
     private int card_id; // unique identifier
+    private boolean isActivated;
 
     public Card() {
-        this.balance = 0.0;
-        this.card_id = 0; // How are we going to generate a unique number?
+        CARDS_ISSUED += 1;
+        this.card_id = CARDS_ISSUED;
+        AdminUser.addRevenue(this.balance);
+        this.isActivated = true;
     }
 
+    public boolean isActivated() {
+        return this.isActivated;
+    }
+
+    public void activate() {
+        this.isActivated = true;
+    }
+
+    public void desactivate() {
+        this.isActivated = false;
+    }
+
+    
+    public Card(double balance, int card_id) {
+    	this.balance = balance;
+    	this.card_id = card_id;
+    	CARDS_ISSUED += 1;
+    	this.card_id = card_id;
+    	this.balance = balance;
+    	AdminUser.addRevenue(this.balance);
+    }
     public static void main(String[] args) {
 
     }
 
-    public void addBalance(int amount) {
-        this.balance += amount;
+    public String toString() {
+        return "Card id: " + (Integer)card_id;
     }
 
-    public void deductFare(int amount) {
+    public void addBalance(double amount) {
+        this.balance += amount;
+        AdminUser.addRevenue(amount);
+    }
+
+    public void deductFare(double amount) {
         this.balance -= amount;
+    }
+
+    public boolean hasBalance() {
+        return this.balance >= 0; }
+
+    public int getCard_id () {
+        return card_id;
+    }
+
+    public int getCardsIssued() {
+        return CARDS_ISSUED;
+    }
+
+    public double getBalance() {
+        return this.balance;
     }
 }
