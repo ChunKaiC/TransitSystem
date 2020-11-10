@@ -6,6 +6,8 @@ import java.util.HashMap;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -30,7 +32,7 @@ public class TransitGui extends Application {
 		//StartUp.loadStops();
 		//StartUp.loadStation();
 		//StartUp.l
-		
+		HashMap<String, CardHolder> users = StartUp.loadCardHolders();
 		
 		//
 		stage.setTitle("UTM Metro");
@@ -85,10 +87,10 @@ public class TransitGui extends Application {
 		//login.setStyle("fx-border-color: black;");
 		login.setPrefWidth(100);
 		//login.setBlendMode(Color.web("#a1ad8a"));
-		login.setOnAction(new LoginHandler(name, email, stage, this));
+		login.setOnAction(new LoginHandler(name, email, stage, this, users));
 		Button signup = new Button("Sign Up");
 		signup.setPrefWidth(100);
-		signup.setOnAction(new SignUpHandler(stage, this));
+		signup.setOnAction(new SignUpHandler(stage, this, name, email, users));
 		//signup.setOnAction(new LoginHandler(name, email));
 		Button adminin = new Button("Admin Log In");
 		adminin.setPrefWidth(100);
@@ -175,8 +177,19 @@ public class TransitGui extends Application {
 		center.add(c, 0, 0);
 		center.add(cardList, 1, 0);
 		center.setAlignment(Pos.CENTER);
+		center.setHgap(10);
+		center.setVgap(10);
 		
 		//
+		
+		
+		// User functions button that takes to another screen that : Edit name, suspend card, view recent trips, create card. then returns to this screen when done
+		Button startTrip = new Button("Start Trip");
+		Button userFunctions = new Button("User Funtions");
+		center.add(startTrip, 0, 3);
+		center.add(userFunctions, 1, 3);
+		//startTrip.setOnAction();
+		
 		
 		// User Info
 		VBox userInfo = new VBox();

@@ -17,12 +17,14 @@ public class LoginHandler implements EventHandler<ActionEvent>{
 	private TextField adminId;
 	private Stage stage;
 	private TransitGui obj;
+	private HashMap<String, CardHolder> users;
 	
-	public LoginHandler(TextField name, TextField email, Stage stage, TransitGui obj) {
+	public LoginHandler(TextField name, TextField email, Stage stage, TransitGui obj, HashMap<String, CardHolder> users) {
 		this.name = name;
 		this.email = email;
 		this.stage = stage;
 		this.obj = obj;
+		this.users = users;
 	}
 	
 	public LoginHandler(TextField adminId, Stage stage, TransitGui obj) {
@@ -43,29 +45,24 @@ public class LoginHandler implements EventHandler<ActionEvent>{
 			String name = this.name.getText();
 			String email = this.email.getText();
 			System.out.println("lol");
-			try {
-				HashMap<String, CardHolder> users = StartUp.loadCardHolders();
-				System.out.print(users);
-				CardHolder user = users.get(email);
-				if (!(user == null)) {
-					String userEmail = user.getEmail();
-					String userName = user.getName();
-					if (userName.equals(name)) {
-						// user found
-						//System.out.print("User Found");
+			System.out.print(users);
+			CardHolder user = users.get(email);
+			if (!(user == null)) {
+				String userEmail = user.getEmail();
+				String userName = user.getName();
+				if (userName.equals(name)) {
+					// user found
+					// System.out.print("User Found");
+					try {
 						this.obj.userUI(this.stage, user);
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
 					}
-					else {
-						this.name.setText("Name and Email Do Not Match Directory of Users");
-					}
+				} else {
+					this.name.setText("Name and Email Do Not Match Directory of Users");
 				}
-				else {
-					this.email.setText("User Not Found!");
-				}
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				System.out.println("How do i fix this?");
-				e.printStackTrace();
+			} else {
+				this.email.setText("User Not Found!");
 			}
 		}
 		if (source.equals("Admin Log In")) {
