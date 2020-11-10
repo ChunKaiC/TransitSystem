@@ -19,6 +19,13 @@ public class TransitGui extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
+		// DATA LOADING
+		//StartUp.loadStops();
+		//StartUp.loadStation();
+		//StartUp.l
+		
+		
+		//
 		stage.setTitle("UTM Metro");
 		//stage.setWidth(900);
 		//stage.setHeight(700);
@@ -66,13 +73,13 @@ public class TransitGui extends Application {
 		// btns for log in or sign up
 		Button login = new Button("Log In");
 		login.setPrefWidth(100);
-		login.setOnAction(new TransitHandler());
+		login.setOnAction(new LoginHandler(name, email));
 		Button signup = new Button("Sign Up");
 		signup.setPrefWidth(100);
-		signup.setOnAction(new TransitHandler());
+		//signup.setOnAction(new LoginHandler(name, email));
 		Button adminin = new Button("Admin Log In");
 		adminin.setPrefWidth(100);
-		adminin.setOnAction(new TransitHandler());
+		adminin.setOnAction(new LoginHandler(admin));
 		//
 		//User
 		center.add(ntxt, 0, 0);
