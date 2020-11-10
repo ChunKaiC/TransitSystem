@@ -18,6 +18,7 @@ public class CardHolder {
     private boolean onRoute;
     private Location tapOnLocation;
     private Location tapOffLocation;
+    private static ArrayList<CardHolder> allCardHolders = new ArrayList<CardHolder>();
 
     public CardHolder(String name, String email) {
         this.name = name;
@@ -27,6 +28,7 @@ public class CardHolder {
         this.currTrip = null;
         this.tapOnLocation = null;
         this.tapOffLocation = null;
+        CardHolder.allCardHolders.add(this);
     }
     
     public ArrayList<Trip> getRecentTrips() {
