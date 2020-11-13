@@ -1,8 +1,8 @@
-parlefrancais@gmail.com,19,1
-parlefrancais@gmail.com,20,6
-BogMan@CS.com,12,2
-MathMatician@algebra.com,36,3
-Hello@DingDong.com,45,4
+Hello@DingDong.com,45.0,4
 Hello@DingDong.com,17.5,7
-Hello@DingDong.com,400,8
-DannyBadBoi@Yessir.com,4,5
+Hello@DingDong.com,400.0,8
+DannyBadBoi@Yessir.com,4.0,5
+parlefrancais@gmail.com,19.0,1
+parlefrancais@gmail.com,20.0,6
+MathMatician@algebra.com,36.0,3
+BogMan@CS.com,12.0,2
