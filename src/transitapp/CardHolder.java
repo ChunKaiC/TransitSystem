@@ -1,6 +1,6 @@
 package transitapp;
 
-import com.sun.tools.corba.se.idl.InterfaceGen;
+
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -42,6 +42,14 @@ public class CardHolder {
         }
     }
 
+    public void addTrip(Trip t) {
+    	this.trips.add(t);
+    }
+    
+    public void loadTrip(ArrayList<Trip> t) {
+    	this.trips = t;
+    }
+    
     public ArrayList<Trip> getTrips() {
         return this.trips;
     }

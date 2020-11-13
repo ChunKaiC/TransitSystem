@@ -20,7 +20,7 @@ public class Trip {
     public Trip() {
         this.moneySpentOnTrip = 0.0;
         this.timeOnTrip = 0;
-        this.currTripCost = 0.0;
+        //this.currTripCost = 0.0;
         locationsTravelled = new ArrayList<Location>();
     }
 
@@ -66,5 +66,9 @@ public class Trip {
 
     public int getTimeOnTrip() {
         return this.timeOnTrip;
+    }
+    
+    public ArrayList<Location> getLocations(){
+    	return this.locationsTravelled;
     }
 }

@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class StartUp {
-//		public static void main(String[] args) throws FileNotFoundException {
+		public static void main(String[] args) throws FileNotFoundException {
 //		HashMap<String, Stop> stops = loadStops();
 //		HashMap<String, Station> stations = loadStation();
 //		System.out.println(stops.get("Chung Chung Go"));
@@ -35,12 +35,13 @@ public class StartUp {
 //			System.out.println(cardHolders.get(email).getCards());
 //			System.out.println(cardHolders.get(email).getCards().get(0).getBalance());
 //		}
-//
-//		DecimalFormat df2 = new DecimalFormat("0.00");
-//		System.out.println(cardHolders.get("Hello@DingDong.com").getCards().get(1).getBalance());
-//		cardHolders.get("Hello@DingDong.com").getCards().get(1).addBalance(100.10);
-//		System.out.println(df2.format(cardHolders.get("Hello@DingDong.com").getCards().get(1).getBalance()));
-//	}
+//			HashMap<String, ArrayList<Trip>> trips = loadEvents();
+//			System.out.println(trips.get("parlefrancais@gmail.com"));
+//			System.out.println(trips.get("Hello@DingDong.com"));
+//			System.out.println(trips.get("DannyBadBoi@Yessir.com").get(0).getLocations());
+//		
+		
+	}
 
 	public static HashMap<String, Stop> loadStops() throws FileNotFoundException{
 		HashMap<String, Stop> stops = new HashMap<String, Stop>();
@@ -120,11 +121,11 @@ public class StartUp {
 
 	public static HashMap<String, CardHolder> loadCardHolders() throws FileNotFoundException{
 		HashMap<String, CardHolder> cardHolders = new HashMap<String, CardHolder>();
+		HashMap<String, ArrayList<Card>> updatedCards = loadCards();
+		HashMap<String, ArrayList<Trip>> trips = loadEvents();
 		BufferedReader fileCardHolders = new BufferedReader(new FileReader("Resources/CardHolders.txt"));
 		Scanner scanCardHolders = new Scanner(fileCardHolders);
-		HashMap<String, ArrayList<Card>> updatedCards = loadCards();
-
-
+		
 		while(scanCardHolders.hasNextLine()) {
 			String line = scanCardHolders.nextLine();
 			String[] data = line.split(",");
@@ -136,6 +137,9 @@ public class StartUp {
 			for (int i = 0; i < updatedCards.get(key).size(); i++) {
 				cardHolders.get(key).addCard(updatedCards.get(key).get(i));
 			}
+		}
+		for(String email: trips.keySet()) {
+			cardHolders.get(email).loadTrip(trips.get(email));
 		}
 
 		return cardHolders;
@@ -162,5 +166,39 @@ public class StartUp {
 
 	}
 
+	
+	public static HashMap<String, ArrayList<Trip>> loadEvents() throws FileNotFoundException{
+		HashMap<String, ArrayList<Trip>> trips = new HashMap<String, ArrayList<Trip>>();
+		BufferedReader fileEvents = new BufferedReader(new FileReader("Resources/events.txt"));
+		Scanner scanEvents = new Scanner(fileEvents);
+		HashMap<String, Stop> stops = loadStops();
+		HashMap<String, Station> stations = loadStation();
+		
+		while(scanEvents.hasNextLine()) {
+			String line = scanEvents.nextLine();
+			ArrayList<String> data = new ArrayList<String>(Arrays.asList(line.split(",")));
+			Trip t = new Trip();
+			t.addMoneySpentOnTrip(Double.parseDouble(data.get(1)));
+			t.addTimeToTrip(Integer.parseInt(data.get(2)));
+			for(int i = 3; i < data.size(); i++) {
+				if(data.get(i).charAt(0) == '!') {
+					t.addLocation(stops.get(data.get(i).substring(1)));
+				}
+				else {
+					t.addLocation(stations.get(data.get(i).substring(1)));
+				}
+				
+			}
+			
+			if(trips.containsKey(data.get(0))) {
+				trips.get(data.get(0)).add(t);
+			}
+			else {
+				trips.put(data.get(0), new ArrayList<Trip>(Arrays.asList(t)));
+			}
+		}
+		
+		return trips;
+	}
 
 }

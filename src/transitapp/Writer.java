@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class Writer {
-//    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException{
 //    	HashMap<String, CardHolder> c = StartUp.loadCardHolders();
 //        Stop s = new Stop("BRUH PLANET", false);
 //        Station station = new Station("YESIRRR", true);
@@ -22,10 +22,15 @@ public class Writer {
 //        TransitRoutes route = new TransitRoutes("Route number 100", new ArrayList<Location>(Arrays.asList(station, station2)), new ArrayList<LocalTime>(Arrays.asList(t1, t2)));
 //
 //		removeCardHolder(c.get("BogMan@CS.com"));
-//        
-//        
-//
-//    }
+        String email = "IlirDema@IFuckingSuckAtMyJob.shodowRealm";
+        
+        Trip t = new Trip();
+        t.addLocation(new Stop("Shadow Realm", false));
+        t.addLocation(new Station("We made it to the shaw realm", false));
+        t.addMoneySpentOnTrip(2);
+        t.addTimeToTrip(100000);
+        writeEvent(email, t);
+    }
 	
 	
     public static void writeCardHolder(CardHolder client) throws IOException {
@@ -89,6 +94,24 @@ public class Writer {
             line = line + Integer.toString(schedule.get(i).getHour())+"," + Integer.toString(schedule.get(i).getMinute());
         }
         pw.println(line);
+        pw.close();
+    }
+    
+    public static void writeEvent(String email, Trip t) throws IOException {
+    	File eventFile = new File("Resources/events.txt");
+        FileWriter writeEventFile = new FileWriter(eventFile, true);
+        PrintWriter pw = new PrintWriter(writeEventFile);
+        String line = "";
+        for(int i= 0; i < t.getLocations().size(); i++) {
+        	if(t.getLocations().get(i) instanceof Stop) {
+        		line = line + ",!"+  t.getLocations().get(i).getLocation();
+        	}
+        	else {
+        		line = line + ",?"+  t.getLocations().get(i).getLocation();
+        	}
+        	
+        }
+        pw.println(email+","+ Double.toString(t.getMoneySpentOnTrip()) + "," + Integer.toString(t.getTimeOnTrip())+line);
         pw.close();
     }
     
