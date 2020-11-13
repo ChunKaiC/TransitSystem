@@ -189,6 +189,7 @@ public class TransitGui extends Application {
 		center.add(startTrip, 0, 3);
 		center.add(userFunctions, 1, 3);
 		//startTrip.setOnAction();
+		userFunctions.setOnAction(new UserFunctionHandler(user));
 		
 		
 		// User Info
