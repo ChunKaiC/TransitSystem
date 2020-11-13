@@ -310,7 +310,33 @@ public class TransitGui extends Application {
 	}
 	
 	public void adminUI(Stage stage) {
+		StackPane pane = new StackPane();
+		Image back = new Image("file:resources/backdrop.png");
+		ImageView back2 = new ImageView();
+		back2.setImage(back);
+		pane.getChildren().add(back2);
 		
+		//All Buttons
+		Button go = new Button("GO");
+		Label action = new Label("Please Select An Admin Function From The List Below, Then Click Go:");
+		action.setTextFill(Color.web("#fbfbfb"));
+		GridPane gp = new GridPane();
+		String actions[] = {"Get Daily Report", "Set Fair For Bus Routes", "Set Fair For Stations"};
+		ComboBox<String> actionList = new ComboBox(FXCollections.observableArrayList(actions));
+        actionList.setPrefSize(200, 50);
+        gp.add(action, 1, 0);
+        gp.add(actionList, 1, 1);
+        gp.add(go, 1, 2);
+        gp.setAlignment(Pos.CENTER);
+        pane.getChildren().add(gp);
+        
+        actionList.setOnAction(new AdminFunctionsHandler(actionList));
+        go.setOnAction(new AdminFunctionsHandler(this, stage));
+        
+        Scene scene = new Scene(pane);
+		stage.setScene(scene);
+		stage.show();
+        
 	}
 	
 	public void UserUIAfter(Stage stage, CardHolder user, HashMap<String, Stop> stops,
@@ -322,6 +348,29 @@ public class TransitGui extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+	public void showDR(Stage stage) {
+		StackPane pane = new StackPane();
+		Image back = new Image("file:resources/backdrop.png");
+		ImageView back2 = new ImageView();
+		back2.setImage(back);
+		pane.getChildren().add(back2);
+		
+		
+		Scene scene = new Scene(pane);
+		stage.setScene(scene);
+		stage.show();
+	}
+
+	public void showSetStation(Stage stage) {
+		
+		
+	}
+
+	public void showSetFair(Stage stage) {
+		
+		
 	}
 
 	

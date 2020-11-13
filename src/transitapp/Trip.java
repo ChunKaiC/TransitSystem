@@ -36,10 +36,6 @@ public class Trip {
         this.locationsTravelled.add(loc);
     }
 
-    public static void main(String[] args) {
-
-    }
-
     public int stationsTravelled(Station start, Station end, ArrayList<Station> stations) {
         return Math.abs(stations.indexOf(start) -  stations.indexOf(end));
     }
@@ -70,5 +66,24 @@ public class Trip {
     
     public ArrayList<Location> getLocations(){
     	return this.locationsTravelled;
+    }
+    
+    public String toString() {
+    	String string = this.startTime.getMonth().getValue() + "/" + 
+    			this.startTime.getDayOfWeek().getValue() + "/"+ 
+    			this.startTime.getYear() + ",";
+    	
+    	for (int i = 0; i < this.locationsTravelled.size(); i++) {
+    		if (i != this.locationsTravelled.size() - 1) {
+    			string = string + this.locationsTravelled.get(i).getLocation() + "->";
+    		} else {
+    			string = string + this.locationsTravelled.get(i).getLocation();
+    		}
+    	}
+    	return string;
+    }
+    
+    public static void main(String[] args) {
+
     }
 }
