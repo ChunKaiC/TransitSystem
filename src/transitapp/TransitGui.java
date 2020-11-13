@@ -1,6 +1,7 @@
 package transitapp;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javafx.application.Application;
@@ -185,11 +186,11 @@ public class TransitGui extends Application {
 		
 		// User functions button that takes to another screen that : Edit name, suspend card, view recent trips, create card. then returns to this screen when done
 		Button startTrip = new Button("Start Trip");
-		Button userFunctions = new Button("User Funtions");
+		Button userFunctions = new Button("User Functions");
 		center.add(startTrip, 0, 3);
 		center.add(userFunctions, 1, 3);
 		//startTrip.setOnAction();
-		userFunctions.setOnAction(new UserFunctionHandler(user));
+		userFunctions.setOnAction(new UserFunctionHandler(user, this, stage, stops, stations));
 		
 		
 		// User Info
@@ -220,14 +221,112 @@ public class TransitGui extends Application {
 		stage.show();
 	}
 	
+	public void userFunctionsUI(Stage stage, CardHolder user, HashMap<String, Stop> stops,
+			HashMap<String, Station> stations) {
+		// show monthly cost
+		// show recent trips
+		// suspend or activate cards
+		// change name
+		System.out.println("hello");
+		StackPane pane = new StackPane();
+		Image back = new Image("file:resources/backdrop.png");
+		ImageView back2 = new ImageView();
+		back2.setImage(back);
+		pane.getChildren().add(back2);
+		
+		// BUTTONS
+		Button begin = new Button("Begin a Trip");
+		//begin.setPrefSize(prefWidth, prefHeight);
+		begin.setPrefWidth(150);
+		Button suspend = new Button("Suspend Selected Card");
+		suspend.setPrefWidth(150);
+		Button cname = new Button("Change Name");
+		cname.setPrefWidth(150);
+		Button activate = new Button("Activate Selected Card");
+		activate.setPrefWidth(150);
+		
+		// Text Field
+		TextField cNameTxt = new TextField();
+		
+		// Show user data
+		CardHolder currUser = user;
+		Label name = new Label("Name: " + currUser.getName());
+		name.setTextFill(Color.web("#fbfbfb"));
+		name.setFont(new Font(15));
+		Label email = new Label("Email: " + currUser.getEmail());
+		email.setTextFill(Color.web("#fbfbfb"));
+		email.setFont(new Font(15));
+		//Label mCost = new Label("" + currUser.averageMonthlyCost());
+		Label mCost = new Label("Averge Monthly Cost: " + "Axel fix your shit broooo");
+		mCost.setTextFill(Color.web("#fbfbfb"));
+		mCost.setFont(new Font(15));
+		
+		VBox top = new VBox();
+		top.getChildren().add(name);
+		top.getChildren().add(email);
+		top.getChildren().add(mCost);
+		pane.getChildren().add(top);
+		top.setAlignment(Pos.TOP_CENTER);
+		
+		
+		
+		
+		
+		ObservableList<Card> cList = FXCollections.observableArrayList();
+		for (Card s : user.getCards()) {
+			if (s.isActivated()) {
+				System.out.println(s.isActivated());
+				cList.add(s);
+			}
+		}
+		ComboBox cardListActive = new ComboBox(cList);
+		
+		ObservableList<Card> cList2 = FXCollections.observableArrayList();
+		for (Card s : user.getCards()) {
+			if (!s.isActivated()) {
+				cList2.add(s);
+			}
+		}
+		ComboBox cardListSus = new ComboBox(cList2);
+		
+		ArrayList<Trip> recent = currUser.getRecentTrips();		
+		
+		// grid pane
+		GridPane center = new GridPane();
+		center.setHgap(5);
+		center.setVgap(5);
+		center.add(cname, 0, 0);
+		center.add(cNameTxt, 1, 0);
+		center.add(suspend, 0, 1);
+		center.add(cardListActive, 1, 1);
+		center.add(activate, 0, 2);
+		center.add(cardListSus, 1, 2);
+		center.setAlignment(Pos.CENTER);
+		pane.getChildren().add(center);		
+		
+		Scene scene =  new Scene(pane);
+		stage.setScene(scene);
+		stage.show();
+	}
+	
 	public void adminUI(Stage stage) {
 		
+	}
+	
+	public void UserUIAfter(Stage stage, CardHolder user, HashMap<String, Stop> stops,
+			HashMap<String, Station> stations) {
+		// TODO Auto-generated method stub
+		// do the same thing as userUI but dont load, just pass in stops and stations
 	}
 
 	
 	public static void main(String[] args) {
 		launch(args);
 	}
+
+	
+
+	
 
 	
 }
