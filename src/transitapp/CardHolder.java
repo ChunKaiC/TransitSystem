@@ -1,7 +1,6 @@
 package transitapp;
 
 
-
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -42,14 +41,6 @@ public class CardHolder {
         }
     }
 
-    public void addTrip(Trip t) {
-    	this.trips.add(t);
-    }
-    
-    public void loadTrip(ArrayList<Trip> t) {
-    	this.trips = t;
-    }
-    
     public ArrayList<Trip> getTrips() {
         return this.trips;
     }
@@ -207,4 +198,9 @@ public class CardHolder {
         }
         return fare;
     }
+
+	public void setName(String text) {
+		// TODO Auto-generated method stub
+		this.name = text;
+	}
 }
