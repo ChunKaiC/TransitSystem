@@ -1,8 +1,8 @@
-Hello@DingDong.com,45.0,4
-Hello@DingDong.com,17.5,7
-Hello@DingDong.com,400.0,8
-DannyBadBoi@Yessir.com,4.0,5
-BogMan@CS.com,12.0,2
-parlefrancais@gmail.com,19.0,1
-parlefrancais@gmail.com,20.0,6
-MathMatician@algebra.com,36.0,3
+Hello@DingDong.com,45.0,4,true
+Hello@DingDong.com,17.5,7,true
+Hello@DingDong.com,400.0,8,true
+DannyBadBoi@Yessir.com,4.0,5,true
+BogMan@CS.com,12.0,2,true
+parlefrancais@gmail.com,19.0,1,true
+parlefrancais@gmail.com,20.0,6,true
+MathMatician@algebra.com,36.0,3,true
