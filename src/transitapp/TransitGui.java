@@ -1,6 +1,7 @@
 package transitapp;
 
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -198,8 +199,7 @@ public class TransitGui extends Application {
 		Label email = new Label("Email: " + currUser.getEmail());
 		email.setTextFill(Color.web("#fbfbfb"));
 		email.setFont(new Font(20));
-		//Label mCost = new Label("" + currUser.averageMonthlyCost());
-		Label mCost = new Label("Averge Monthly Cost: " + "Axel fix your shit broooo");
+		Label mCost = new Label("Average Monthly Cost:" + currUser.averageMonthlyCost());
 		mCost.setTextFill(Color.web("#fbfbfb"));
 		mCost.setFont(new Font(20));
 		
@@ -293,35 +293,6 @@ public class TransitGui extends Application {
 		stage.show();
 	}
 	
-	public void adminUI(Stage stage) {
-		StackPane pane = new StackPane();
-		Image back = new Image("file:resources/backdrop.png");
-		ImageView back2 = new ImageView();
-		back2.setImage(back);
-		pane.getChildren().add(back2);
-		
-		//All Buttons
-		Button go = new Button("GO");
-		Label action = new Label("Please Select An Admin Function From The List Below, Then Click Go:");
-		action.setTextFill(Color.web("#fbfbfb"));
-		GridPane gp = new GridPane();
-		String actions[] = {"Get Daily Report", "Set Fair For Bus Routes", "Set Fair For Stations"};
-		ComboBox<String> actionList = new ComboBox<String>(FXCollections.observableArrayList(actions));
-        actionList.setPrefSize(200, 50);
-        gp.add(action, 1, 0);
-        gp.add(actionList, 1, 1);
-        gp.add(go, 1, 2);
-        gp.setAlignment(Pos.CENTER);
-        pane.getChildren().add(gp);
-        
-        actionList.setOnAction(new AdminFunctionsHandler(actionList));
-        go.setOnAction(new AdminFunctionsHandler(this, stage));
-        
-        Scene scene = new Scene(pane);
-		stage.setScene(scene);
-		stage.show();
-        
-	}
 	
 	public void UserUIAfter(Stage stage, CardHolder user, HashMap<String, Stop> stops,
 			HashMap<String, Station> stations) throws FileNotFoundException {
@@ -410,6 +381,37 @@ public class TransitGui extends Application {
 	}
 
 	
+	public void adminUI(Stage stage, Label l) {
+		StackPane pane = new StackPane();
+		Image back = new Image("file:resources/backdrop.png");
+		ImageView back2 = new ImageView();
+		back2.setImage(back);
+		pane.getChildren().add(back2);
+		l.setTextFill(Color.web("#fbfbfb"));
+		
+		//All Buttons
+		Button go = new Button("GO");
+		Label action = new Label("Please Select An Admin Function From The List Below, Then Click Go:");
+		action.setTextFill(Color.web("#fbfbfb"));
+		GridPane gp = new GridPane();
+		String actions[] = {"Get Daily Report", "Set Fair For Bus Routes", "Set Fair For Stations"};
+		ComboBox<String> actionList = new ComboBox(FXCollections.observableArrayList(actions));
+        actionList.setPrefSize(400, 10);
+        gp.add(action, 1, 0);
+        gp.add(actionList, 1, 1);
+        gp.add(go, 1, 2);
+        gp.setAlignment(Pos.CENTER);
+        pane.getChildren().add(gp);
+        pane.getChildren().add(l);
+        actionList.setOnAction(new AdminFunctionsHandler(actionList));
+        go.setOnAction(new AdminFunctionsHandler(this, stage));
+        Scene scene = new Scene(pane);
+		stage.setScene(scene);
+		stage.show();
+        
+	}
+
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -421,6 +423,18 @@ public class TransitGui extends Application {
 		back2.setImage(back);
 		pane.getChildren().add(back2);
 		
+		GridPane grid = new GridPane();
+		Label label = new Label("Please Input the date you would like to check out (Format: YY-MM-DD):");
+		label.setTextFill(Color.web("#fbfbfb"));
+		TextField tf = new TextField();
+		Button rep = new Button("Show Daily Report");
+		grid.add(label, 1, 0);
+		grid.add(tf, 1, 1);
+		grid.add(rep, 1, 2);
+		grid.setAlignment(Pos.CENTER);
+		pane.getChildren().add(grid);
+		rep.setOnAction(new DailyReportHandler(tf, this, stage));
+		
 		
 		Scene scene = new Scene(pane);
 		stage.setScene(scene);
@@ -428,13 +442,71 @@ public class TransitGui extends Application {
 	}
 
 	public void showSetStation(Stage stage) {
+		StackPane pane = new StackPane();
+		Image back = new Image("file:resources/backdrop.png");
+		ImageView back2 = new ImageView();
+		back2.setImage(back);
+		pane.getChildren().add(back2);
 		
+		GridPane grid = new GridPane();
+		Label label = new Label("Please Input dollar amount:");
+		label.setTextFill(Color.web("#fbfbfb"));
+		TextField tf = new TextField();
+		Button change = new Button("Change");
+		grid.add(label, 1, 0);
+		grid.add(tf, 1, 1);
+		grid.add(change, 1, 2);
+		grid.setAlignment(Pos.CENTER);	
+		change.setOnAction(new ChangeFareHandler(this, tf, stage, false));
+		
+		pane.getChildren().add(grid);
+		Scene scene = new Scene(pane);
+		stage.setScene(scene);
+		stage.show();
 		
 	}
 
-	public void showSetFair(Stage stage) {
+	public void showSetBusFair(Stage stage) {
+		StackPane pane = new StackPane();
+		Image back = new Image("file:resources/backdrop.png");
+		ImageView back2 = new ImageView();
+		back2.setImage(back);
+		pane.getChildren().add(back2);
+		GridPane grid = new GridPane();
+		Label label = new Label("Please Input dollar amount:");
+		label.setTextFill(Color.web("#fbfbfb"));
+		TextField tf = new TextField();
+		Button change = new Button("Change");
+		grid.add(label, 1, 0);
+		grid.add(tf, 1, 1);
+		grid.add(change, 1, 2);
+		grid.setAlignment(Pos.CENTER);	
+		change.setOnAction(new ChangeFareHandler(this, tf, stage, true));
+		
+		pane.getChildren().add(grid);
+		
+		Scene scene = new Scene(pane);
+		stage.setScene(scene);
+		stage.show();
+		
+	}
+
+	public void showDailyReport(Stage stage, LocalDate ld) {
+		// TODO Auto-generated method stub
+		StackPane pane = new StackPane();
+		Image back = new Image("file:resources/backdrop.png");
+		ImageView back2 = new ImageView();
+		back2.setImage(back);
+		pane.getChildren().add(back2);
+		
+		TextArea ta = new TextArea();
 		
 		
+		
+		
+		Scene scene = new Scene(pane);
+		stage.setScene(scene);
+		stage.show();
 	}
 
 	public void continueTrip(Stage stage, Card selectedCard, Location start, CardHolder user) {
