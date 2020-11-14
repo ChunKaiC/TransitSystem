@@ -197,8 +197,7 @@ public class TransitGui extends Application {
 		Label email = new Label("Email: " + currUser.getEmail());
 		email.setTextFill(Color.web("#fbfbfb"));
 		email.setFont(new Font(20));
-		//Label mCost = new Label("" + currUser.averageMonthlyCost());
-		Label mCost = new Label("Averge Monthly Cost: " + "Axel fix your shit broooo");
+		Label mCost = new Label("Average Monthly Cost:" + currUser.averageMonthlyCost());
 		mCost.setTextFill(Color.web("#fbfbfb"));
 		mCost.setFont(new Font(20));
 		
