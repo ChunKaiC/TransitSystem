@@ -120,6 +120,7 @@ public class StartUp {
 
 
 	public static HashMap<String, CardHolder> loadCardHolders() throws FileNotFoundException{
+		loadSettings();
 		HashMap<String, CardHolder> cardHolders = new HashMap<String, CardHolder>();
 		HashMap<String, ArrayList<Card>> updatedCards = loadCards();
 		HashMap<String, ArrayList<Trip>> trips = loadEvents();
