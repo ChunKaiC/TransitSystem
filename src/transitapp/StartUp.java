@@ -92,7 +92,9 @@ public class StartUp {
 				int min = Integer.parseInt(data.get(i+2));
 				schedule.add(LocalTime.of(hour, min));
 			}
-			busRoutes.add(new TransitRoutes(data.get(0), destinations, schedule));
+			TransitRoutes  r = new TransitRoutes(data.get(0), destinations, schedule);
+			busRoutes.add(r);
+			System.out.println(r.countObservers());
 		}
 
 		return busRoutes;
@@ -141,7 +143,7 @@ public class StartUp {
 				cardHolders.get(key).addCard(updatedCards.get(key).get(i));
 			}
 		}
-
+		
 		return cardHolders;
 	}
 
@@ -184,11 +186,14 @@ public class StartUp {
 		while(scanEvents.hasNextLine()) {
 			String line = scanEvents.nextLine();
 			ArrayList<String> data = new ArrayList<String>(Arrays.asList(line.split(",")));
+			//Location location = new Stop(null, (Boolean) null);
+			Location location;
+			
 			
 			if (data.get(1).charAt(0) == '!') {
-				Station location = stations.get(data.get(1).substring(1));
+				location = stations.get(data.get(1).substring(1));
 			} else {
-				Stop location = stops.get(data.get(1).substring(1));
+				location = stops.get(data.get(1).substring(1));
 			}
 			
 			CardHolder cardHolder = cardHolders.get(data.get(8));
@@ -197,11 +202,11 @@ public class StartUp {
 			LocalDateTime time = LocalDateTime.of(Integer.parseInt(data.get(3)), 
 					Integer.parseInt(data.get(4)), Integer.parseInt(data.get(5)), 
 					Integer.parseInt(data.get(6)), Integer.parseInt(data.get(7)));
-			
-			if (data.get(0) == "tapOn") {
+			System.out.println(data.get(0));
+			if (data.get(0).equals("tapOn")) {
 				cardHolder.tapOn(location, cardID, time, true);
 			} else {
-				cardHolder.tapOff(location, cardID, time, true);
+				cardHolder.tapOff((Station) location, cardID, time, true);
 			}
 				
 		}
