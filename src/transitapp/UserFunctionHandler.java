@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -19,7 +18,7 @@ public class UserFunctionHandler implements EventHandler<ActionEvent>{
 	private Stage stage;
 	private HashMap<String, Station> stations;
 	private HashMap<String, Stop> stops;
-	private ComboBox list;
+	private ComboBox<Card> list;
 	private TextField cNameTxt;
 	private static Card value = null;
 	
@@ -32,7 +31,7 @@ public class UserFunctionHandler implements EventHandler<ActionEvent>{
 		this.stations = stations;
 	}
 
-	public UserFunctionHandler(ComboBox cardListSus) {
+	public UserFunctionHandler(ComboBox<Card> cardListSus) {
 		// TODO Auto-generated constructor stub
 		this.list = cardListSus;
 	}

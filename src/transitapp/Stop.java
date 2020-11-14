@@ -6,10 +6,6 @@ import java.util.Observer;
 
 public class Stop extends Location implements Observer {
 
-	private boolean atInjunction;
-	private String location;
-	private ArrayList<TransitRoutes> onRoutes;
-	private static ArrayList<Location> ALL_LOCATIONS;
 	public static ArrayList<Stop> ALL_STOPS = new ArrayList<Stop>();
 	
 	public Stop(String location, boolean atInjunction) {

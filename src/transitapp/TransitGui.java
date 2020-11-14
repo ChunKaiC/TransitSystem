@@ -7,16 +7,11 @@ import java.util.HashMap;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -167,7 +162,6 @@ public class TransitGui extends Application {
 		
 		
 		
-		System.out.println("hello");
 		StackPane pane = new StackPane();
 		Image back = new Image("file:resources/backdrop.png");
 		ImageView back2 = new ImageView();
@@ -178,6 +172,7 @@ public class TransitGui extends Application {
 		Button begin = new Button("Begin a Trip");
 		//begin.setPrefSize(prefWidth, prefHeight);
 		begin.setPrefSize(150, 75);
+		begin.setFont(new Font(20));
 		begin.setOnAction(new UserFunctionHandler(user, this, stage, stops, stations));
 		Button suspend = new Button("Suspend Selected Card");
 		suspend.setOnAction(new UserFunctionHandler(user, this, stage, stops, stations));
@@ -198,14 +193,14 @@ public class TransitGui extends Application {
 		CardHolder currUser = user;
 		Label name = new Label("Name: " + currUser.getName());
 		name.setTextFill(Color.web("#fbfbfb"));
-		name.setFont(new Font(15));
+		name.setFont(new Font(20));
 		Label email = new Label("Email: " + currUser.getEmail());
 		email.setTextFill(Color.web("#fbfbfb"));
-		email.setFont(new Font(15));
+		email.setFont(new Font(20));
 		//Label mCost = new Label("" + currUser.averageMonthlyCost());
 		Label mCost = new Label("Averge Monthly Cost: " + "Axel fix your shit broooo");
 		mCost.setTextFill(Color.web("#fbfbfb"));
-		mCost.setFont(new Font(15));
+		mCost.setFont(new Font(20));
 		
 		VBox top = new VBox();
 		top.getChildren().add(name);
@@ -221,7 +216,6 @@ public class TransitGui extends Application {
 		ObservableList<Card> cList = FXCollections.observableArrayList();
 		for (Card s : user.getCards()) {
 			if (s.isActivated()) {
-				System.out.println(s.isActivated());
 				cList.add(s);
 			}
 		}
@@ -246,24 +240,29 @@ public class TransitGui extends Application {
 		ArrayList<Trip> recent = currUser.getRecentTrips();		
 		//Label recentTrips = new Label();
 		TextArea rt = new TextArea();
+		rt.setFont(new Font(15));
 		rt.setEditable(false);
-		String total = "Recent Trips:\n" + "Hello";
-		//for (Trip t : recent) {
-			//total =  total + t.toString() + "\n";
-		//}
+		String total = "Recent Trips:\n";
+		int i = 1;
+		for (Trip t : recent) {
+			total =  total + "Trip" + i + ": " + t.toString() + "\n";
+			i++;
+		}
 		rt.setText(total);
 		//StackPane pane2 = new StackPane(rt);
 		//pane2.setAlignment(Pos.BASELINE_CENTER);
-		rt.setPrefSize(550, 150);
-		//rt.setMaxSize(550, 150);
+		//rt.setPrefSize(550, 150);
+		rt.setMaxSize(550, 150);
+		rt.setTranslateY(20);
+		//rt.y
 		//rt.setNodeOrientation(orientation);
 		//pane.getChildren().add(rt);	
-		ScrollPane rt2 = new ScrollPane(rt);
-		rt2.setTranslateY(20);
+		//ScrollPane rt2 = new ScrollPane(rt);
+		//rt2.setTranslateY(20);
 		//pane.getChildren().add(rt2);	
 		//StackPane.setAlignment(rt2, Pos.BOTTOM_CENTER);
-		rt2.setPrefSize(550, 150);
-		rt2.setMaxSize(550, 150);
+		//rt2.setPrefSize(550, 150);
+		//rt2.setMaxSize(550, 150);
 		//StackPane.setMargin(rt2, new Insets(8,8,8,8));
 		//pane.setPadding(new Insets(8));
 		
@@ -283,7 +282,7 @@ public class TransitGui extends Application {
 		VBox finalPane = new VBox();
 		finalPane.setAlignment(Pos.CENTER);
 		finalPane.getChildren().add(center);
-		finalPane.getChildren().add(rt2);
+		finalPane.getChildren().add(rt);
 		finalPane.getChildren().add(begin);
 		begin.setTranslateY(50);
 		pane.getChildren().add(finalPane);
@@ -306,7 +305,7 @@ public class TransitGui extends Application {
 		action.setTextFill(Color.web("#fbfbfb"));
 		GridPane gp = new GridPane();
 		String actions[] = {"Get Daily Report", "Set Fair For Bus Routes", "Set Fair For Stations"};
-		ComboBox<String> actionList = new ComboBox(FXCollections.observableArrayList(actions));
+		ComboBox<String> actionList = new ComboBox<String>(FXCollections.observableArrayList(actions));
         actionList.setPrefSize(200, 50);
         gp.add(action, 1, 0);
         gp.add(actionList, 1, 1);
@@ -333,16 +332,6 @@ public class TransitGui extends Application {
 		back2.setImage(back);
 		pane.getChildren().add(back2);
 		
-		
-		// loading
-		
-		//HashMap<String, Stop> stops = StartUp.loadStops();
-		//HashMap<String, Station> stations = StartUp.loadStation();
-		// StartUp.loadBusRoutes();
-		// StartUp.loadSubwayRoute();
-		
-		
-		
 		// combo box
 		GridPane center = new GridPane();
 		
@@ -353,7 +342,7 @@ public class TransitGui extends Application {
 		for (Station s : stations.values()) { 
 			oList.add(s);
 		}
-		ComboBox list = new ComboBox(oList);
+		ComboBox<Location> list = new ComboBox<Location>(oList);
 		list.setPrefSize(400, 30);
 		center.add(list, 1, 1);
 		Label loc = new Label("Choose Start Location:");
@@ -366,7 +355,7 @@ public class TransitGui extends Application {
 				cList.add(s);
 			}
 		}
-		ComboBox cardList = new ComboBox(cList);
+		ComboBox<Card> cardList = new ComboBox<Card>(cList);
 		cardList.setPrefSize(400, 30);
 		Label c = new Label("Choose A Card:");
 		c.setTextFill(Color.web("#fbfbfb"));
@@ -381,6 +370,7 @@ public class TransitGui extends Application {
 		
 		// User functions button that takes to another screen that : Edit name, suspend card, view recent trips, create card. then returns to this screen when done
 		Button startTrip = new Button("Start Trip");
+		startTrip.setOnAction(new StartTripHandler(cardList, list));
 		Button userFunctions = new Button("User Functions");
 		center.add(startTrip, 0, 3);
 		center.add(userFunctions, 1, 3);

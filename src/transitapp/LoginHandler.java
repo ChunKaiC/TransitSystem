@@ -6,7 +6,6 @@ import java.util.HashMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.control.Labeled;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -48,7 +47,6 @@ public class LoginHandler implements EventHandler<ActionEvent>{
 			System.out.print(users);
 			CardHolder user = users.get(email);
 			if (!(user == null)) {
-				String userEmail = user.getEmail();
 				String userName = user.getName();
 				if (userName.equals(name)) {
 					// user found
@@ -66,6 +64,7 @@ public class LoginHandler implements EventHandler<ActionEvent>{
 			}
 		}
 		if (source.equals("Admin Log In")) {
+			if (adminId.getText().equals("Please Give Us 100% TA"))
 			this.obj.adminUI(this.stage);
 		}
 	}
