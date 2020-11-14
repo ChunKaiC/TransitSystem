@@ -41,11 +41,11 @@ public class Writer {
         pw.close();
     }
 
-    public static void writeCard(String email, String balance, String id) throws IOException{
+    public static void writeCard(String email, String balance, String id, boolean active) throws IOException{
         File cardFile = new File("Resources/Cards.txt");
         FileWriter writeCard = new FileWriter(cardFile, true);
         PrintWriter pw = new PrintWriter(writeCard);
-        pw.println(email + "," + balance + "," + id);
+        pw.println(email + "," + balance + "," + id + ","+Boolean.toString(active));
         pw.close();
     }
 
@@ -131,6 +131,7 @@ public class Writer {
         
         pw.println("Minute Grace Period:" + Integer.toString(Trip.MINUTE_GRACE_PERIOD));
         pw.println("Max Cost:" + Double.toString(Trip.MAX_COST));
+        pw.close();
     }
     
     
@@ -160,7 +161,7 @@ public class Writer {
         fw2.close();
         for(String key: cards.keySet()) {
     		for(Card card: cards.get(key)) {
-    			writeCard(key,Double.toString(card.getBalance()) , Integer.toString(card.getCard_id()));
+    			writeCard(key,Double.toString(card.getBalance()) , Integer.toString(card.getCard_id()), card.isActivated());
     		}
     	}
     	

@@ -42,6 +42,8 @@ public class StartUp {
 //			System.out.println(trips.get("DannyBadBoi@Yessir.com").get(0).getLocations());
 //		
 		
+//			HashMap<String, ArrayList<Card>> l = loadCards();
+//			System.out.println(l.get("parlefrancais@gmail.com").get(0).isActivated());
 	}
 
 	public static HashMap<String, Stop> loadStops() throws FileNotFoundException{
@@ -141,8 +143,7 @@ public class StartUp {
 				cardHolders.get(key).addCard(updatedCards.get(key).get(i));
 			}
 		}
-	
-
+		
 		return cardHolders;
 	}
 
@@ -155,11 +156,19 @@ public class StartUp {
 		while(scanCards.hasNextLine()) {
 			String line = scanCards.nextLine();
 			String[] data = line.split(",");
-			if(cards.containsKey(data[0])) {
-				cards.get(data[0]).add(new Card(Double.parseDouble(data[1]), Integer.parseInt(data[2])));
+			Card c = new Card(Double.parseDouble(data[1]), Integer.parseInt(data[2]));
+			if(data[3].equals("true")) {
+				c.activate();
 			}
 			else {
-				cards.put(data[0], new ArrayList<Card>(Arrays.asList(new Card(Double.parseDouble(data[1]), Integer.parseInt(data[2])))));
+				c.desactivate();
+			}
+			
+			if(cards.containsKey(data[0])) {
+				cards.get(data[0]).add(c);
+			}
+			else {
+				cards.put(data[0], new ArrayList<Card>(Arrays.asList(c)));
 			}
 		}
 
