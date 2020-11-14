@@ -14,10 +14,10 @@ public class Trip {
     private int timeOnTrip; // in minutes
     private double moneySpentOnTrip;
     // ^ if it reaches 2 hours, make a new trip, otherwise free if spent $6 already
-    private ArrayList<Location> locationsTravelled;
-    private ArrayList<String> taps;
-    private ArrayList<LocalDateTime> times;
-    private ArrayList<Integer> cardUsed;
+    private ArrayList<Location> locationsTravelled = new ArrayList<Location>();
+    private ArrayList<String> taps = new ArrayList<String>();
+    private ArrayList<LocalDateTime> times = new ArrayList<LocalDateTime>();
+    private ArrayList<Integer> cardUsed = new ArrayList<Integer>();
     private LocalDateTime startTime;
 
     public Trip() {
