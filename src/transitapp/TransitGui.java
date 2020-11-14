@@ -401,8 +401,10 @@ public class TransitGui extends Application {
         gp.add(actionList, 1, 1);
         gp.add(go, 1, 2);
         gp.setAlignment(Pos.CENTER);
+        l.setTranslateY(20);
         pane.getChildren().add(gp);
         pane.getChildren().add(l);
+        
         actionList.setOnAction(new AdminFunctionsHandler(actionList));
         go.setOnAction(new AdminFunctionsHandler(this, stage));
         Scene scene = new Scene(pane);
@@ -491,7 +493,7 @@ public class TransitGui extends Application {
 		
 	}
 
-	public void showDailyReport(Stage stage, LocalDate ld) {
+	public void showDailyReport(Stage stage, LocalDate ld) throws FileNotFoundException {
 		// TODO Auto-generated method stub
 		StackPane pane = new StackPane();
 		Image back = new Image("file:resources/backdrop.png");
@@ -499,10 +501,15 @@ public class TransitGui extends Application {
 		back2.setImage(back);
 		pane.getChildren().add(back2);
 		
+		Button backButton = new Button("Back");
+		backButton.setLayoutX(0);
+		backButton.setLayoutX(10);
 		TextArea ta = new TextArea();
 		
 		
-		
+		ta.setText(AdminUser.showDailyReport(ld));
+		pane.getChildren().add(ta);
+		pane.getChildren().add(backButton);		
 		
 		Scene scene = new Scene(pane);
 		stage.setScene(scene);

@@ -1,5 +1,6 @@
 package transitapp;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 
 import javafx.event.ActionEvent;
@@ -28,7 +29,12 @@ public class DailyReportHandler implements EventHandler<ActionEvent> {
 		else {
 			String[] data = tf.getText().split("-");
 			LocalDate ld = LocalDate.of(Integer.parseInt(data[0]) , Integer.parseInt(data[1]), Integer.parseInt(data[2]));
-			this.transitGui.showDailyReport(this.stage, ld);
+			try {
+				this.transitGui.showDailyReport(this.stage, ld);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

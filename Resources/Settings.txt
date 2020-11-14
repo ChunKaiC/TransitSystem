@@ -1,0 +1,4 @@
+BusFare:2.00
+StationFare:0.50
+Minute Grace Period:120
+Max Cost:6.0

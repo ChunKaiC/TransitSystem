@@ -115,12 +115,31 @@ public class Writer {
         pw.close();
     }
     
+    public static void writeFare(double fare, boolean indication) throws IOException {
+    	File settingsFile = new File("Resources/Settings.txt");
+        FileWriter writeSettingsFile = new FileWriter(settingsFile, true);
+        PrintWriter pw = new PrintWriter(writeSettingsFile);
+        pw.flush();
+        if(indication == true) {
+        	pw.println("BusFare:" + Double.toString(fare));
+            pw.println("StationFare:" + Double.toString(TransitRoutes.getSubwayFare()));
+        }
+        else {
+        	pw.println("BusFare:" + Double.toString(TransitRoutes.getBusFare()));
+            pw.println("StationFare:" + Double.toString(fare));
+        }
+        
+        pw.println("Minute Grace Period:" + Integer.toString(Trip.MINUTE_GRACE_PERIOD));
+        pw.println("Max Cost:" + Double.toString(Trip.MAX_COST));
+    }
+    
+    
+    public static void writeStationFare() {}
+    
     //Removing methods
     public static void removeCardHolder(CardHolder client) throws IOException {
     	HashMap<String, CardHolder> holders = StartUp.loadCardHolders();
-    	HashMap<String, ArrayList<Card>> cards = StartUp.loadCards();
     	holders.remove(client.getEmail());
-    	cards.remove(client.getEmail());
     	FileWriter fw = new FileWriter("Resources/CardHolders.txt", false); 
         PrintWriter pw = new PrintWriter(fw, false);
         pw.flush();;
@@ -128,16 +147,6 @@ public class Writer {
         fw.close();
     	for(String key: holders.keySet()) {
     		writeCardHolder(holders.get(key));
-    	}
-    	FileWriter fw2 = new FileWriter("Resources/Cards.txt", false); 
-        PrintWriter pw2 = new PrintWriter(fw2, false);
-        pw2.flush();
-        pw2.close();
-        fw2.close();
-        for(String key: cards.keySet()) {
-    		for(Card c: cards.get(key)) {
-    			writeCard(key,Double.toString(c.getBalance()) , Integer.toString(c.getCard_id()));
-    		}
     	}
     }
     

@@ -3,6 +3,7 @@ package transitapp;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -122,6 +123,7 @@ public class StartUp {
 
 
 	public static HashMap<String, CardHolder> loadCardHolders() throws FileNotFoundException{
+		loadSettings();
 		HashMap<String, CardHolder> cardHolders = new HashMap<String, CardHolder>();
 		HashMap<String, ArrayList<Card>> updatedCards = loadCards();
 		HashMap<String, ArrayList<Trip>> trips = loadEvents();
@@ -169,38 +171,61 @@ public class StartUp {
 	}
 
 	
-	public static HashMap<String, ArrayList<Trip>> loadEvents() throws FileNotFoundException{
-		HashMap<String, ArrayList<Trip>> trips = new HashMap<String, ArrayList<Trip>>();
+	public static void loadEvents(HashMap<String, CardHolder> cardHolders,
+			HashMap<String, Stop> stops, HashMap<String, Station> stations) throws FileNotFoundException{
+		
 		BufferedReader fileEvents = new BufferedReader(new FileReader("Resources/events.txt"));
 		Scanner scanEvents = new Scanner(fileEvents);
-		HashMap<String, Stop> stops = loadStops();
-		HashMap<String, Station> stations = loadStation();
 		
 		while(scanEvents.hasNextLine()) {
 			String line = scanEvents.nextLine();
 			ArrayList<String> data = new ArrayList<String>(Arrays.asList(line.split(",")));
-			Trip t = new Trip();
-			t.addMoneySpentOnTrip(Double.parseDouble(data.get(1)));
-			t.addTimeToTrip(Integer.parseInt(data.get(2)));
-			for(int i = 3; i < data.size(); i++) {
-				if(data.get(i).charAt(0) == '!') {
-					t.addLocation(stops.get(data.get(i).substring(1)));
-				}
-				else {
-					t.addLocation(stations.get(data.get(i).substring(1)));
-				}
-				
+			
+			if (data.get(1).charAt(0) == '!') {
+				Station location = stations.get(data.get(1).substring(1));
+			} else {
+				Stop location = stops.get(data.get(1).substring(1));
 			}
 			
-			if(trips.containsKey(data.get(0))) {
-				trips.get(data.get(0)).add(t);
+			CardHolder cardHolder = cardHolders.get(data.get(8));
+			int cardID = Integer.parseInt(data.get(2));
+				
+			LocalDateTime time = LocalDateTime.of(Integer.parseInt(data.get(3)), 
+					Integer.parseInt(data.get(4)), Integer.parseInt(data.get(5)), 
+					Integer.parseInt(data.get(6)), Integer.parseInt(data.get(7)));
+			
+			if (data.get(0) == "tapOn") {
+				cardHolder.tapOn(location, cardID, time, true);
+			} else {
+				cardHolder.tapOff(location, cardID, time, true);
 			}
-			else {
-				trips.put(data.get(0), new ArrayList<Trip>(Arrays.asList(t)));
-			}
+				
 		}
-		
-		return trips;
+
 	}
 
+	public static void loadSettings() throws FileNotFoundException{
+		BufferedReader fileSettings = new BufferedReader(new FileReader("Resources/Settings.txt"));
+		Scanner scanSettings = new Scanner(fileSettings);
+		
+		while(scanSettings.hasNextLine()) {
+			String line = scanSettings.nextLine();
+			String[] data = line.split(":");
+			if(data[0].equals("BusFare")) {
+				TransitRoutes.setBusFare(Double.parseDouble(data[1]));
+			}
+			else if(data[0].equals("StationFare")) {
+				TransitRoutes.setSubwayFare(Double.parseDouble(data[1]));
+			}
+			else if(data[0].equals("Minute Grace Period")) {
+				Trip.MINUTE_GRACE_PERIOD = Integer.parseInt(data[1]);
+			}
+			else if(data[0].equals("Minute Grace Period")) {
+				Trip.MAX_COST = Double.parseDouble(data[1]);
+			}
+			
+			
+		}
+	}
+	
 }
