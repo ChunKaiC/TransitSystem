@@ -2,26 +2,63 @@ package transitapp;
 
 import java.lang.Math;
 import java.util.ArrayList;
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class Trip {
 
-    private static double MAX_COST;
-    private static double MAX_DURATION;
-    private double currTripCost;
+    public static double MAX_COST = 6.0;
+    public static int MINUTE_GRACE_PERIOD = 120;
+    public static int MAX_RIDE_TIME = 180; // in minutes
+    
     private int timeOnTrip; // in minutes
     private double moneySpentOnTrip;
-    private int MINUTE_GRACE_PERIOD = 120;
     // ^ if it reaches 2 hours, make a new trip, otherwise free if spent $6 already
     private ArrayList<Location> locationsTravelled;
+    private ArrayList<String> taps;
+    private ArrayList<LocalDateTime> times;
+    private ArrayList<Integer> cardUsed;
     private LocalDateTime startTime;
-    private int MAX_RIDE_TIME = 180; // in minutes
 
     public Trip() {
         this.moneySpentOnTrip = 0.0;
         this.timeOnTrip = 0;
-        //this.currTripCost = 0.0;
         locationsTravelled = new ArrayList<Location>();
+    }
+    
+    public void updateTimeOnTrip() {
+    	if (this.times.size() > 1) {
+    		this.timeOnTrip = (int) (Duration.between(this.times.get(0), this.times.get(this.times.size())).toMinutes());
+    	}
+    }
+    
+    public double getMINUTE_GRACE_PERIOD() {
+    	return MINUTE_GRACE_PERIOD;
+    }
+    
+    
+    public void addCardUsed(Integer cardID) {
+    	this.cardUsed.add(cardID);
+    }
+    
+    public ArrayList<Integer> getCardUSed(){
+    	return this.cardUsed;
+    }
+    
+    public void addTimes(LocalDateTime time) {
+    	this.times.add(time);
+    }
+    
+    public ArrayList<LocalDateTime> getTimes(){
+    	return this.times;
+    }
+    
+    public void addTaps(String tap) {
+    	this.taps.add(tap);
+    }
+    
+    public ArrayList<String> getTaps(){
+    	return this.taps;
     }
 
     public void addMoneySpentOnTrip (double amount) {
@@ -53,7 +90,7 @@ public class Trip {
     }
 
     public int getMAX_RIDE_TIME() {
-        return this.MAX_RIDE_TIME;
+        return MAX_RIDE_TIME;
     }
 
     public void addTimeToTrip(int time) {
@@ -68,6 +105,7 @@ public class Trip {
     	return this.locationsTravelled;
     }
     
+    @Override 
     public String toString() {
     	String string = this.startTime.getMonth().getValue() + "/" + 
     			this.startTime.getDayOfWeek().getValue() + "/"+ 
@@ -83,7 +121,12 @@ public class Trip {
     	return string;
     }
     
-    public static void main(String[] args) {
-
+    public static void main(String[] args) { 
+    	Trip t = new Trip();
+    	t.addLocation(new Stop("stop1", false));
+    	t.addLocation(new Stop("stop2", false));
+    	t.addLocation(new Stop("stop3", false));
+    	
+    	System.out.println(t);
     }
 }
