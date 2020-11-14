@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -142,8 +143,8 @@ public class TransitGui extends Application {
 		
 		HashMap<String, Stop> stops = StartUp.loadStops();
 		HashMap<String, Station> stations = StartUp.loadStation();
-		StartUp.loadBusRoutes();
-		StartUp.loadSubwayRoute();
+		//StartUp.loadBusRoutes();
+		//StartUp.loadSubwayRoute();
 		
 		this.UserUIAfter( stage, user, stops, stations);
 		
@@ -323,9 +324,11 @@ public class TransitGui extends Application {
 	}
 	
 	public void UserUIAfter(Stage stage, CardHolder user, HashMap<String, Stop> stops,
-			HashMap<String, Station> stations) {
+			HashMap<String, Station> stations) throws FileNotFoundException {
 		// TODO Auto-generated method stub
 		// do the same thing as userUI but dont load, just pass in stops and stations
+		StartUp.loadBusRoutes();
+		StartUp.loadSubwayRoute();
 		StackPane pane = new StackPane();
 		Image back = new Image("file:resources/backdrop.png");
 		ImageView back2 = new ImageView();
@@ -370,7 +373,7 @@ public class TransitGui extends Application {
 		
 		// User functions button that takes to another screen that : Edit name, suspend card, view recent trips, create card. then returns to this screen when done
 		Button startTrip = new Button("Start Trip");
-		startTrip.setOnAction(new StartTripHandler(cardList, list));
+		startTrip.setOnAction(new StartTripHandler(stage, user, cardList, list, this));
 		Button userFunctions = new Button("User Functions");
 		center.add(startTrip, 0, 3);
 		center.add(userFunctions, 1, 3);
@@ -431,6 +434,110 @@ public class TransitGui extends Application {
 
 	public void showSetFair(Stage stage) {
 		
+		
+	}
+
+	public void continueTrip(Stage stage, Card selectedCard, Location start, CardHolder user) {
+		
+		StackPane pane = new StackPane();
+		Image back = new Image("file:resources/backdrop.png");
+		ImageView back2 = new ImageView();
+		back2.setImage(back);
+		pane.getChildren().add(back2);
+		
+		Label balance = new Label("Balance on Card: " + selectedCard.getBalance());
+		balance.setTextFill(Color.web("#fbfbfb"));
+		Location currL = start;
+		Label currLocation = new Label("Current Location" + start);
+		currLocation.setTextFill(Color.web("#fbfbfb"));
+		String sOrS = "";
+		Label atInjuction = new Label("");
+		atInjuction.setTextFill(Color.web("#fbfbfb"));
+
+		if (currL.getAtInjuction()) {
+			try {
+				Stop s = (Stop) currL;
+				atInjuction = new Label("This Stop Has a Station");
+				sOrS = "Stop";
+			}
+			catch(Exception e) {
+				Station s = (Station) currL;
+				atInjuction = new Label("This Station Has a Stop");
+				sOrS = "Station";
+			}
+		}
+		else {
+			try {
+				Stop s = (Stop) currL;
+				atInjuction = new Label("This Stop Does Not Have a Station");
+				sOrS = "Stop";
+			}
+			catch(Exception e) {
+				Station s = (Station) currL;
+				atInjuction = new Label("This Station Does Not Have a Stop");
+				sOrS = "Station";
+			}
+		}
+		Label sDest = new Label("Select Possible Destination");
+		sDest.setTextFill(Color.web("#fbfbfb"));
+
+		Button tapOn = new Button("Tap On");
+		Button tapOff = new Button("Tap Off");
+		Button endTrip = new Button("End Trip");
+		
+		
+		ObservableList<Location> oList = FXCollections.observableArrayList();
+		//oList.addAll(start.getAllDestinations());
+		System.out.println(start.getAllDestinations());
+		for (Location l : start.getAllDestinations()) {
+			oList.add(l);
+		}
+		ObservableList<Location> injuctionList = FXCollections.observableArrayList();
+		for (Location l : oList) {
+			if (l.getAtInjuction()) {
+				injuctionList.add(l);
+			}
+		}
+		for (Location l : injuctionList) {
+			if (sOrS.equals("Stop")) {
+				for (Location s : Station.getAllLocations()) {
+					if (l.getLocation().equals(s.getLocation())) {
+						oList.add(s);
+					}
+				}
+			}
+			if (sOrS.equals("Station")) {
+				for (Location s : Stop.getAllLocations()) {
+					if (l.getLocation().equals(s.getLocation())) {
+						oList.add(s);
+					}
+				}
+			}
+		}
+		ComboBox<Location> posibleDest = new ComboBox<Location>(oList);
+		
+		HBox tap = new HBox();
+		tap.setAlignment(Pos.CENTER);
+		tap.getChildren().add(tapOn);
+		tap.getChildren().add(tapOff);
+		HBox drop = new HBox();
+		drop.setAlignment(Pos.CENTER);
+		drop.getChildren().add(sDest);
+		drop.getChildren().add(posibleDest);
+		VBox center = new VBox();
+		center.getChildren().add(balance);
+		center.getChildren().add(currLocation);
+		center.getChildren().add(atInjuction);
+		center.getChildren().add(drop);
+		center.getChildren().add(tap);
+		center.getChildren().add(endTrip);
+		
+		center.setAlignment(Pos.CENTER);
+		pane.getChildren().add(center);
+		
+		Scene scene = new Scene(pane);
+		stage.setScene(scene);
+		stage.show();
 		
 	}
 
