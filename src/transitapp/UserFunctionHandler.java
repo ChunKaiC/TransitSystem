@@ -62,7 +62,12 @@ public class UserFunctionHandler implements EventHandler<ActionEvent>{
 				}
 			}
 			if (source.equals("Begin a Trip")) {
-				this.obj.UserUIAfter(this.stage, this.user, this.stops, this.stations);
+				try {
+					this.obj.UserUIAfter(this.stage, this.user, this.stops, this.stations);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			if (source.equals("Activate Selected Card")) {
 				if (!(UserFunctionHandler.value == null)) {
