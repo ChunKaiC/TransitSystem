@@ -157,7 +157,7 @@ public class CardHolder {
         double cost = 0.0;
 
         for (Trip trip : this.trips) {
-            LocalDate date = LocalDate.of(trip.getStartTime().getYear(), trip.getStartTime().getMonth(), 1);
+            LocalDate date = LocalDate.of(trip.getTimes().get(0).getYear(), trip.getTimes().get(0).getMonth(), 1);
             if (!months.contains(date)) {
                 months.add(date);
             }
@@ -177,7 +177,7 @@ public class CardHolder {
      * @param time: the time at which they tap on including the year, month, day, hour and minute
      * @return whether the tapOn was successful: Must have enough money and have the card activated
      */
-    public boolean tapOn(Location location, int card_id, LocalDateTime time) {
+    public boolean tapOn(Location location, int card_id, LocalDateTime time,  boolean load) {
         Card current_card = cards.get(card_id); // Must be able to get card from the list based on its id.
 
         if (!current_card.isActivated()) {
@@ -196,9 +196,11 @@ public class CardHolder {
         if (tapOnLocation != null && !(this.tapOnLocation instanceof Stop)) {
             // this means the person never tapped off (previous trip)
             // deduct max cost
-            current_card.deductFare(this.currTrip.getMaxCost());
+        	if (!load) {
+        		current_card.deductFare(this.currTrip.getMaxCost());
+        	}
             // so at this point, the person may not have balance to tap on again
-            }     
+        }     
 
         if (current_card.hasBalance()) {
         	
@@ -218,12 +220,16 @@ public class CardHolder {
                     	
             	} else if (this.currTrip.getMoneySpentOnTrip() < this.currTrip.getMaxCost()) {
             		if (this.currTrip.getMoneySpentOnTrip() - findFare(location) <= this.currTrip.getMaxCost()) {
- 
-            			current_card.deductFare(findFare(location));
+            			
+            			if (!load) {
+            				current_card.deductFare(findFare(location));
+            			}
                         this.currTrip.addMoneySpentOnTrip(findFare(location));
                         return true;
             		} else {
-            			current_card.deductFare(this.currTrip.getMaxCost() - this.currTrip.getMoneySpentOnTrip());
+            			if (!load) {
+            				current_card.deductFare(this.currTrip.getMaxCost() - this.currTrip.getMoneySpentOnTrip());
+            			}
                         this.currTrip.addMoneySpentOnTrip(this.currTrip.getMaxCost() - this.currTrip.getMoneySpentOnTrip());
                         return true;
             		}
@@ -241,7 +247,7 @@ public class CardHolder {
      * @param card_id: the id of the card used to tap off (must be same as tap on card!)
      * @param time: the time at which they tap on including the year, month, day, hour and minute
      */
-    public void tapOff(Station location, int card_id, LocalDateTime time) {
+    public void tapOff(Station location, int card_id, LocalDateTime time, boolean load) {
         // Only for subway stations
         Card current_card = findCard(this.cards, card_id); // Must be able to get card from the list based on its id.
         
@@ -254,8 +260,10 @@ public class CardHolder {
             double numStations = this.currTrip.stationsTravelled((Station) this.tapOnLocation, location, location.getAllStations());
             double cost = numStations * fare;
 
-            if (tapOnLocation == null) {
-                // The cardHolder never tapped on, so we will charge them the max cost
+            // The cardHolder never tapped on, or used the wrong card, so we will charge them the max cost
+            if (tapOnLocation == null || this.currTrip.getCardUSed().size() == 0 || 
+            		this.currTrip.getCardUSed().get(this.currTrip.getCardUSed().size() - 1) != card_id) {
+            	          
                 cost = location.getAllStations().indexOf(location) * fare;
             }
             
@@ -271,7 +279,10 @@ public class CardHolder {
             }
 
             this.currTrip.updateTimeOnTrip();
-            current_card.deductFare(cost);
+            
+            if (!load) {
+            	current_card.deductFare(cost);
+            }
             this.currTrip.addMoneySpentOnTrip(cost);
             this.tapOnLocation = null;
             this.tapOffLocation = location;
