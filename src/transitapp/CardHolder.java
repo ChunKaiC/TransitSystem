@@ -76,7 +76,7 @@ public class CardHolder {
 		    return this.trips;
         }
 		else {
-            ArrayList<Trip> recents = new ArrayList<>();
+            ArrayList<Trip> recents = new ArrayList<Trip>();
             recents.add(trips.get(trips.size() - 3));
             recents.add(trips.get(trips.size() - 2));
             recents.add(trips.get(trips.size() - 1));
@@ -184,43 +184,51 @@ public class CardHolder {
             return false;
         }
 
-        if (this.tapOffLocation != location) {
-            // create a new trip if tapping on at a different location then tapped off location
+        // create a new trip if tapping on at a different location then tapped off location or passed grace period
+        if (this.tapOffLocation != location || this.currTrip.getTimeOnTrip() > this.currTrip.getMINUTE_GRACE_PERIOD()) {
+        	
         	if (this.currTrip != null) {
         		this.trips.add(this.currTrip);
         	}
-        	
             this.currTrip = new Trip();
         }
-        double fare = findFare(location);
 
-        if (tapOnLocation != null) {
+        if (tapOnLocation != null && !(this.tapOnLocation instanceof Stop)) {
             // this means the person never tapped off (previous trip)
             // deduct max cost
             current_card.deductFare(this.currTrip.getMaxCost());
             // so at this point, the person may not have balance to tap on again
-            }
-        
-        if ( this.currTrip.getTimeOnTrip() < this.currTrip.getMAX_RIDE_TIME() && 
-        		this.currTrip.getMoneySpentOnTrip() < this.currTrip.getMaxCost()) {
-            this.onRoute = true;
-            this.tapOnLocation = location;
-            this.currTrip.addLocation(location);
-        	return true;
-        }
+            }     
 
         if (current_card.hasBalance()) {
         	
-            this.onRoute = true;
-            this.tapOnLocation = location;
+        	this.tapOnLocation = location;
             this.currTrip.addLocation(location);
+            this.currTrip.addTaps("tapOn");
+            this.currTrip.addCardUsed(card_id);
+            this.currTrip.addTimes(time);
+            
+            this.currTrip.updateTimeOnTrip();
 
-            // For bus
+            // For bus only
             if (location instanceof Stop) {
-                current_card.deductFare(fare);
-                this.currTrip.setStartTime(time);
+            	
+            	if (this.currTrip.getMoneySpentOnTrip() == this.currTrip.getMaxCost()) {
+                    	return true;
+                    	
+            	} else if (this.currTrip.getMoneySpentOnTrip() < this.currTrip.getMaxCost()) {
+            		if (this.currTrip.getMoneySpentOnTrip() - findFare(location) <= this.currTrip.getMaxCost()) {
+ 
+            			current_card.deductFare(findFare(location));
+                        this.currTrip.addMoneySpentOnTrip(findFare(location));
+                        return true;
+            		} else {
+            			current_card.deductFare(this.currTrip.getMaxCost() - this.currTrip.getMoneySpentOnTrip());
+                        this.currTrip.addMoneySpentOnTrip(this.currTrip.getMaxCost() - this.currTrip.getMoneySpentOnTrip());
+                        return true;
+            		}
+            	}
             }
-
             return true;
         }
         return false;
@@ -236,11 +244,12 @@ public class CardHolder {
     public void tapOff(Station location, int card_id, LocalDateTime time) {
         // Only for subway stations
         Card current_card = findCard(this.cards, card_id); // Must be able to get card from the list based on its id.
-        if (current_card.isActivated())
-        {
-            this.onRoute = false;
+        
+        if (current_card.isActivated()){
             double fare = findFare(location);
             this.currTrip.addLocation(location);
+            this.currTrip.addTaps("tapOff");
+            this.currTrip.addTimes(time);
 
             double numStations = this.currTrip.stationsTravelled((Station) this.tapOnLocation, location, location.getAllStations());
             double cost = numStations * fare;
@@ -249,7 +258,11 @@ public class CardHolder {
                 // The cardHolder never tapped on, so we will charge them the max cost
                 cost = location.getAllStations().indexOf(location) * fare;
             }
-            int travelTime = (int) (Duration.between(time, this.currTrip.getStartTime()).toMinutes());
+            
+            int size = this.currTrip.getTimes().size();
+            
+            int travelTime = (int) (Duration.between(time, this.currTrip.getTimes().get(size - 1)).toMinutes());
+            
             if (cost > this.currTrip.getMaxCost() || travelTime > this.currTrip.getMAX_RIDE_TIME())
             // if the trip costs more than the max ($6) or the person has been riding for
             // more than 3 hours (180 minutes)
@@ -257,12 +270,11 @@ public class CardHolder {
                 cost = this.currTrip.getMaxCost();
             }
 
-            this.currTrip.addTimeToTrip(travelTime);
+            this.currTrip.updateTimeOnTrip();
             current_card.deductFare(cost);
             this.currTrip.addMoneySpentOnTrip(cost);
             this.tapOnLocation = null;
             this.tapOffLocation = location;
-            this.currTrip.setStartTime(time);
         }
     }
 
@@ -307,4 +319,8 @@ public class CardHolder {
 		// TODO Auto-generated method stub
 		this.name = text;
 	}
+	
+	public static void main(String[] args) { 
+    	System.out.println((int) (Duration.between(LocalDateTime.of(1, 1, 1, 1, 1), LocalDateTime.of(1, 1, 1, 1, 30)).toMinutes()));
+    }
 }
