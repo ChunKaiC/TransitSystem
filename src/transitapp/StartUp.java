@@ -89,7 +89,9 @@ public class StartUp {
 				int min = Integer.parseInt(data.get(i+2));
 				schedule.add(LocalTime.of(hour, min));
 			}
-			busRoutes.add(new TransitRoutes(data.get(0), destinations, schedule));
+			TransitRoutes  r = new TransitRoutes(data.get(0), destinations, schedule);
+			busRoutes.add(r);
+			System.out.println(r.countObservers());
 		}
 
 		return busRoutes;

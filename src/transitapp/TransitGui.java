@@ -298,8 +298,8 @@ public class TransitGui extends Application {
 			HashMap<String, Station> stations) throws FileNotFoundException {
 		// TODO Auto-generated method stub
 		// do the same thing as userUI but dont load, just pass in stops and stations
-		StartUp.loadBusRoutes();
-		StartUp.loadSubwayRoute();
+		//StartUp.loadBusRoutes();
+		//StartUp.loadSubwayRoute();
 		StackPane pane = new StackPane();
 		Image back = new Image("file:resources/backdrop.png");
 		ImageView back2 = new ImageView();
@@ -509,7 +509,10 @@ public class TransitGui extends Application {
 		stage.show();
 	}
 
-	public void continueTrip(Stage stage, Card selectedCard, Location start, CardHolder user) {
+	public void continueTrip(Stage stage, Card selectedCard, Location start, CardHolder user) throws FileNotFoundException {
+		
+		ArrayList<TransitRoutes> busRoutes = StartUp.loadBusRoutes();
+		ArrayList<TransitRoutes> subwayRoutes = StartUp.loadSubwayRoute();
 		
 		StackPane pane = new StackPane();
 		Image back = new Image("file:resources/backdrop.png");
@@ -520,6 +523,7 @@ public class TransitGui extends Application {
 		Label balance = new Label("Balance on Card: " + selectedCard.getBalance());
 		balance.setTextFill(Color.web("#fbfbfb"));
 		Location currL = start;
+		System.out.println(start.getLocation() + "Look Here");
 		Label currLocation = new Label("Current Location" + start);
 		currLocation.setTextFill(Color.web("#fbfbfb"));
 		String sOrS = "";
@@ -560,16 +564,23 @@ public class TransitGui extends Application {
 		
 		ObservableList<Location> oList = FXCollections.observableArrayList();
 		//oList.addAll(start.getAllDestinations());
+		// START.GETALLDEST IS NOT WORKING HERE BUT IS WORKING FINE IN 
 		System.out.println(start.getAllDestinations());
+		System.out.println(start.getOnRoutes());
 		for (Location l : start.getAllDestinations()) {
 			oList.add(l);
+			System.out.println(l.getLocation());
 		}
 		ObservableList<Location> injuctionList = FXCollections.observableArrayList();
+		/**
 		for (Location l : oList) {
 			if (l.getAtInjuction()) {
 				injuctionList.add(l);
 			}
 		}
+		
+		*/
+		/**
 		for (Location l : injuctionList) {
 			if (sOrS.equals("Stop")) {
 				for (Location s : Station.getAllLocations()) {
@@ -586,6 +597,7 @@ public class TransitGui extends Application {
 				}
 			}
 		}
+		*/
 		ComboBox<Location> posibleDest = new ComboBox<Location>(oList);
 		
 		HBox tap = new HBox();
