@@ -44,6 +44,10 @@ public class CardHolder {
     public ArrayList<Trip> getTrips() {
         return this.trips;
     }
+    
+    public void loadTrip(ArrayList<Trip> t) {
+    	this.trips = t;
+    }
 
     public void deleteAllCards () {
         this.cards.clear();
