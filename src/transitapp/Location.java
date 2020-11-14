@@ -80,7 +80,12 @@ public abstract class Location implements Observer{
 	 */
 	public void update(Observable arg0, Object TransitRoute) {
 		boolean found = false;
+		//System.out.println((TransitRoutes) TransitRoute);
 		TransitRoutes route = (TransitRoutes) TransitRoute;
+		this.addOnRoute(route);
+		//System.out.println(this.onRoutes);
+		//System.out.println(this.getAllDestinations());
+		/**
 		for (TransitRoutes r : this.getOnRoutes()) {
 			if (r.getName().equals(route.getName())) {
 				found = true;
@@ -89,5 +94,6 @@ public abstract class Location implements Observer{
 		if (! found) {
 			this.addOnRoute(route);
 		}
+		*/
 	}
 }

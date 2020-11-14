@@ -27,12 +27,30 @@ public class Stop extends Location implements Observer {
 	@Override
 	public ArrayList<Location> getAllDestinations() {
 		// add return empty array if onroutes empty
+		/**
 		int i = 0;
 		ArrayList<Location> onRoutDestinations = new ArrayList<Location>();
 		while (i < this.getOnRoutes().size()) {
 			TransitRoutes route = this.getOnRoutes().get(i);
 			onRoutDestinations.addAll(getRouteDestinations(route));
 			i++;
+		}
+		*/
+		
+		ArrayList<Location> onRoutDestinations = new ArrayList<Location>();
+		for (TransitRoutes r : this.getOnRoutes()) {
+			boolean found = false;
+			for (Location s : r.getRoute()) {
+				String stop = ((Stop) s).getLocation();
+				if (found) {
+					onRoutDestinations.add(s);
+				}
+				else {
+					if (this.getLocation().equals(stop)) {
+						found = true;
+					}
+				}
+			}
 		}
 		return onRoutDestinations;
 		

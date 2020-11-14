@@ -20,7 +20,7 @@ public class Station extends Location implements Observer{
 		Station.ALL_STAITIONS.add(this);
 	}
 
-	@Override
+	//@Override
 	/**
 	 * @return an ArrayList of all the destinations for this station
 	 */

@@ -17,6 +17,10 @@ public class TransitRoutes extends Observable{
 		//this.setFare(fare);
 		for (Location l : this.route) {
 			this.addObserver(l);
+			System.out.println(l.getOnRoutes());
+			System.out.println(l);
+			//System.out.println(l.getAllDestinations());
+			//l.update(this, this);
 		}
 		this.setChanged();
 		this.notifyObservers(this);
