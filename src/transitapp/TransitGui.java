@@ -159,7 +159,8 @@ public class TransitGui extends Application {
 		// change name
 		
 		//Loading
-		StartUp.loadEvents();
+		HashMap<String, CardHolder> cardHolders = StartUp.loadCardHolders();
+		StartUp.loadEvents(cardHolders, stops, stations);
 		
 		
 		
@@ -518,6 +519,7 @@ public class TransitGui extends Application {
 
 	public void continueTrip(Stage stage, Card selectedCard, Location start, CardHolder user) throws FileNotFoundException {
 		
+		
 		ArrayList<TransitRoutes> busRoutes = StartUp.loadBusRoutes();
 		ArrayList<TransitRoutes> subwayRoutes = StartUp.loadSubwayRoute();
 		
@@ -572,12 +574,12 @@ public class TransitGui extends Application {
 		ObservableList<Location> oList = FXCollections.observableArrayList();
 		//oList.addAll(start.getAllDestinations());
 		// START.GETALLDEST IS NOT WORKING HERE BUT IS WORKING FINE IN 
-		System.out.println(start.getAllDestinations());
+		//System.out.println(start.getAllDestinations());
 		System.out.println(start.getOnRoutes());
-		for (Location l : start.getAllDestinations()) {
-			oList.add(l);
-			System.out.println(l.getLocation());
-		}
+		//for (Location l : start.getAllDestinations()) {
+			//oList.add(l);
+			//System.out.println(l.getLocation());
+		//}
 		ObservableList<Location> injuctionList = FXCollections.observableArrayList();
 		/**
 		for (Location l : oList) {
