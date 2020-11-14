@@ -110,6 +110,10 @@ public class CardHolder {
 
         if (this.tapOffLocation != location) {
             // create a new trip if tapping on at a different location then tapped off location
+        	if (this.currTrip != null) {
+        		this.addTrip(this.currTrip);
+        	}
+        	
             this.currTrip = new Trip();
         }
         double fare = findFare(location);
