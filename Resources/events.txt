@@ -1,3 +1,1 @@
-parlefrancais@gmail.com,2.0,25,!Toronto Plaza
-Hello@DingDong.com,3.50,93,?Clarkson,?Chung Chung Go,!Chung Chung Go
-DannyBadBoi@Yessir.com,4,135,!Toronto Plaza,!Clarkson
+tapOn,?Toronto Plaza,1,1999,5,5,2,4,parlefrancais@gmail.com
