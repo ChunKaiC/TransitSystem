@@ -37,11 +37,29 @@ public class AdminUser {
 		AdminUser.busRoutes = busRoutes;
 		AdminUser.transitName = transitName;
 	}
-
+	
+	
+	/**
+	 * Sets the cost of getting onto a bus
+	 * @param fare to be changed to 
+	 */
+	public static void setBusTravelCost(double fare) {
+		busTravelCost = fare;
+		
+	}
+	
+	/**
+	 * Sets the cost of getting onto and traveling through stations
+	 * @param fare to be changed to 
+	 */
+	public static void setStaionPrice(double fare) {
+		subwayTravelCost = fare;
+	}
+	
 	/**
 	 * @return the Transit name
 	 */
-	public String getTransitName() {
+	public static String getTransitName() {
 		return AdminUser.transitName;
 	}
 
@@ -58,11 +76,13 @@ public class AdminUser {
 	 * all the bus routes and all the subway routes.
 	 * @param date: to display its report
 	 * @throws FileNotFoundException
+	 * @return Returns string representation of daily report
 	 */
-	public void showDailyReport(LocalDate date) throws FileNotFoundException {
+	public static String showDailyReport(LocalDate date) throws FileNotFoundException {
 		HashMap<String, CardHolder> cardHolders = StartUp.loadCardHolders();
 		ArrayList<TransitRoutes> busRoutes = StartUp.loadBusRoutes();
 		ArrayList<TransitRoutes> subwayRoutes = StartUp.loadSubwayRoute();
+		String line = "";
 		int rides = 0;
 		double revenue = 0.0;
 		DecimalFormat df2 = new DecimalFormat("0.00");
@@ -76,19 +96,26 @@ public class AdminUser {
 			}
 		}
 
+		
 		System.out.println("Report " + getTransitName() + "'s summary for " + date + ":");
 		System.out.println("Number of rides: " + rides);
 		System.out.println("Total revenue: $" + df2.format(revenue));
 		System.out.println("\nBus Routes: (Fare : " +  df2.format(TransitRoutes.getBusFare()) + ")");
 
+		line = "Report " + getTransitName() + "'s summary for " + date + ":\n" + "Number of rides: " + rides
+				+"\nTotal revenue: $" +  df2.format(revenue) + "\nBus Routes: (Fare : " +  df2.format(TransitRoutes.getBusFare()) + ")";
 		for (TransitRoutes busRoute : busRoutes) {
+			line = line + "\nRoute: " + busRoute.getName();
 			System.out.println("Route: " + busRoute.getName());
 		}
 		System.out.println("\nBus Routes: (Fare : " +  df2.format(TransitRoutes.getSubwayFare()) + ")");
 		for (TransitRoutes subRoute : subwayRoutes) {
+			line = line + "\nRoute: " + subRoute.getName();
+			
 			System.out.println("Route: " + subRoute.getName());
 		}
 
+		return line;
 	}
 
 	/**
@@ -145,4 +172,6 @@ public class AdminUser {
 	public static void removeLocation(Location loc, TransitRoutes route) {
 		route.removeLocationFromRoute(loc);
 	}
+
+	
 }

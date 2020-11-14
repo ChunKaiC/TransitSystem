@@ -121,6 +121,7 @@ public class StartUp {
 
 
 	public static HashMap<String, CardHolder> loadCardHolders() throws FileNotFoundException{
+		loadSettings();
 		HashMap<String, CardHolder> cardHolders = new HashMap<String, CardHolder>();
 		HashMap<String, ArrayList<Card>> updatedCards = loadCards();
 		HashMap<String, ArrayList<Trip>> trips = loadEvents();
@@ -201,4 +202,28 @@ public class StartUp {
 
 	}
 
+	public static void loadSettings() throws FileNotFoundException{
+		BufferedReader fileSettings = new BufferedReader(new FileReader("Resources/Settings.txt"));
+		Scanner scanSettings = new Scanner(fileSettings);
+		
+		while(scanSettings.hasNextLine()) {
+			String line = scanSettings.nextLine();
+			String[] data = line.split(":");
+			if(data[0].equals("BusFare")) {
+				TransitRoutes.setBusFare(Double.parseDouble(data[1]));
+			}
+			else if(data[0].equals("StationFare")) {
+				TransitRoutes.setSubwayFare(Double.parseDouble(data[1]));
+			}
+			else if(data[0].equals("Minute Grace Period")) {
+				Trip.MINUTE_GRACE_PERIOD = Integer.parseInt(data[1]);
+			}
+			else if(data[0].equals("Minute Grace Period")) {
+				Trip.MAX_COST = Double.parseDouble(data[1]);
+			}
+			
+			
+		}
+	}
+	
 }
