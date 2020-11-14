@@ -9,11 +9,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -146,6 +150,190 @@ public class TransitGui extends Application {
 		StartUp.loadBusRoutes();
 		StartUp.loadSubwayRoute();
 		
+		this.UserUIAfter( stage, user, stops, stations);
+		
+	}
+	
+	public void userFunctionsUI(Stage stage, CardHolder user, HashMap<String, Stop> stops,
+			HashMap<String, Station> stations) {
+		// show monthly cost
+		// show recent trips
+		// suspend or activate cards
+		// change name
+		System.out.println("hello");
+		StackPane pane = new StackPane();
+		Image back = new Image("file:resources/backdrop.png");
+		ImageView back2 = new ImageView();
+		back2.setImage(back);
+		pane.getChildren().add(back2);
+		
+		// BUTTONS
+		Button begin = new Button("Begin a Trip");
+		//begin.setPrefSize(prefWidth, prefHeight);
+		begin.setPrefSize(150, 75);
+		begin.setOnAction(new UserFunctionHandler(user, this, stage, stops, stations));
+		Button suspend = new Button("Suspend Selected Card");
+		suspend.setOnAction(new UserFunctionHandler(user, this, stage, stops, stations));
+		//suspend.setOnAction(new UserFunctionHandler(user, null, stage, stops, stations));
+		suspend.setPrefWidth(150);
+		Button cname = new Button("Change Name");
+		
+		cname.setPrefWidth(150);
+		Button activate = new Button("Activate Selected Card");
+		activate.setOnAction(new UserFunctionHandler(user, this, stage, stops, stations));
+		activate.setPrefWidth(150);
+		
+		// Text Field
+		TextField cNameTxt = new TextField();
+		cname.setOnAction(new UserFunctionHandler(cNameTxt, user, this, stage, stops, stations));
+		
+		// Show user data
+		CardHolder currUser = user;
+		Label name = new Label("Name: " + currUser.getName());
+		name.setTextFill(Color.web("#fbfbfb"));
+		name.setFont(new Font(15));
+		Label email = new Label("Email: " + currUser.getEmail());
+		email.setTextFill(Color.web("#fbfbfb"));
+		email.setFont(new Font(15));
+		//Label mCost = new Label("" + currUser.averageMonthlyCost());
+		Label mCost = new Label("Averge Monthly Cost: " + "Axel fix your shit broooo");
+		mCost.setTextFill(Color.web("#fbfbfb"));
+		mCost.setFont(new Font(15));
+		
+		VBox top = new VBox();
+		top.getChildren().add(name);
+		top.getChildren().add(email);
+		top.getChildren().add(mCost);
+		pane.getChildren().add(top);
+		top.setAlignment(Pos.TOP_CENTER);
+		
+		
+		
+		
+		
+		ObservableList<Card> cList = FXCollections.observableArrayList();
+		for (Card s : user.getCards()) {
+			if (s.isActivated()) {
+				System.out.println(s.isActivated());
+				cList.add(s);
+			}
+		}
+		ComboBox<Card> cardListActive = new ComboBox<Card>(cList);
+		cardListActive.setPrefWidth(150);
+		cardListActive.setOnAction(new UserFunctionHandler(cardListActive));
+		
+		
+		ObservableList<Card> cList2 = FXCollections.observableArrayList();
+		for (Card s : user.getCards()) {
+			if (!s.isActivated()) {
+				cList2.add(s);
+			}
+		}
+		ComboBox<Card> cardListSus = new ComboBox<Card>(cList2);
+		cardListSus.setPrefWidth(150);
+		cardListSus.setOnAction(new UserFunctionHandler(cardListSus));
+		
+		
+		
+		// recent trips
+		ArrayList<Trip> recent = currUser.getRecentTrips();		
+		//Label recentTrips = new Label();
+		TextArea rt = new TextArea();
+		rt.setEditable(false);
+		String total = "Recent Trips:\n" + "Hello";
+		//for (Trip t : recent) {
+			//total =  total + t.toString() + "\n";
+		//}
+		rt.setText(total);
+		//StackPane pane2 = new StackPane(rt);
+		//pane2.setAlignment(Pos.BASELINE_CENTER);
+		rt.setPrefSize(550, 150);
+		//rt.setMaxSize(550, 150);
+		//rt.setNodeOrientation(orientation);
+		//pane.getChildren().add(rt);	
+		ScrollPane rt2 = new ScrollPane(rt);
+		rt2.setTranslateY(20);
+		//pane.getChildren().add(rt2);	
+		//StackPane.setAlignment(rt2, Pos.BOTTOM_CENTER);
+		rt2.setPrefSize(550, 150);
+		rt2.setMaxSize(550, 150);
+		//StackPane.setMargin(rt2, new Insets(8,8,8,8));
+		//pane.setPadding(new Insets(8));
+		
+		// grid pane
+		GridPane center = new GridPane();
+		center.setHgap(5);
+		center.setVgap(5);
+		center.add(cname, 0, 0);
+		center.add(cNameTxt, 1, 0);
+		center.add(suspend, 0, 1);
+		center.add(cardListActive, 1, 1);
+		center.add(activate, 0, 2);
+		center.add(cardListSus, 1, 2);
+		center.setAlignment(Pos.CENTER);
+		//pane.getChildren().add(center);	
+		
+		VBox finalPane = new VBox();
+		finalPane.setAlignment(Pos.CENTER);
+		finalPane.getChildren().add(center);
+		finalPane.getChildren().add(rt2);
+		finalPane.getChildren().add(begin);
+		begin.setTranslateY(50);
+		pane.getChildren().add(finalPane);
+		
+		Scene scene =  new Scene(pane);
+		stage.setScene(scene);
+		stage.show();
+	}
+	
+	public void adminUI(Stage stage) {
+		StackPane pane = new StackPane();
+		Image back = new Image("file:resources/backdrop.png");
+		ImageView back2 = new ImageView();
+		back2.setImage(back);
+		pane.getChildren().add(back2);
+		
+		//All Buttons
+		Button go = new Button("GO");
+		Label action = new Label("Please Select An Admin Function From The List Below, Then Click Go:");
+		action.setTextFill(Color.web("#fbfbfb"));
+		GridPane gp = new GridPane();
+		String actions[] = {"Get Daily Report", "Set Fair For Bus Routes", "Set Fair For Stations"};
+		ComboBox<String> actionList = new ComboBox(FXCollections.observableArrayList(actions));
+        actionList.setPrefSize(200, 50);
+        gp.add(action, 1, 0);
+        gp.add(actionList, 1, 1);
+        gp.add(go, 1, 2);
+        gp.setAlignment(Pos.CENTER);
+        pane.getChildren().add(gp);
+        
+        actionList.setOnAction(new AdminFunctionsHandler(actionList));
+        go.setOnAction(new AdminFunctionsHandler(this, stage));
+        
+        Scene scene = new Scene(pane);
+		stage.setScene(scene);
+		stage.show();
+        
+	}
+	
+	public void UserUIAfter(Stage stage, CardHolder user, HashMap<String, Stop> stops,
+			HashMap<String, Station> stations) {
+		// TODO Auto-generated method stub
+		// do the same thing as userUI but dont load, just pass in stops and stations
+		StackPane pane = new StackPane();
+		Image back = new Image("file:resources/backdrop.png");
+		ImageView back2 = new ImageView();
+		back2.setImage(back);
+		pane.getChildren().add(back2);
+		
+		
+		// loading
+		
+		//HashMap<String, Stop> stops = StartUp.loadStops();
+		//HashMap<String, Station> stations = StartUp.loadStation();
+		// StartUp.loadBusRoutes();
+		// StartUp.loadSubwayRoute();
+		
 		
 		
 		// combo box
@@ -219,130 +407,6 @@ public class TransitGui extends Application {
 		
 		stage.setScene(scene);
 		stage.show();
-	}
-	
-	public void userFunctionsUI(Stage stage, CardHolder user, HashMap<String, Stop> stops,
-			HashMap<String, Station> stations) {
-		// show monthly cost
-		// show recent trips
-		// suspend or activate cards
-		// change name
-		System.out.println("hello");
-		StackPane pane = new StackPane();
-		Image back = new Image("file:resources/backdrop.png");
-		ImageView back2 = new ImageView();
-		back2.setImage(back);
-		pane.getChildren().add(back2);
-		
-		// BUTTONS
-		Button begin = new Button("Begin a Trip");
-		//begin.setPrefSize(prefWidth, prefHeight);
-		begin.setPrefWidth(150);
-		Button suspend = new Button("Suspend Selected Card");
-		suspend.setPrefWidth(150);
-		Button cname = new Button("Change Name");
-		cname.setPrefWidth(150);
-		Button activate = new Button("Activate Selected Card");
-		activate.setPrefWidth(150);
-		
-		// Text Field
-		TextField cNameTxt = new TextField();
-		
-		// Show user data
-		CardHolder currUser = user;
-		Label name = new Label("Name: " + currUser.getName());
-		name.setTextFill(Color.web("#fbfbfb"));
-		name.setFont(new Font(15));
-		Label email = new Label("Email: " + currUser.getEmail());
-		email.setTextFill(Color.web("#fbfbfb"));
-		email.setFont(new Font(15));
-		//Label mCost = new Label("" + currUser.averageMonthlyCost());
-		Label mCost = new Label("Averge Monthly Cost: " + "Axel fix your shit broooo");
-		mCost.setTextFill(Color.web("#fbfbfb"));
-		mCost.setFont(new Font(15));
-		
-		VBox top = new VBox();
-		top.getChildren().add(name);
-		top.getChildren().add(email);
-		top.getChildren().add(mCost);
-		pane.getChildren().add(top);
-		top.setAlignment(Pos.TOP_CENTER);
-		
-		
-		
-		
-		
-		ObservableList<Card> cList = FXCollections.observableArrayList();
-		for (Card s : user.getCards()) {
-			if (s.isActivated()) {
-				System.out.println(s.isActivated());
-				cList.add(s);
-			}
-		}
-		ComboBox cardListActive = new ComboBox(cList);
-		
-		ObservableList<Card> cList2 = FXCollections.observableArrayList();
-		for (Card s : user.getCards()) {
-			if (!s.isActivated()) {
-				cList2.add(s);
-			}
-		}
-		ComboBox cardListSus = new ComboBox(cList2);
-		
-		ArrayList<Trip> recent = currUser.getRecentTrips();		
-		
-		// grid pane
-		GridPane center = new GridPane();
-		center.setHgap(5);
-		center.setVgap(5);
-		center.add(cname, 0, 0);
-		center.add(cNameTxt, 1, 0);
-		center.add(suspend, 0, 1);
-		center.add(cardListActive, 1, 1);
-		center.add(activate, 0, 2);
-		center.add(cardListSus, 1, 2);
-		center.setAlignment(Pos.CENTER);
-		pane.getChildren().add(center);		
-		
-		Scene scene =  new Scene(pane);
-		stage.setScene(scene);
-		stage.show();
-	}
-	
-	public void adminUI(Stage stage) {
-		StackPane pane = new StackPane();
-		Image back = new Image("file:resources/backdrop.png");
-		ImageView back2 = new ImageView();
-		back2.setImage(back);
-		pane.getChildren().add(back2);
-		
-		//All Buttons
-		Button go = new Button("GO");
-		Label action = new Label("Please Select An Admin Function From The List Below, Then Click Go:");
-		action.setTextFill(Color.web("#fbfbfb"));
-		GridPane gp = new GridPane();
-		String actions[] = {"Get Daily Report", "Set Fair For Bus Routes", "Set Fair For Stations"};
-		ComboBox<String> actionList = new ComboBox(FXCollections.observableArrayList(actions));
-        actionList.setPrefSize(200, 50);
-        gp.add(action, 1, 0);
-        gp.add(actionList, 1, 1);
-        gp.add(go, 1, 2);
-        gp.setAlignment(Pos.CENTER);
-        pane.getChildren().add(gp);
-        
-        actionList.setOnAction(new AdminFunctionsHandler(actionList));
-        go.setOnAction(new AdminFunctionsHandler(this, stage));
-        
-        Scene scene = new Scene(pane);
-		stage.setScene(scene);
-		stage.show();
-        
-	}
-	
-	public void UserUIAfter(Stage stage, CardHolder user, HashMap<String, Stop> stops,
-			HashMap<String, Station> stations) {
-		// TODO Auto-generated method stub
-		// do the same thing as userUI but dont load, just pass in stops and stations
 	}
 
 	
