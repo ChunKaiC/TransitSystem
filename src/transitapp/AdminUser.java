@@ -37,7 +37,25 @@ public class AdminUser {
 		AdminUser.busRoutes = busRoutes;
 		AdminUser.transitName = transitName;
 	}
-
+	
+	
+	/**
+	 * Sets the cost of getting onto a bus
+	 * @param fare to be changed to 
+	 */
+	public static void setBusTravelCost(double fare) {
+		busTravelCost = fare;
+		
+	}
+	
+	/**
+	 * Sets the cost of getting onto and traveling through stations
+	 * @param fare to be changed to 
+	 */
+	public static void setStaionPrice(double fare) {
+		subwayTravelCost = fare;
+	}
+	
 	/**
 	 * @return the Transit name
 	 */
@@ -145,4 +163,6 @@ public class AdminUser {
 	public static void removeLocation(Location loc, TransitRoutes route) {
 		route.removeLocationFromRoute(loc);
 	}
+
+	
 }

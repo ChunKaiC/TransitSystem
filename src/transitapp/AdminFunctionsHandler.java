@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class AdminFunctionsHandler implements EventHandler<ActionEvent>{
@@ -41,7 +42,7 @@ public class AdminFunctionsHandler implements EventHandler<ActionEvent>{
 			}
 			
 			if(AdminFunctionsHandler.action == "Set Fair For Bus Routes") {
-				this.obj.showSetFair(this.stage);
+				this.obj.showSetBusFair(this.stage);
 			}
 			
 			if(AdminFunctionsHandler.action == "Set Fair For Stations") {

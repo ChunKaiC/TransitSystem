@@ -6,6 +6,7 @@ import java.util.HashMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -65,7 +66,7 @@ public class LoginHandler implements EventHandler<ActionEvent>{
 		}
 		if (source.equals("Admin Log In")) {
 			if (adminId.getText().equals("Please Give Us 100% TA"))
-			this.obj.adminUI(this.stage);
+			this.obj.adminUI(this.stage, new Label(""));
 		}
 	}
 
