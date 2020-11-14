@@ -27,6 +27,24 @@ public class CardHolder {
         this.tapOnLocation = null;
         this.tapOffLocation = null;
     }
+
+    public void add10toCard(int card_id) {
+        Card card = findCard(this.cards, card_id);
+        card.addBalance(10);
+        AdminUser.addRevenue(10);
+    }
+
+    public void add20toCard(int card_id) {
+        Card card = findCard(this.cards, card_id);
+        card.addBalance(20);
+        AdminUser.addRevenue(50);
+    }
+
+    public void add50toCard(int card_id) {
+        Card card = findCard(this.cards, card_id);
+        card.addBalance(50);
+        AdminUser.addRevenue(50);
+    }
     
     public ArrayList<Trip> getRecentTrips() {
 		if (this.trips.size() <= 2) {
