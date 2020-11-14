@@ -155,11 +155,18 @@ public class TransitGui extends Application {
 	}
 	
 	public void userFunctionsUI(Stage stage, CardHolder user, HashMap<String, Stop> stops,
-			HashMap<String, Station> stations) {
+			HashMap<String, Station> stations) throws FileNotFoundException {
 		// show monthly cost
 		// show recent trips
 		// suspend or activate cards
 		// change name
+		
+		//Loading
+		StartUp.loadEvents();
+		
+		
+		
+		
 		System.out.println("hello");
 		StackPane pane = new StackPane();
 		Image back = new Image("file:resources/backdrop.png");

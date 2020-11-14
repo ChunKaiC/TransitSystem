@@ -1,5 +1,6 @@
 package transitapp;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -54,7 +55,12 @@ public class UserFunctionHandler implements EventHandler<ActionEvent>{
 			String source = ((Button) event.getSource()).getText();
 			//System.out.println(source.equals("User Functions"));
 			if (source.equals("User Functions")) {
-				this.obj.userFunctionsUI(this.stage, this.user, this.stops, this.stations);
+				try {
+					this.obj.userFunctionsUI(this.stage, this.user, this.stops, this.stations);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			if (source.equals("Begin a Trip")) {
 				this.obj.UserUIAfter(this.stage, this.user, this.stops, this.stations);
@@ -71,29 +77,39 @@ public class UserFunctionHandler implements EventHandler<ActionEvent>{
 					
 					UserFunctionHandler.value = null;
 					//System.out.println(UserFunctionHandler.value.isActivated());
-					this.obj.userFunctionsUI(this.stage, this.user, this.stops, this.stations);
+					try {
+						this.obj.userFunctionsUI(this.stage, this.user, this.stops, this.stations);
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 			if (source.equals("Change Name")) {
 				if (!(this.cNameTxt.getText() == "")) {
-					/**
+					
 					try {
 						Writer.removeCardHolder(this.user);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					*/
+					
 					this.user.setName(this.cNameTxt.getText());
-					/**
+					
 					try {
 						Writer.writeCardHolder(this.user);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					*/
-					this.obj.userFunctionsUI(this.stage, this.user, this.stops, this.stations);
+					
+					try {
+						this.obj.userFunctionsUI(this.stage, this.user, this.stops, this.stations);
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 			if (source.equals("Suspend Selected Card")) {
@@ -104,7 +120,12 @@ public class UserFunctionHandler implements EventHandler<ActionEvent>{
 					//Writer.writeCard(this.user.getEmail(), UserFunctionHandler.value.getBalance(), UserFunctionHandler.value.getCard_id());
 					UserFunctionHandler.value = null;
 					//System.out.println(UserFunctionHandler.value.isActivated());
-					this.obj.userFunctionsUI(this.stage, this.user, this.stops, this.stations);
+					try {
+						this.obj.userFunctionsUI(this.stage, this.user, this.stops, this.stations);
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					
 				}
 			}
