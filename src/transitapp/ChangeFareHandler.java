@@ -1,5 +1,7 @@
 package transitapp;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -32,6 +34,9 @@ public class ChangeFareHandler implements EventHandler<ActionEvent> {
 		if(this.tf.getText().equals("")){
 			this.tf.setText("Please Enter A Valid Input");
 		}
+		if(this.tf.getText().equals("Please Enter A Valid Input")) {
+			this.tf.setText("Please Enter A Valid Input");
+		}
 		else if(this.bool == true){
 			AdminUser.setBusTravelCost(Double.parseDouble(this.tf.getText()));
 			this.obj.adminUI(this.stage, l);
@@ -39,6 +44,16 @@ public class ChangeFareHandler implements EventHandler<ActionEvent> {
 		else {
 			AdminUser.setStaionPrice((Double.parseDouble(this.tf.getText())));
 			this.obj.adminUI(this.stage, l);
+		}
+		
+		try {
+			Writer.writeFare(Double.parseDouble(this.tf.getText()), this.bool);
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
