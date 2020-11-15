@@ -181,8 +181,10 @@ public class CardHolder {
      * @throws IOException 
      */
     public boolean tapOn(Location location, int card_id, LocalDateTime time,  boolean load) throws IOException {
-        Card current_card = cards.get(card_id); // Must be able to get card from the list based on its id.
-
+        Card current_card = findCard(this.cards, card_id); // Must be able to get card from the list based on its id.
+        if(current_card == null) {
+        	return false;
+        }
         if (!current_card.isActivated()) {
             return false;
         }
