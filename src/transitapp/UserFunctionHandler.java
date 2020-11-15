@@ -23,9 +23,17 @@ public class UserFunctionHandler implements EventHandler<ActionEvent> {
 	private TextField cNameTxt;
 	private static Card value = null;
 
+	/**
+	 * Constructor for the user fucntions
+	 * @param user The user being acted on
+	 * @param transitGui The main application GUI obj
+	 * @param stage The stage being changed
+	 * @param stops The HashMap of stops that exist key is the name 
+	 * of the stop and value is the stop object
+	 * @param stations
+	 */
 	public UserFunctionHandler(CardHolder user, TransitGui transitGui, Stage stage, HashMap<String, Stop> stops,
 			HashMap<String, Station> stations) {
-		// TODO Auto-generated constructor stub
 		this.user = user;
 		this.obj = transitGui;
 		this.stage = stage;
@@ -33,14 +41,26 @@ public class UserFunctionHandler implements EventHandler<ActionEvent> {
 		this.stations = stations;
 	}
 
+	/**
+	 * Constructor for the user functions
+	 * @param cardListSus List of cards associated with the current user
+	 */
 	public UserFunctionHandler(ComboBox<Card> cardListSus) {
-		// TODO Auto-generated constructor stub
 		this.list = cardListSus;
 	}
 
+	
+	/**
+	 * Constructor for the User functions
+	 * @param cNameTxt 
+	 * @param user The user being acted on
+	 * @param transitGui The main application GUI object
+	 * @param stage The stage that is being changed
+	 * @param stops The Hashmap of all stops that exist
+	 * @param stations The Hashmap of all stations that exist
+	 */
 	public UserFunctionHandler(TextField cNameTxt, CardHolder user, TransitGui transitGui, Stage stage,
 			HashMap<String, Stop> stops, HashMap<String, Station> stations) {
-		// TODO Auto-generated constructor stub
 		this.cNameTxt = cNameTxt;
 		this.user = user;
 		this.obj = transitGui;
@@ -49,20 +69,17 @@ public class UserFunctionHandler implements EventHandler<ActionEvent> {
 		this.stations = stations;
 	}
 
+	/**
+	 * The handler method that takes care of actions of user functions
+	 */
 	@Override
 	public void handle(ActionEvent event) {
-		// TODO Auto-generated method stub
-		//System.out.println(event.getSource() instanceof Button);
-		//System.out.println("Latest" + UserFunctionHandler.value);
 		if (event.getSource() instanceof Button) {
 			String source = ((Button) event.getSource()).getText();
-			//System.out.println("UhOH BROO" + UserFunctionHandler.value);
-			// System.out.println(source.equals("User Functions"));
 			if (source.equals("User Functions")) {
 				try {
 					this.obj.userFunctionsUI(this.stage, this.user, this.stops, this.stations);
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -70,45 +87,29 @@ public class UserFunctionHandler implements EventHandler<ActionEvent> {
 				try {
 					this.obj.UserUIAfter(this.stage, this.user, this.stops, this.stations);
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 			if (source.equals("Activate Selected Card")) {
 				if (!(UserFunctionHandler.value == null)) {
-					// System.out.println(UserFunctionHandler.value.isActivated() + "hi");
-
-					// When Completed
 					try {
 						Writer.removeCard(UserFunctionHandler.value, this.user);
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						// System.out.println("Uh Oh");
 						e1.printStackTrace();
 					}
-					// Card
 					Card chosen = UserFunctionHandler.value;
 					UserFunctionHandler.value = null;
 					chosen.activate();
-					
-
-					// Writer.writeCard(this.user.getEmail(),
-					// UserFunctionHandler.value.getBalance(),
-					// UserFunctionHandler.value.getCard_id());
 					try {
 						System.out.println("Activate" + chosen.toString());
 						Writer.writeCard(this.user.getEmail(), "" + chosen.getBalance(), "" + chosen.getCard_id(),
 								true, chosen.getTimeInitialized());
-						//StartUp.main();
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					// System.out.println(UserFunctionHandler.value.isActivated());
 					try {
 						this.obj.userFunctionsUI(this.stage, this.user, this.stops, this.stations);
 					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -119,7 +120,6 @@ public class UserFunctionHandler implements EventHandler<ActionEvent> {
 					try {
 						Writer.removeCardHolder(this.user);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
@@ -129,50 +129,37 @@ public class UserFunctionHandler implements EventHandler<ActionEvent> {
 						Writer.writeCardHolder(this.user);
 						StartUp.main();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
 					try {
 						this.obj.userFunctionsUI(this.stage, this.user, this.stops, this.stations);
 					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
 			}
 			if (source.equals("Suspend Selected Card")) {
-				// System.out.println(source.equals("Activate Selected Card"));
 				if (!(UserFunctionHandler.value == null)) {
 
-					// When Completed
 					try {
 						Writer.removeCard(UserFunctionHandler.value, this.user);
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						//System.out.println("Uh Oh");
 						e1.printStackTrace();
 					}
 					Card chosen = UserFunctionHandler.value;
 					UserFunctionHandler.value = null;
 					chosen.desactivate();
 					try {
-						//System.out.println(UserFunctionHandler.value);
 						System.out.println("Suspend" + chosen.toString());
 						Writer.writeCard(this.user.getEmail(), "" + chosen.getBalance(), "" + chosen.getCard_id(),
 								false, chosen.getTimeInitialized());
-						//StartUp.main();
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						//System.out.println("Uh Oh");
 						e1.printStackTrace();
 					}
-
-					// System.out.println(UserFunctionHandler.value.isActivated());
 					try {
 						this.obj.userFunctionsUI(this.stage, this.user, this.stops, this.stations);
 					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 

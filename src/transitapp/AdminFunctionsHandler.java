@@ -18,24 +18,34 @@ public class AdminFunctionsHandler implements EventHandler<ActionEvent>{
 	private Button button;
 	static String action = null;
 	
-	
+	/**
+	 * Constructor for function handler
+	 * @param actionList combo box being acted on
+	 */
 	public AdminFunctionsHandler(ComboBox actionList) {
 		this.value = actionList;
 	}
 
+	/**
+	 * Constructor for admin functions
+	 * @param obj the main application object
+	 * @param stage Stage being acted on
+	 */
 	public AdminFunctionsHandler(TransitGui obj, Stage stage) {
-		// TODO Auto-generated constructor stub
 		this.obj = obj;
 		this.stage = stage;
 	}
 
-	@Override
+	
+	
+	/**
+	 * The method performs action based on the button clicked
+	 */
 	public void handle(ActionEvent arg0) {
 		if(arg0.getSource() instanceof ComboBox) {
 			AdminFunctionsHandler.action = (String) this.value.getValue();
 		}
 		if(arg0.getSource() instanceof Button) {
-//			String source = this.button.getText();
 			
 			if(AdminFunctionsHandler.action == "Get Daily Report") {
 				this.obj.showDR(this.stage);
