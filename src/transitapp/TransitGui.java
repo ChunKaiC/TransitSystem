@@ -606,8 +606,12 @@ public class TransitGui extends Application {
 		atInjuction.setTextFill(Color.web("#fbfbfb"));
 
 		Button tapOn = new Button("Tap On");
+		
 		Button tapOff = new Button("Tap Off");
 		Button endTrip = new Button("End Trip");
+		tapOn.setOnAction(new ContinueTripHandler());
+		tapOff.setOnAction(new ContinueTripHandler());
+		endTrip.setOnAction(new ContinueTripHandler());
 		
 		
 		ObservableList<Location> oList = FXCollections.observableArrayList();
@@ -662,7 +666,7 @@ public class TransitGui extends Application {
 			}
 		}
 		oList.addAll(oList2);
-		System.out.println(oList2);
+		//System.out.println(oList2);
 		
 		//System.out.println(oList);
 		/**
@@ -692,6 +696,11 @@ public class TransitGui extends Application {
 		}
 		*/
 		ComboBox<Location> posibleDest = new ComboBox<Location>(oList);
+		
+		
+		tapOn.setOnAction(new ContinueTripHandler());
+		tapOff.setOnAction(new ContinueTripHandler());
+		endTrip.setOnAction(new ContinueTripHandler());
 		
 		HBox tap = new HBox();
 		tap.setAlignment(Pos.CENTER);
