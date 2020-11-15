@@ -10,12 +10,27 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
+		
+		
 public class StartUp {
-		public static void main(String[] args) throws FileNotFoundException {
+		
+		public static HashMap<String, Stop> stops;
+		public static HashMap<String, Station> stations;
+		public static ArrayList<TransitRoutes> busRoutes;
+		public static ArrayList<TransitRoutes> subwayRoutes;
+		public static HashMap<String, CardHolder> cardHolders;
+		public static HashMap<String, ArrayList<Card>> cards;
+		
+		
+		public static void main() throws FileNotFoundException {
 		HashMap<String, Stop> stops = loadStops();
 		HashMap<String, Station> stations = loadStation();
+		ArrayList<TransitRoutes> busRoutes = loadBusRoutes();
+		ArrayList<TransitRoutes> subwayRoutes = loadSubwayRoute();
 		HashMap<String, CardHolder> cardHolders= loadCardHolders();
+		HashMap<String, ArrayList<Card>> cards = loadCards();
 		
+		loadSettings();
 		loadEvents(cardHolders, stops, stations);
 		System.out.println(cardHolders.get("parlefrancais@gmail.com").getTrips());
 	}
