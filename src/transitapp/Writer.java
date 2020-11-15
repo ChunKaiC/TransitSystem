@@ -104,9 +104,8 @@ public class Writer {
     
     public static void writeFare(double fare, boolean indication) throws IOException {
     	File settingsFile = new File("Resources/Settings.txt");
-        FileWriter writeSettingsFile = new FileWriter(settingsFile, true);
+        FileWriter writeSettingsFile = new FileWriter(settingsFile);
         PrintWriter pw = new PrintWriter(writeSettingsFile);
-        pw.flush();
         if(indication == true) {
         	pw.println("BusFare:" + Double.toString(fare));
             pw.println("StationFare:" + Double.toString(TransitRoutes.getSubwayFare()));
@@ -122,14 +121,11 @@ public class Writer {
     }
     
     
-    public static void writeStationFare() {}
-    
     //Removing methods
     public static void removeCardHolder(CardHolder client) throws IOException {
     	StartUp.cardHolders.remove(client.getEmail());
     	FileWriter fw = new FileWriter("Resources/CardHolders.txt", false); 
-        PrintWriter pw = new PrintWriter(fw, false);
-        pw.flush();;
+        PrintWriter pw = new PrintWriter(fw);
         pw.close();
         fw.close();
     	for(String key: StartUp.cardHolders.keySet()) {
@@ -141,8 +137,7 @@ public class Writer {
     public static void removeCard(Card c, CardHolder client) throws IOException{
     	StartUp.cards.get(client.getEmail()).remove(c);
     	FileWriter fw2 = new FileWriter("Resources/Cards.txt", false); 
-        PrintWriter pw2 = new PrintWriter(fw2, false);
-        pw2.flush();
+        PrintWriter pw2 = new PrintWriter(fw2);
         pw2.close();
         fw2.close();
         for(String key: StartUp.cards.keySet()) {
@@ -160,8 +155,7 @@ public class Writer {
     public static void removeBusStop(Stop busStop) throws IOException{
     	StartUp.stops.remove(busStop.getLocation());
     	FileWriter fw = new FileWriter("Resources/BusStops.txt", false); 
-        PrintWriter pw = new PrintWriter(fw, false);
-        pw.flush();;
+        PrintWriter pw = new PrintWriter(fw);
         pw.close();
         fw.close();
         for(String key: StartUp.stops.keySet()) {
@@ -173,8 +167,7 @@ public class Writer {
     public static void removeStation(Station station) throws IOException{
     	StartUp.stations.remove(station.getLocation());
     	FileWriter fw = new FileWriter("Resources/Stations.txt", false); 
-        PrintWriter pw = new PrintWriter(fw, false);
-        pw.flush();;
+        PrintWriter pw = new PrintWriter(fw);
         pw.close();
         fw.close();
         for(String key: StartUp.stations.keySet()) {
@@ -188,8 +181,7 @@ public class Writer {
     	
     	StartUp.busRoutes.remove(busRoute);
     	FileWriter fw = new FileWriter("Resources/BusRoutes.txt", false); 
-        PrintWriter pw = new PrintWriter(fw, false);
-        pw.flush();;
+        PrintWriter pw = new PrintWriter(fw);
         pw.close();
         fw.close();
         for(TransitRoutes route: StartUp.busRoutes) {
@@ -201,8 +193,7 @@ public class Writer {
     public static void removeSubwayRoute(TransitRoutes subwayRoute) throws IOException{
     	StartUp.subwayRoutes.remove(subwayRoute);
     	FileWriter fw = new FileWriter("Resources/StationRoutes.txt", false); 
-        PrintWriter pw = new PrintWriter(fw, false);
-        pw.flush();;
+        PrintWriter pw = new PrintWriter(fw);
         pw.close();
         fw.close();
         for(TransitRoutes route: StartUp.subwayRoutes) {

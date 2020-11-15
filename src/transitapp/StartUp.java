@@ -35,7 +35,6 @@ public class StartUp {
 		
 		loadSettings();
 		loadEvents(cardHolders, stops, stations);
-		System.out.println(AdminUser.getMonthlyRev().get(LocalDate.of(2019, 10, 1)));
 	}
 
 	/**
@@ -151,11 +150,10 @@ public class StartUp {
 		while(scanCardHolders.hasNextLine()) {
 			String line = scanCardHolders.nextLine();
 			String[] data = line.split(",");
-			cardHolders.put(data[1], new CardHolder(data[0], data[1]));
+			cardHolders.put(data[1], new CardHolder(data[0], data[1], false));
 		}
 
 		for(String key: updatedCards.keySet()) {
-			cardHolders.get(key).deleteAllCards();
 			for (int i = 0; i < updatedCards.get(key).size(); i++) {
 				cardHolders.get(key).addCard(updatedCards.get(key).get(i));
 			}
