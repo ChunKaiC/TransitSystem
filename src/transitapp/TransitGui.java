@@ -554,7 +554,7 @@ public class TransitGui extends Application {
 		
 		StartUp.main();
 		HashMap<String, Stop> stops = StartUp.stops;
-		HashMap<String, Station> station = StartUp.stations;
+		HashMap<String, Station> stations = StartUp.stations;
 		ArrayList<TransitRoutes> busRoutes = StartUp.busRoutes;
 		ArrayList<TransitRoutes> subwayRoutes = StartUp.subwayRoutes;
 		//System.out.println(Stop.getAllStops());
@@ -603,23 +603,72 @@ public class TransitGui extends Application {
 		}
 		Label sDest = new Label("Select Possible Destination");
 		sDest.setTextFill(Color.web("#fbfbfb"));
+		atInjuction.setTextFill(Color.web("#fbfbfb"));
 
 		Button tapOn = new Button("Tap On");
+		
 		Button tapOff = new Button("Tap Off");
 		Button endTrip = new Button("End Trip");
+		tapOn.setOnAction(new ContinueTripHandler());
+		tapOff.setOnAction(new ContinueTripHandler());
+		endTrip.setOnAction(new ContinueTripHandler());
 		
 		
 		ObservableList<Location> oList = FXCollections.observableArrayList();
-		oList.addAll(start.getAllDestinations());
+		
+		//oList.addAll(start.getAllDestinations());
 		//oList.addAll(start.getAllDestinations());
 		// START.GETALLDEST IS NOT WORKING HERE BUT IS WORKING FINE IN 
-		System.out.println("IS IT WORKING????" + start.getAllDestinations());
-		System.out.println("onroutes " + start.getOnRoutes());
+		//System.out.println("IS IT WORKING????" + start.getAllDestinations());
+		//System.out.println("onroutes " + start.getOnRoutes());
 		//for (Location l : start.getAllDestinations()) {
 			//oList.add(l);
 			//System.out.println(l.getLocation());
 		//}
-		ObservableList<Location> injuctionList = FXCollections.observableArrayList();
+		//ObservableList<Location> injuctionList = FXCollections.observableArrayList();
+		if (currL instanceof Stop) {
+			for (TransitRoutes r : busRoutes) {
+				boolean found = false;
+				for (Location l : r.getRoute()) {
+					if (found) {
+						oList.add(l);
+					}
+					if (l.getLocation().equals(currL.getLocation())) {
+						found = true;
+					}
+				}
+			}
+		}
+		else {
+			for (TransitRoutes r : subwayRoutes) {
+				//boolean found = false;
+				for (Location l : r.getRoute()) {
+					if (!l.getLocation().equals(currL.getLocation())) {
+						oList.add(l);
+					}
+					//if (l.getLocation().equals(currL.getLocation())) {
+						//found = true;
+					//}
+				}
+			}
+		}
+		ObservableList<Location> oList2 = FXCollections.observableArrayList();
+		for (Location l : oList) {
+			//Location stop = stops.get(l.getLocation());
+			//Location station = stations.get(l.getLocation());
+			if (l instanceof Stop && l.getAtInjuction()) {
+				Station station = stations.get(l.getLocation());
+				oList2.add(station);
+			}
+			if (l instanceof Station && l.getAtInjuction()) {
+				Stop stop = stops.get(l.getLocation());
+				oList2.add(stop);
+			}
+		}
+		oList.addAll(oList2);
+		//System.out.println(oList2);
+		
+		//System.out.println(oList);
 		/**
 		for (Location l : oList) {
 			if (l.getAtInjuction()) {
@@ -647,6 +696,11 @@ public class TransitGui extends Application {
 		}
 		*/
 		ComboBox<Location> posibleDest = new ComboBox<Location>(oList);
+		
+		
+		tapOn.setOnAction(new ContinueTripHandler());
+		tapOff.setOnAction(new ContinueTripHandler());
+		endTrip.setOnAction(new ContinueTripHandler());
 		
 		HBox tap = new HBox();
 		tap.setAlignment(Pos.CENTER);
