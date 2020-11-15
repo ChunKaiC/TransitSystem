@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -94,24 +95,6 @@ public class Writer {
             line = line + Integer.toString(schedule.get(i).getHour())+"," + Integer.toString(schedule.get(i).getMinute());
         }
         pw.println(line);
-        pw.close();
-    }
-    
-    public static void writeEvent(String email, Trip t) throws IOException {
-    	File eventFile = new File("Resources/events.txt");
-        FileWriter writeEventFile = new FileWriter(eventFile, true);
-        PrintWriter pw = new PrintWriter(writeEventFile);
-        String line = "";
-        for(int i= 0; i < t.getLocations().size(); i++) {
-        	if(t.getLocations().get(i) instanceof Stop) {
-        		line = line + ",!"+  t.getLocations().get(i).getLocation();
-        	}
-        	else {
-        		line = line + ",?"+  t.getLocations().get(i).getLocation();
-        	}
-        	
-        }
-        pw.println(email+","+ Double.toString(t.getMoneySpentOnTrip()) + "," + Integer.toString(t.getTimeOnTrip())+line);
         pw.close();
     }
     
@@ -219,6 +202,18 @@ public class Writer {
         for(TransitRoutes route: lst) {
         	writeSubwayRoute(route);
         }
+    }
+    
+    public static void writeEvent(String tap, String location, LocalDateTime time, String email) throws IOException{
+    	File eventFile = new File("Resources/events.txt");
+        FileWriter writeEvent = new FileWriter(eventFile, true);
+        PrintWriter pw = new PrintWriter(writeEvent);
+        String line = tap + "," + location + "," + time.getYear() + "," + time.getMonthValue() + "," + 
+        		time.getDayOfMonth() + "," + time.getHour() + "," + time.getHour() + "," + email;
+        		
+        pw.println(line);
+        pw.close();
+    	
     }
     
     
