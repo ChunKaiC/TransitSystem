@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -23,14 +24,15 @@ public class Writer {
 //        TransitRoutes route = new TransitRoutes("Route number 100", new ArrayList<Location>(Arrays.asList(station, station2)), new ArrayList<LocalTime>(Arrays.asList(t1, t2)));
 //
 //		removeCardHolder(c.get("BogMan@CS.com"));
-        String email = "IlirDema@IFuckingSuckAtMyJob.shodowRealm";
+        StartUp.main();
+//        System.out.println(StartUp.subwayRoutes.get(0).getRoute());
+//        System.out.println(StartUp.cards.get("parlefrancais@gmail.com"));
+//        StartUp.cards.get("parlefrancais@gmail.com").get(0).desactivate();
+//        Card temp = StartUp.cards.get("parlefrancais@gmail.com").get(0);
+//        removeCard(StartUp.cards.get("parlefrancais@gmail.com").get(0), StartUp.cardHolders.get("parlefrancais@gmail.com"));
+//        writeCard("parlefrancais@gmail.com", Double.toString(temp.getBalance()), Integer.toString(temp.getCard_id()), temp.isActivated(), temp.getTimeInitialized());
+//        System.out.println(StartUp.cards.get("parlefrancais@gmail.com"));
         
-        Trip t = new Trip();
-        t.addLocation(new Stop("Shadow Realm", false));
-        t.addLocation(new Station("We made it to the shaw realm", false));
-        t.addMoneySpentOnTrip(2);
-        t.addTimeToTrip(100000);
-        writeEvent(email, t);
     }
 	
 	
@@ -42,11 +44,13 @@ public class Writer {
         pw.close();
     }
 
-    public static void writeCard(String email, String balance, String id, boolean active) throws IOException{
+    public static void writeCard(String email, String balance, String id, boolean active, LocalDate date) throws IOException{
         File cardFile = new File("Resources/Cards.txt");
         FileWriter writeCard = new FileWriter(cardFile, true);
         PrintWriter pw = new PrintWriter(writeCard);
-        pw.println(email + "," + balance + "," + id + ","+Boolean.toString(active));
+        pw.println(email + "," + balance + "," + id + ","+Boolean.toString(active)
+        +Integer.toString(date.getYear()) +"-"+ Integer.toString(date.getMonthValue()) 
+        + "-" + Integer.toString(date.getDayOfMonth()));
         pw.close();
     }
 
@@ -140,86 +144,87 @@ public class Writer {
     
     //Removing methods
     public static void removeCardHolder(CardHolder client) throws IOException {
-    	HashMap<String, CardHolder> holders = StartUp.loadCardHolders();
-    	holders.remove(client.getEmail());
+    	StartUp.cardHolders.remove(client.getEmail());
     	FileWriter fw = new FileWriter("Resources/CardHolders.txt", false); 
         PrintWriter pw = new PrintWriter(fw, false);
         pw.flush();;
         pw.close();
         fw.close();
-    	for(String key: holders.keySet()) {
-    		writeCardHolder(holders.get(key));
+    	for(String key: StartUp.cardHolders.keySet()) {
+    		writeCardHolder(StartUp.cardHolders.get(key));
     	}
+    	StartUp.main();
     }
     
     public static void removeCard(Card c, CardHolder client) throws IOException{
-    	HashMap<String, ArrayList<Card>> cards = StartUp.loadCards();
-    	cards.get(client.getEmail()).remove(c);
+    	StartUp.cards.get(client.getEmail()).remove(c);
     	FileWriter fw2 = new FileWriter("Resources/Cards.txt", false); 
         PrintWriter pw2 = new PrintWriter(fw2, false);
         pw2.flush();
         pw2.close();
         fw2.close();
-        for(String key: cards.keySet()) {
-    		for(Card card: cards.get(key)) {
-    			writeCard(key,Double.toString(card.getBalance()) , Integer.toString(card.getCard_id()), card.isActivated());
+        for(String key: StartUp.cards.keySet()) {
+    		for(Card card: StartUp.cards.get(key)) {
+    			writeCard(key,Double.toString(card.getBalance()) , Integer.toString(card.getCard_id()), card.isActivated(), card.getTimeInitialized());
     		}
     	}
+        StartUp.main();
     	
     }
     
     
     public static void removeBusStop(Stop busStop) throws IOException{
-    	HashMap<String, Stop> stops = StartUp.loadStops();
-    	stops.remove(busStop.getLocation());
+    	StartUp.stops.remove(busStop.getLocation());
     	FileWriter fw = new FileWriter("Resources/BusStops.txt", false); 
         PrintWriter pw = new PrintWriter(fw, false);
         pw.flush();;
         pw.close();
         fw.close();
-        for(String key: stops.keySet()) {
-        	writeBusStop(stops.get(key));
+        for(String key: StartUp.stops.keySet()) {
+        	writeBusStop(StartUp.stops.get(key));
         }
+        StartUp.main();
     }
     
     public static void removeStation(Station station) throws IOException{
-    	HashMap<String, Station> stations = StartUp.loadStation();
-    	stations.remove(station.getLocation());
+    	StartUp.stations.remove(station.getLocation());
     	FileWriter fw = new FileWriter("Resources/Stations.txt", false); 
         PrintWriter pw = new PrintWriter(fw, false);
         pw.flush();;
         pw.close();
         fw.close();
-        for(String key: stations.keySet()) {
-        	writeStation(stations.get(key));
+        for(String key: StartUp.stations.keySet()) {
+        	writeStation(StartUp.stations.get(key));
         }
+        StartUp.main();
     }
     
     
     public static void removeBusRoute(TransitRoutes busRoute) throws IOException{
-    	ArrayList<TransitRoutes> lst = StartUp.loadBusRoutes();
-    	lst.remove(busRoute);
+    	
+    	StartUp.busRoutes.remove(busRoute);
     	FileWriter fw = new FileWriter("Resources/BusRoutes.txt", false); 
         PrintWriter pw = new PrintWriter(fw, false);
         pw.flush();;
         pw.close();
         fw.close();
-        for(TransitRoutes route: lst) {
+        for(TransitRoutes route: StartUp.busRoutes) {
         	writesBusRoute(route);
         }
+        StartUp.main();
     }
     
     public static void removeSubwayRoute(TransitRoutes subwayRoute) throws IOException{
-    	ArrayList<TransitRoutes> lst = StartUp.loadSubwayRoute();
-    	lst.remove(subwayRoute);
+    	StartUp.subwayRoutes.remove(subwayRoute);
     	FileWriter fw = new FileWriter("Resources/StationRoutes.txt", false); 
         PrintWriter pw = new PrintWriter(fw, false);
         pw.flush();;
         pw.close();
         fw.close();
-        for(TransitRoutes route: lst) {
+        for(TransitRoutes route: StartUp.subwayRoutes) {
         	writeSubwayRoute(route);
         }
+        StartUp.main();
     }
     
     public static void writeEvents(String tap, String location, LocalDateTime time, String email) throws IOException{

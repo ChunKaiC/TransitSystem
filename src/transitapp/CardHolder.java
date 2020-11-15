@@ -27,8 +27,8 @@ public class CardHolder {
         this.name = name;
         this.email = email;
         this.onRoute = false;
-        this.cards.add(new Card());
         this.currTrip = null;
+        this.cards.add(new Card(LocalDate.now()));
         this.tapOnLocation = null;
         this.tapOffLocation = null;
     }
@@ -40,8 +40,7 @@ public class CardHolder {
      */
     public void add10toCard(int card_id) {
         Card card = findCard(this.cards, card_id);
-        card.addBalance(10);
-        AdminUser.addRevenue(10);
+        card.addBalance(10, LocalDate.now());
     }
 
     /**
@@ -51,8 +50,7 @@ public class CardHolder {
      */
     public void add20toCard(int card_id) {
         Card card = findCard(this.cards, card_id);
-        card.addBalance(20);
-        AdminUser.addRevenue(50);
+        card.addBalance(20, LocalDate.now());
     }
 
     /**
@@ -62,8 +60,7 @@ public class CardHolder {
      */
     public void add50toCard(int card_id) {
         Card card = findCard(this.cards, card_id);
-        card.addBalance(50);
-        AdminUser.addRevenue(50);
+        card.addBalance(50, LocalDate.now());
     }
 
     /**
