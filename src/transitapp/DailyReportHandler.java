@@ -26,6 +26,9 @@ public class DailyReportHandler implements EventHandler<ActionEvent> {
 		if(this.tf.getText().equals("")) {
 			this.tf.setText("Please enter a valid Input");
 		}
+		else if(this.tf.getText().equals("Please enter a valid Input")) {
+			this.tf.setText("Please enter a valid Input");
+		}
 		else {
 			String[] data = tf.getText().split("-");
 			LocalDate ld = LocalDate.of(Integer.parseInt(data[0]) , Integer.parseInt(data[1]), Integer.parseInt(data[2]));
