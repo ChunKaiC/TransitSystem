@@ -22,13 +22,13 @@ public class StartUp {
 		public static HashMap<String, ArrayList<Card>> cards;
 		
 		
-		public static void main(String[] arg0) throws FileNotFoundException {
+		public static void main() throws FileNotFoundException {
 		HashMap<String, Stop> stops = loadStops();
 		HashMap<String, Station> stations = loadStation();
 		ArrayList<TransitRoutes> busRoutes = loadBusRoutes();
 		ArrayList<TransitRoutes> subwayRoutes = loadSubwayRoute();
-		HashMap<String, CardHolder> cardHolders= loadCardHolders();
 		HashMap<String, ArrayList<Card>> cards = loadCards();
+		HashMap<String, CardHolder> cardHolders= loadCardHolders(cards);
 		
 		loadSettings();
 		loadEvents(cardHolders, stops, stations);
@@ -138,10 +138,9 @@ public class StartUp {
 	 * @return A HashMap of CardHolders, keyed by name
 	 * @throws FileNotFoundException
 	 */
-	public static HashMap<String, CardHolder> loadCardHolders() throws FileNotFoundException{
+	public static HashMap<String, CardHolder> loadCardHolders(HashMap<String, ArrayList<Card>> updatedCards) throws FileNotFoundException{
 		loadSettings();
 		HashMap<String, CardHolder> cardHolders = new HashMap<String, CardHolder>();
-		HashMap<String, ArrayList<Card>> updatedCards = loadCards();
 		BufferedReader fileCardHolders = new BufferedReader(new FileReader("Resources/CardHolders.txt"));
 		Scanner scanCardHolders = new Scanner(fileCardHolders);
 		
