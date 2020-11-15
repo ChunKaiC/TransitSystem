@@ -219,7 +219,9 @@ public class CardHolder {
             if (location instanceof Stop) {
             	
             	if (this.currTrip.getMoneySpentOnTrip() == this.currTrip.getMaxCost()) {
+            		if (!load) {
             		Writer.writeEvent("tapOn", "?" + location.getLocation(), time, this.email);
+            		}
             		return true;
                     	
             	} else if (this.currTrip.getMoneySpentOnTrip() < this.currTrip.getMaxCost()) {
@@ -229,19 +231,25 @@ public class CardHolder {
             				current_card.deductFare(findFare(location));
             			}
                         this.currTrip.addMoneySpentOnTrip(findFare(location));
-                        Writer.writeEvent("tapOn", "?" + location.getLocation(), time, this.email);
+                        if (!load) {
+                    		Writer.writeEvent("tapOn", "?" + location.getLocation(), time, this.email);
+                    	}
                         return true;
             		} else {
             			if (!load) {
             				current_card.deductFare(this.currTrip.getMaxCost() - this.currTrip.getMoneySpentOnTrip());
             			}
                         this.currTrip.addMoneySpentOnTrip(this.currTrip.getMaxCost() - this.currTrip.getMoneySpentOnTrip());
-                        Writer.writeEvent("tapOn", "?" + location.getLocation(), time, this.email);
+                        if (!load) {
+                    		Writer.writeEvent("tapOn", "?" + location.getLocation(), time, this.email);
+                    	}
                         return true;
             		}
             	}
             }
-            Writer.writeEvent("tapOn", "!" + location.getLocation(), time, this.email);
+            if (!load) {
+        		Writer.writeEvent("tapOn", "?" + location.getLocation(), time, this.email);
+        	}
             return true;
         }
         return false;
@@ -289,7 +297,9 @@ public class CardHolder {
             if (!load) {
             	current_card.deductFare(cost);
             }
+            if (!load) {
             Writer.writeEvent("tapOff", "!" + location.getLocation(), time, this.email);
+            }
             this.currTrip.updateTimeOnTrip();
             this.currTrip.addMoneySpentOnTrip(cost);
             this.tapOnLocation = null;
