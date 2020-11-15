@@ -41,6 +41,11 @@ public class AdminUser {
 	}
 	
 	
+	
+	/**
+	 * 
+	 * @return a hashmap of revenues by date
+	 */
 	public static HashMap<LocalDate, Double> getMonthlyRev(){
 		return AdminUser.monthlyRevenue;
 	}
