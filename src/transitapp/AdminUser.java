@@ -107,6 +107,8 @@ public class AdminUser {
 				}
 			}
 		}
+		
+		revenue /= 2;
 
 		line = "Report " + getTransitName() + "'s summary for " + date + ":\n\n" + "Number of rides: " + rides
 				+"\n\nTotal revenue: $" +  df2.format(revenue) + "\n\nBus Routes: (Fare : " +  df2.format(TransitRoutes.getBusFare()) + ")";
