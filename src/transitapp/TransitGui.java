@@ -300,6 +300,7 @@ public class TransitGui extends Application {
 		Button twenty = new Button("Add $20 To Balance");
 		Button fifty = new Button("Add $50 To Balance");
 		ComboBox<Card> balanceList = new ComboBox<Card>(cList);
+		
 		ten.setOnAction(new BalanceHandler(balanceList, user));
 		twenty.setOnAction(new BalanceHandler(balanceList, user));
 		fifty.setOnAction(new BalanceHandler(balanceList, user));
@@ -413,7 +414,7 @@ public class TransitGui extends Application {
 		back2.setImage(back);
 		pane.getChildren().add(back2);
 		l.setTextFill(Color.web("#fbfbfb"));
-		
+		l.setAlignment(Pos.BOTTOM_CENTER);
 		//All Buttons
 		Button go = new Button("GO");
 		Button backButton = new Button("Back");
@@ -434,6 +435,7 @@ public class TransitGui extends Application {
         gp.setTranslateY(300);
         vb.getChildren().add(backButton);
         vb.getChildren().add(gp);
+        vb.getChildren().add(l);
         pane.getChildren().add(vb);
         
         

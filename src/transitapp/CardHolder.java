@@ -33,6 +33,15 @@ public class CardHolder {
         this.tapOnLocation = null;
         this.tapOffLocation = null;
     }
+    
+    public CardHolder(String name, String email, boolean s) {
+    	this.name = name;
+        this.email = email;
+        this.onRoute = false;
+        this.currTrip = null;
+        this.tapOnLocation = null;
+        this.tapOffLocation = null;
+    }
 
     /**
      * Add $10 to one of this CardHolder's cards

@@ -5,4 +5,4 @@ DannyBadBoi@Yessir.com,4.0,5,true,2019-11-12
 BogMan@CS.com,12.0,2,true,2019-11-11
 parlefrancais@gmail.com,20.0,6,true,2020-11-29
 MathMatician@algebra.com,36.0,3,true,2019-10-25
-parlefrancais@gmail.com,25.0,1,true,2019-10-12
+parlefrancais@gmail.com,19.0,1,true,2019-11-2

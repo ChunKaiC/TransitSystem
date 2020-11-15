@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.text.DecimalFormat;
 
 public class AdminUser {
-	private static String transitName;
+	private static String transitName = "UTM Metro";
 	private static double totalRevenue;
 	private static HashMap<LocalDate, Double> monthlyRevenue = new HashMap<LocalDate, Double>();
 	private static double totalCost;
@@ -41,6 +41,11 @@ public class AdminUser {
 	}
 	
 	
+	
+	/**
+	 * 
+	 * @return a hashmap of revenues by date
+	 */
 	public static HashMap<LocalDate, Double> getMonthlyRev(){
 		return AdminUser.monthlyRevenue;
 	}
@@ -87,8 +92,8 @@ public class AdminUser {
 		double revenue = 0;
 		String line = "";
 		int rides = 0;
-		if(AdminUser.monthlyRevenue.containsKey(LocalDate.of(date.getYear(), date.getMonth(), 1))) {
-			revenue= AdminUser.monthlyRevenue.get(LocalDate.of(date.getYear(), date.getMonth(), 1));
+		if(AdminUser.monthlyRevenue.containsKey(LocalDate.of(date.getYear(), date.getMonth(), date.getDayOfMonth()))) {
+			revenue= AdminUser.monthlyRevenue.get(LocalDate.of(date.getYear(), date.getMonth(), date.getDayOfMonth()));
 		}
 		
 		
@@ -103,14 +108,14 @@ public class AdminUser {
 			}
 		}
 
-		line = "Report " + getTransitName() + "'s summary for " + date + ":\n" + "Number of rides: " + rides
-				+"\nTotal revenue: $" +  df2.format(revenue) + "\nBus Routes: (Fare : " +  df2.format(TransitRoutes.getBusFare()) + ")";
+		line = "Report " + getTransitName() + "'s summary for " + date + ":\n\n" + "Number of rides: " + rides
+				+"\n\nTotal revenue: $" +  df2.format(revenue) + "\n\nBus Routes: (Fare : " +  df2.format(TransitRoutes.getBusFare()) + ")";
 		for (TransitRoutes busRoute : StartUp.busRoutes) {
-			line = line + "\nRoute: " + busRoute.getName();
+			line = line + "\n\nRoute: " + busRoute.getName();
 		}
-		System.out.println("\nBus Routes: (Fare : " +  df2.format(TransitRoutes.getSubwayFare()) + ")");
+		System.out.println("\n\nBus Routes: (Fare : " +  df2.format(TransitRoutes.getSubwayFare()) + ")");
 		for (TransitRoutes subRoute : StartUp.subwayRoutes) {
-			line = line + "\nRoute: " + subRoute.getName();
+			line = line + "\n\nRoute: " + subRoute.getName();
 		}
 
 		return line;
@@ -122,7 +127,7 @@ public class AdminUser {
 	 */
 	public static void addRevenue(double rev, LocalDate date) {
 		totalRevenue += rev;
-		LocalDate key = LocalDate.of(date.getYear(), date.getMonth(), 1);
+		LocalDate key = LocalDate.of(date.getYear(), date.getMonth(), date.getDayOfMonth());
 		if(AdminUser.monthlyRevenue.containsKey(key)) {
 			AdminUser.monthlyRevenue.put(key, rev + AdminUser.monthlyRevenue.get(key));
 		}else {

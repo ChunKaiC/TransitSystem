@@ -65,7 +65,7 @@ public class LoginHandler implements EventHandler<ActionEvent>{
 			}
 		}
 		if (source.equals("Admin Log In")) {
-			if (adminId.getText().equals("Please Give Us 100% TA"))
+			if (adminId.getText().equals("A"))
 			this.obj.adminUI(this.stage, new Label(""));
 		}
 	}
