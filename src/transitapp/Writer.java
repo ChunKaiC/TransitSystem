@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+/**
+ * This class writes existing data in their corresponding 
+ * text file.
+ */
 public class Writer {
     public static void main(String[] args) throws IOException{
 //    	HashMap<String, CardHolder> c = StartUp.loadCardHolders();
@@ -35,7 +39,11 @@ public class Writer {
 //        
     }
 	
-	
+	/**
+	 * This method writes information about a CardHolders to CardHolder.txt.
+	 * @param client CardHolder representing the information to write to CardHolder.txt 
+	 * @throws IOException
+	 */
     public static void writeCardHolder(CardHolder client) throws IOException {
         File cardHolderFile = new File("Resources/CardHolders.txt");
         FileWriter writeCardHolders = new FileWriter(cardHolderFile, true);
@@ -44,6 +52,15 @@ public class Writer {
         pw.close();
     }
 
+    /**
+     * This method writes information about a Card to Card.txt
+     * @param email String representing the email that owns this card
+     * @param balance String representing the money in the card
+     * @param id String representing the id for the card
+     * @param active boolean representing whether the card is active or not
+     * @param date LocatDate representing when the card was issued
+     * @throws IOException
+     */
     public static void writeCard(String email, String balance, String id, boolean active, LocalDate date) throws IOException{
         File cardFile = new File("Resources/Cards.txt");
         FileWriter writeCard = new FileWriter(cardFile, true);
@@ -54,6 +71,11 @@ public class Writer {
         pw.close();
     }
 
+    /**
+     * This method writes information of a busStop to BusStop.txt
+     * @param busStop Stop representing the busStop to be written
+     * @throws IOException
+     */
     public static void writeBusStop(Stop busStop) throws IOException{
         File busStopFile = new File("Resources/BusStops.txt");
         FileWriter writeBusStop = new FileWriter(busStopFile, true);
@@ -63,6 +85,11 @@ public class Writer {
 
     }
 
+    /**
+     * This method writes information of a station to Station.txt
+     * @param station Station representing the station to be written
+     * @throws IOException
+     */
     public static void writeStation(Station station) throws IOException{
         File busStationsFile = new File("Resources/Stations.txt");
         FileWriter writeStationStop = new FileWriter(busStationsFile, true);
@@ -71,6 +98,11 @@ public class Writer {
         pw.close();
     }
 
+    /**
+     * This method writes information of a bus route to BusRoutes.txt
+     * @param route TransitRoutes representing the bus route to be written
+     * @throws IOException
+     */
     public static void writesBusRoute(TransitRoutes route) throws IOException{
 
         File busRoutesFile = new File("Resources/BusRoutes.txt");
@@ -87,6 +119,11 @@ public class Writer {
         pw.close();
     }
 
+    /**
+     * This method writes information of a subway route to StationRoutes.txt
+     * @param route TransitRoutes representing the subway route to be written
+     * @throws IOException
+     */
     public static void writeSubwayRoute(TransitRoutes route) throws IOException{
         File subwayRoutesFile = new File("Resources/StationRoutes.txt");
         FileWriter writeSubwayRoutes = new FileWriter(subwayRoutesFile, true);
@@ -102,6 +139,13 @@ public class Writer {
         pw.close();
     }
     
+    /**
+     * This method writes fares to Settings.txt. If indication is true, write the bus fare.
+     * Otherwise, write the subway fare.
+     * @param fare double fare representing fare
+     * @param indication boolean representing which fare to be written
+     * @throws IOException
+     */
     public static void writeFare(double fare, boolean indication) throws IOException {
     	File settingsFile = new File("Resources/Settings.txt");
         FileWriter writeSettingsFile = new FileWriter(settingsFile);
@@ -121,7 +165,11 @@ public class Writer {
     }
     
     
-    //Removing methods
+    /**
+     * This method removes the specified CardHolder (client) from CardHolder.txt
+     * @param client CardHolder representing the client to be removed
+     * @throws IOException
+     */
     public static void removeCardHolder(CardHolder client) throws IOException {
     	StartUp.cardHolders.remove(client.getEmail());
     	FileWriter fw = new FileWriter("Resources/CardHolders.txt", false); 
@@ -133,6 +181,12 @@ public class Writer {
     	}
     }
     
+    /**
+     * This method removes the specified Card (c) owned by CardHolder (client) from Cards.txt
+     * @param c Card representing the card to be removed
+     * @param client CardHolder representing the CardHolder that own Card (c)
+     * @throws IOException
+     */
     public static void removeCard(Card c, CardHolder client) throws IOException{
     	StartUp.cards.get(client.getEmail()).remove(c);
     	FileWriter fw2 = new FileWriter("Resources/Cards.txt", false); 
@@ -149,7 +203,11 @@ public class Writer {
     	
     }
     
-    
+    /**
+     * This method removes the specified busStop from BusStop.txt
+     * @param busStop Stop representing the busStop to be removed
+     * @throws IOException
+     */
     public static void removeBusStop(Stop busStop) throws IOException{
     	StartUp.stops.remove(busStop.getLocation());
     	FileWriter fw = new FileWriter("Resources/BusStops.txt", false); 
@@ -161,6 +219,11 @@ public class Writer {
         }
     }
     
+    /**
+     * This method removes the specified station from Stations.txt
+     * @param station Station representing the station to be removed
+     * @throws IOException
+     */
     public static void removeStation(Station station) throws IOException{
     	StartUp.stations.remove(station.getLocation());
     	FileWriter fw = new FileWriter("Resources/Stations.txt", false); 
@@ -172,7 +235,11 @@ public class Writer {
         }
     }
     
-    
+    /**
+     * This method removes the specified bus route from BusRoutes.txt
+     * @param busRoute TransitRoutes representing the bus route to be removed
+     * @throws IOException
+     */
     public static void removeBusRoute(TransitRoutes busRoute) throws IOException{
     	
     	StartUp.busRoutes.remove(busRoute);
@@ -185,6 +252,11 @@ public class Writer {
         }
     }
     
+    /**
+     * This method removes the specified subway route from StationRoute.txt
+     * @param subwayRoute TransitRoutes representing the subway route to be removed
+     * @throws IOException
+     */
     public static void removeSubwayRoute(TransitRoutes subwayRoute) throws IOException{
     	StartUp.subwayRoutes.remove(subwayRoute);
     	FileWriter fw = new FileWriter("Resources/StationRoutes.txt", false); 
@@ -196,6 +268,15 @@ public class Writer {
         }
     }
     
+    /**
+     * This method writes when a tapOn or tapOff event occurs to events.txt
+     * @param tap String representing tapOn or tapOff
+     * @param location String representing the name of the location where the event occurred
+     * @param card_id int representing the card_id used to tapOn and tapOff
+     * @param time LocalDateTime representing the when the event occurred
+     * @param email String representing the email the CardHolder authorizing the event
+     * @throws IOException
+     */
     public static void writeEvent(String tap, String location, int card_id, LocalDateTime time, String email) throws IOException{
     	File eventFile = new File("Resources/events.txt");
         FileWriter writeEvent = new FileWriter(eventFile, true);
