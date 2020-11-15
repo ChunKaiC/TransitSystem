@@ -256,7 +256,7 @@ public class CardHolder {
             	}
             }
             if (!load) {
-        		Writer.writeEvent("tapOn", "?" + location.getLocation(), card_id, time, this.email);
+        		Writer.writeEvent("tapOn", "!" + location.getLocation(), card_id, time, this.email);
         	}
             return true;
         }
