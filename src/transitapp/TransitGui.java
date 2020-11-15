@@ -1,6 +1,7 @@
 package transitapp;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -299,9 +300,9 @@ public class TransitGui extends Application {
 		Button twenty = new Button("Add $20 To Balance");
 		Button fifty = new Button("Add $50 To Balance");
 		ComboBox<Card> balanceList = new ComboBox<Card>(cList);
-		ten.setOnAction(new balanceHandler(balanceList, user));
-		twenty.setOnAction(new balanceHandler(balanceList, user));
-		fifty.setOnAction(new balanceHandler(balanceList, user));
+		ten.setOnAction(new BalanceHandler(balanceList, user));
+		twenty.setOnAction(new BalanceHandler(balanceList, user));
+		fifty.setOnAction(new BalanceHandler(balanceList, user));
 		
 		
 		VBox add = new VBox(balanceList, ten, twenty, fifty);
@@ -547,11 +548,11 @@ public class TransitGui extends Application {
 		stage.show();
 	}
 
-	public void continueTrip(Stage stage, Card selectedCard, Location start, CardHolder user) throws FileNotFoundException {
+	public void continueTrip(Stage stage, Card selectedCard, Location start, CardHolder user) throws IOException {
 		
-		
-		//HashMap<String, Stop> stops = StartUp.loadStops();
-		//HashMap<String, Station> station = StartUp.loadStation();
+		StartUp.main();
+		HashMap<String, Stop> stops = StartUp.stops;
+		HashMap<String, Station> station = StartUp.stations;
 		ArrayList<TransitRoutes> busRoutes = StartUp.busRoutes;
 		ArrayList<TransitRoutes> subwayRoutes = StartUp.subwayRoutes;
 		//System.out.println(Stop.getAllStops());
@@ -610,8 +611,8 @@ public class TransitGui extends Application {
 		oList.addAll(start.getAllDestinations());
 		//oList.addAll(start.getAllDestinations());
 		// START.GETALLDEST IS NOT WORKING HERE BUT IS WORKING FINE IN 
-		//System.out.println(start.getAllDestinations());
-		System.out.println(start.getOnRoutes());
+		System.out.println("IS IT WORKING????" + start.getAllDestinations());
+		System.out.println("onroutes " + start.getOnRoutes());
 		//for (Location l : start.getAllDestinations()) {
 			//oList.add(l);
 			//System.out.println(l.getLocation());
