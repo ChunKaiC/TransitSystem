@@ -205,9 +205,9 @@ public class Trip {
      * @return A string representation of the trip
      */
     public String toString() {
-    	StringBuilder string = new StringBuilder(this.startTime.getMonth().getValue() + "/" +
-                this.startTime.getDayOfWeek().getValue() + "/" +
-                this.startTime.getYear() + ",");
+    	StringBuilder string = new StringBuilder(this.getTimes().get(0).getMonth().getValue() + "/" +
+                this.getTimes().get(0).getDayOfWeek().getValue() + "/" +
+                this.getTimes().get(0).getYear() + ",");
     	
     	for (int i = 0; i < this.locationsTravelled.size(); i++) {
     		if (i != this.locationsTravelled.size() - 1) {
