@@ -21,7 +21,7 @@ public class CardHolder {
 
     /**
      * The constructor for CardHolder
-     * @param name: This CardHolder's bane
+     * @param name: This CardHolder's name
      * @param email: This CardHolder's email address
      */
     public CardHolder(String name, String email) {
