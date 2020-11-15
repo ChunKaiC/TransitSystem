@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -219,6 +220,18 @@ public class Writer {
         for(TransitRoutes route: lst) {
         	writeSubwayRoute(route);
         }
+    }
+    
+    public static void writeEvents(String tap, String location, LocalDateTime time, String email) throws IOException{
+    	File eventFile = new File("Resources/events.txt");
+        FileWriter writeEvent = new FileWriter(eventFile, true);
+        PrintWriter pw = new PrintWriter(writeEvent);
+        String line = tap + "," + location + "," + time.getYear() + "," + time.getMonthValue() + "," + 
+        		time.getDayOfMonth() + "," + time.getHour() + "," + time.getHour() + "," + email;
+        		
+        pw.println(line);
+        pw.close();
+    	
     }
     
     
