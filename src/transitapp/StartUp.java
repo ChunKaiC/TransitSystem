@@ -3,6 +3,7 @@ package transitapp;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -202,10 +203,10 @@ public class StartUp {
 	 * @param cardHolders A HashMap of the existing card holders
 	 * @param stops A HashMap of the existing bus stops
 	 * @param stations A HashMap of the existing subway stations
-	 * @throws FileNotFoundException
+	 * @throws IOException 
 	 */
 	public static void loadEvents(HashMap<String, CardHolder> cardHolders,
-			HashMap<String, Stop> stops, HashMap<String, Station> stations) throws FileNotFoundException{
+			HashMap<String, Stop> stops, HashMap<String, Station> stations) throws IOException{
 		
 		BufferedReader fileEvents = new BufferedReader(new FileReader("Resources/events.txt"));
 		Scanner scanEvents = new Scanner(fileEvents);
