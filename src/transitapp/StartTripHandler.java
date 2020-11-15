@@ -1,6 +1,7 @@
 package transitapp;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -31,13 +32,17 @@ public class StartTripHandler implements EventHandler<ActionEvent>{
 		// TODO Auto-generated method stub
 		//System.out.println(((Button) arg0.getSource()).getText());
 		//System.out.println(this.lList.getValue());
-		if (((Button) arg0.getSource()).getText().equals("Start Trip")) {
+		if (((Button) arg0.getSource()).getText().equals("Start Trip") &&
+				this.cardList.getValue() instanceof Card && this.lList.getValue() instanceof Location) {
 			// pass in location chosen and card chosen 
 			Card selectedCard = this.cardList.getValue();
 			Location start = this.lList.getValue();
 			try {
 				this.obj.continueTrip(this.stage, selectedCard, start, this.user);
 			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
