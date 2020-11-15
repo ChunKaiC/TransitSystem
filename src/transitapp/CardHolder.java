@@ -4,6 +4,7 @@ package transitapp;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.io.IOException;
 import java.lang.Math;
 import java.time.LocalDateTime;
 
@@ -177,8 +178,9 @@ public class CardHolder {
      * @param card_id: the id of the card used to tap on
      * @param time: the time at which they tap on including the year, month, day, hour and minute
      * @return whether the tapOn was successful: Must have enough money and have the card activated
+     * @throws IOException 
      */
-    public boolean tapOn(Location location, int card_id, LocalDateTime time,  boolean load) {
+    public boolean tapOn(Location location, int card_id, LocalDateTime time,  boolean load) throws IOException {
         Card current_card = cards.get(card_id); // Must be able to get card from the list based on its id.
 
         if (!current_card.isActivated()) {
@@ -214,7 +216,10 @@ public class CardHolder {
             if (location instanceof Stop) {
             	
             	if (this.currTrip.getMoneySpentOnTrip() == this.currTrip.getMaxCost()) {
-                    	return true;
+            		if (!load) {
+            		Writer.writeEvent("tapOn", "?" + location.getLocation(), card_id, time, this.email);
+            		}
+            		return true;
                     	
             	} else if (this.currTrip.getMoneySpentOnTrip() < this.currTrip.getMaxCost()) {
             		if (this.currTrip.getMoneySpentOnTrip() - findFare(location) <= this.currTrip.getMaxCost()) {
@@ -223,16 +228,25 @@ public class CardHolder {
             				current_card.deductFare(findFare(location));
             			}
                         this.currTrip.addMoneySpentOnTrip(findFare(location));
+                        if (!load) {
+                    		Writer.writeEvent("tapOn", "?" + location.getLocation(), card_id, time, this.email);
+                    	}
                         return true;
             		} else {
             			if (!load) {
             				current_card.deductFare(this.currTrip.getMaxCost() - this.currTrip.getMoneySpentOnTrip());
             			}
                         this.currTrip.addMoneySpentOnTrip(this.currTrip.getMaxCost() - this.currTrip.getMoneySpentOnTrip());
+                        if (!load) {
+                    		Writer.writeEvent("tapOn", "?" + location.getLocation(), card_id, time, this.email);
+                    	}
                         return true;
             		}
             	}
             }
+            if (!load) {
+        		Writer.writeEvent("tapOn", "?" + location.getLocation(), card_id, time, this.email);
+        	}
             return true;
         }
         return false;
@@ -244,8 +258,9 @@ public class CardHolder {
      * @param location: where the tap off occurs
      * @param card_id: the id of the card used to tap off (must be same as tap on card!)
      * @param time: the time at which they tap on including the year, month, day, hour and minute
+     * @throws IOException 
      */
-    public void tapOff(Station location, int card_id, LocalDateTime time, boolean load) {
+    public void tapOff(Station location, int card_id, LocalDateTime time, boolean load) throws IOException {
         // Only for subway stations
         Card current_card = findCard(this.cards, card_id); // Must be able to get card from the list based on its id.
         
@@ -278,6 +293,9 @@ public class CardHolder {
             
             if (!load) {
             	current_card.deductFare(cost);
+            }
+            if (!load) {
+            Writer.writeEvent("tapOff", "!" + location.getLocation(), card_id, time, this.email);
             }
             this.currTrip.updateTimeOnTrip();
             this.currTrip.addMoneySpentOnTrip(cost);

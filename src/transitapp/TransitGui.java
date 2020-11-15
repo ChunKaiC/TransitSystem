@@ -155,11 +155,11 @@ public class TransitGui extends Application {
 		//HashMap<String, Stop> stops = StartUp.loadStops();
 		//HashMap<String, Station> stations = StartUp.loadStation();
 		
-		this.UserUIAfter( stage, user, Stop.getAllStops(), Station.getAllStations());
+		this.UserUIAfter( stage, user, StartUp.stops, StartUp.stations);
 		
 	}
 	
-	public void userFunctionsUI(Stage stage, CardHolder user) throws FileNotFoundException {
+	public void userFunctionsUI(Stage stage, CardHolder user, HashMap<String, Stop> stops, HashMap<String, Station> stations) throws FileNotFoundException {
 		// show monthly cost
 		// show recent trips
 		// suspend or activate cards
@@ -181,21 +181,21 @@ public class TransitGui extends Application {
 		//begin.setPrefSize(prefWidth, prefHeight);
 		begin.setPrefSize(150, 75);
 		begin.setFont(new Font(20));
-		begin.setOnAction(new UserFunctionHandler(user, this, stage, Stop.getAllStops(), Station.getAllStations()));
+		begin.setOnAction(new UserFunctionHandler(user, this, stage, stops, stations));
 		Button suspend = new Button("Suspend Selected Card");
-		suspend.setOnAction(new UserFunctionHandler(user, this, stage, Stop.getAllStops(), Station.getAllStations()));
+		suspend.setOnAction(new UserFunctionHandler(user, this, stage, stops, stations));
 		//suspend.setOnAction(new UserFunctionHandler(user, null, stage, stops, stations));
 		suspend.setPrefWidth(150);
 		Button cname = new Button("Change Name");
 		
 		cname.setPrefWidth(150);
 		Button activate = new Button("Activate Selected Card");
-		activate.setOnAction(new UserFunctionHandler(user, this, stage, Stop.getAllStops(), Station.getAllStations()));
+		activate.setOnAction(new UserFunctionHandler(user, this, stage, stops, stations));
 		activate.setPrefWidth(150);
 		
 		// Text Field
 		TextField cNameTxt = new TextField();
-		cname.setOnAction(new UserFunctionHandler(cNameTxt, user, this, stage, Stop.getAllStops(), Station.getAllStations()));
+		cname.setOnAction(new UserFunctionHandler(cNameTxt, user, this, stage, stops, stations));
 		
 		// Show user data
 		CardHolder currUser = user;
@@ -300,8 +300,8 @@ public class TransitGui extends Application {
 	}
 	
 	
-	public void UserUIAfter(Stage stage, CardHolder user, ArrayList<Stop> stops,
-			ArrayList<Station> stations) throws FileNotFoundException {
+	public void UserUIAfter(Stage stage, CardHolder user, HashMap<String, Stop> stops,
+			HashMap<String, Station> stations) throws FileNotFoundException {
 		// TODO Auto-generated method stub
 		// do the same thing as userUI but dont load, just pass in stops and stations
 		//StartUp.loadBusRoutes();
@@ -317,14 +317,12 @@ public class TransitGui extends Application {
 		GridPane center = new GridPane();
 		
 		ObservableList<Location> oList = FXCollections.observableArrayList();
-		/**
 		for (Stop s : stops.values()) { 
 			oList.add(s);
 		}
 		for (Station s : stations.values()) { 
 			oList.add(s);
 		}
-		*/
 		ComboBox<Location> list = new ComboBox<Location>(oList);
 		list.setPrefSize(400, 30);
 		center.add(list, 1, 1);
@@ -538,7 +536,7 @@ public class TransitGui extends Application {
 		//HashMap<String, Station> station = StartUp.loadStation();
 		ArrayList<TransitRoutes> busRoutes = StartUp.busRoutes;
 		ArrayList<TransitRoutes> subwayRoutes = StartUp.subwayRoutes;
-		System.out.println(Stop.getAllStops());
+		//System.out.println(Stop.getAllStops());
 		
 		
 		

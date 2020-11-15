@@ -102,24 +102,6 @@ public class Writer {
         pw.close();
     }
     
-    public static void writeEvent(String email, Trip t) throws IOException {
-    	File eventFile = new File("Resources/events.txt");
-        FileWriter writeEventFile = new FileWriter(eventFile, true);
-        PrintWriter pw = new PrintWriter(writeEventFile);
-        String line = "";
-        for(int i= 0; i < t.getLocations().size(); i++) {
-        	if(t.getLocations().get(i) instanceof Stop) {
-        		line = line + ",!"+  t.getLocations().get(i).getLocation();
-        	}
-        	else {
-        		line = line + ",?"+  t.getLocations().get(i).getLocation();
-        	}
-        	
-        }
-        pw.println(email+","+ Double.toString(t.getMoneySpentOnTrip()) + "," + Integer.toString(t.getTimeOnTrip())+line);
-        pw.close();
-    }
-    
     public static void writeFare(double fare, boolean indication) throws IOException {
     	File settingsFile = new File("Resources/Settings.txt");
         FileWriter writeSettingsFile = new FileWriter(settingsFile, true);
@@ -227,11 +209,11 @@ public class Writer {
         StartUp.main();
     }
     
-    public static void writeEvents(String tap, String location, LocalDateTime time, String email) throws IOException{
+    public static void writeEvent(String tap, String location, int card_id, LocalDateTime time, String email) throws IOException{
     	File eventFile = new File("Resources/events.txt");
         FileWriter writeEvent = new FileWriter(eventFile, true);
         PrintWriter pw = new PrintWriter(writeEvent);
-        String line = tap + "," + location + "," + time.getYear() + "," + time.getMonthValue() + "," + 
+        String line = tap + "," + location + "," + "," + card_id + "," + time.getYear() + "," + time.getMonthValue() + "," + 
         		time.getDayOfMonth() + "," + time.getHour() + "," + time.getHour() + "," + email;
         		
         pw.println(line);
