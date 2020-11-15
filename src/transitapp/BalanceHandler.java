@@ -30,12 +30,12 @@ public class BalanceHandler implements EventHandler<ActionEvent> {
 			try {
 				Writer.removeCard(currCard, user);
 			} catch (IOException e) {
-				System.out.println("HELLOOO????");
+				//System.out.println("HELLOOO????");
 				e.printStackTrace();
 			}
 			try {
 				Writer.writeCard(user.getEmail(), "" + (currCard.getBalance()), "" + currCard.getCard_id(), currCard.isActivated(), currCard.getTimeInitialized());
-				StartUp.main();
+				//StartUp.main();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -50,7 +50,7 @@ public class BalanceHandler implements EventHandler<ActionEvent> {
 			}
 			try {
 				Writer.writeCard(user.getEmail(), "" + (currCard.getBalance()), "" + currCard.getCard_id(), currCard.isActivated(), currCard.getTimeInitialized());
-				StartUp.main();
+				//StartUp.main();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -65,7 +65,7 @@ public class BalanceHandler implements EventHandler<ActionEvent> {
 			}
 			try {
 				Writer.writeCard(user.getEmail(), "" + (currCard.getBalance()), "" + currCard.getCard_id(), currCard.isActivated(), currCard.getTimeInitialized());
-				StartUp.main();
+				//StartUp.main();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
