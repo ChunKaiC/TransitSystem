@@ -2,6 +2,7 @@ package transitapp;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javafx.event.ActionEvent;
@@ -72,11 +73,27 @@ public class UserFunctionHandler implements EventHandler<ActionEvent>{
 			if (source.equals("Activate Selected Card")) {
 				if (!(UserFunctionHandler.value == null)) {
 					//System.out.println(UserFunctionHandler.value.isActivated() + "hi");
-					UserFunctionHandler.value.activate();
+					
 					
 					// When Completed
-					//Writer.removeCard(UserFunctionHandler.value, this.user);
+					try {
+						Writer.removeCard(UserFunctionHandler.value, this.user);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						System.out.println("Uh Oh");
+						e1.printStackTrace();
+					}
+					//Card
+					Card chosen = UserFunctionHandler.value;
+					UserFunctionHandler.value.activate();
+					
 					//Writer.writeCard(this.user.getEmail(), UserFunctionHandler.value.getBalance(), UserFunctionHandler.value.getCard_id());
+					try {
+						Writer.writeCard(this.user.getEmail(), "" + chosen.getBalance(), "" + chosen.getCard_id(), chosen.isActivated());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					
 					
 					UserFunctionHandler.value = null;
@@ -117,11 +134,26 @@ public class UserFunctionHandler implements EventHandler<ActionEvent>{
 				}
 			}
 			if (source.equals("Suspend Selected Card")) {
+				//System.out.println(source.equals("Activate Selected Card"));
 				if (!(UserFunctionHandler.value == null)) {
-					UserFunctionHandler.value.desactivate();
+					
 					// When Completed
-					//Writer.removeCard(UserFunctionHandler.value, this.user);
-					//Writer.writeCard(this.user.getEmail(), UserFunctionHandler.value.getBalance(), UserFunctionHandler.value.getCard_id());
+					try {
+						Writer.removeCard(UserFunctionHandler.value, this.user);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						System.out.println("Uh Oh");
+						e1.printStackTrace();
+					}
+					UserFunctionHandler.value.desactivate();
+					try {
+						Writer.writeCard(this.user.getEmail(), "" + UserFunctionHandler.value.getBalance(), "" + UserFunctionHandler.value.getCard_id(), UserFunctionHandler.value.isActivated());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						System.out.println("Uh Oh");
+						e1.printStackTrace();
+					}
+					
 					UserFunctionHandler.value = null;
 					//System.out.println(UserFunctionHandler.value.isActivated());
 					try {
