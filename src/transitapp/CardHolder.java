@@ -28,8 +28,8 @@ public class CardHolder {
         this.name = name;
         this.email = email;
         this.onRoute = false;
-        this.cards.add(new Card());
         this.currTrip = null;
+        this.cards.add(new Card(LocalDate.now()));
         this.tapOnLocation = null;
         this.tapOffLocation = null;
     }
@@ -41,8 +41,7 @@ public class CardHolder {
      */
     public void add10toCard(int card_id) {
         Card card = findCard(this.cards, card_id);
-        card.addBalance(10);
-        AdminUser.addRevenue(10);
+        card.addBalance(10, LocalDate.now());
     }
 
     /**
@@ -52,8 +51,7 @@ public class CardHolder {
      */
     public void add20toCard(int card_id) {
         Card card = findCard(this.cards, card_id);
-        card.addBalance(20);
-        AdminUser.addRevenue(50);
+        card.addBalance(20, LocalDate.now());
     }
 
     /**
@@ -63,8 +61,7 @@ public class CardHolder {
      */
     public void add50toCard(int card_id) {
         Card card = findCard(this.cards, card_id);
-        card.addBalance(50);
-        AdminUser.addRevenue(50);
+        card.addBalance(50, LocalDate.now());
     }
 
     /**
@@ -184,8 +181,10 @@ public class CardHolder {
      * @throws IOException 
      */
     public boolean tapOn(Location location, int card_id, LocalDateTime time,  boolean load) throws IOException {
-        Card current_card = cards.get(card_id); // Must be able to get card from the list based on its id.
-
+        Card current_card = findCard(this.cards, card_id); // Must be able to get card from the list based on its id.
+        if(current_card == null) {
+        	return false;
+        }
         if (!current_card.isActivated()) {
             return false;
         }
@@ -220,7 +219,7 @@ public class CardHolder {
             	
             	if (this.currTrip.getMoneySpentOnTrip() == this.currTrip.getMaxCost()) {
             		if (!load) {
-            		Writer.writeEvent("tapOn", "?" + location.getLocation(), time, this.email);
+            		Writer.writeEvent("tapOn", "?" + location.getLocation(), card_id, time, this.email);
             		}
             		return true;
                     	
@@ -232,7 +231,7 @@ public class CardHolder {
             			}
                         this.currTrip.addMoneySpentOnTrip(findFare(location));
                         if (!load) {
-                    		Writer.writeEvent("tapOn", "?" + location.getLocation(), time, this.email);
+                    		Writer.writeEvent("tapOn", "?" + location.getLocation(), card_id, time, this.email);
                     	}
                         return true;
             		} else {
@@ -241,14 +240,14 @@ public class CardHolder {
             			}
                         this.currTrip.addMoneySpentOnTrip(this.currTrip.getMaxCost() - this.currTrip.getMoneySpentOnTrip());
                         if (!load) {
-                    		Writer.writeEvent("tapOn", "?" + location.getLocation(), time, this.email);
+                    		Writer.writeEvent("tapOn", "?" + location.getLocation(), card_id, time, this.email);
                     	}
                         return true;
             		}
             	}
             }
             if (!load) {
-        		Writer.writeEvent("tapOn", "?" + location.getLocation(), time, this.email);
+        		Writer.writeEvent("tapOn", "?" + location.getLocation(), card_id, time, this.email);
         	}
             return true;
         }
@@ -298,7 +297,7 @@ public class CardHolder {
             	current_card.deductFare(cost);
             }
             if (!load) {
-            Writer.writeEvent("tapOff", "!" + location.getLocation(), time, this.email);
+            Writer.writeEvent("tapOff", "!" + location.getLocation(), card_id, time, this.email);
             }
             this.currTrip.updateTimeOnTrip();
             this.currTrip.addMoneySpentOnTrip(cost);

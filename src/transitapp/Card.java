@@ -1,32 +1,44 @@
 package transitapp;
 
+import java.time.LocalDate;
+
 public class Card {
 
     private double balance = 19.0;
     private static int CARDS_ISSUED = 0; // total number of cards issued to all users
     private int card_id; // unique identifier
     private boolean isActivated;
+    private LocalDate timeOfInitialization;
 
     /**
      * The constructor for a Card Object. It contains a unique card id
      * that's always one more than the total number of cards issued.
      * Initiated at $19.00.
      */
-    public Card() {
+    public Card(LocalDate date){
         CARDS_ISSUED += 1;
         this.card_id = CARDS_ISSUED;
-        AdminUser.addRevenue(this.balance);
+        AdminUser.addRevenue(this.balance, date);
         this.isActivated = true;
+        this.timeOfInitialization = date;
     }
 
-    public Card(double balance, int card_id) {
+    public Card(double balance, int card_id, LocalDate date) {
         this.balance = balance;
         this.card_id = card_id;
         CARDS_ISSUED += 1;
-        AdminUser.addRevenue(this.balance);
+        AdminUser.addRevenue(this.balance, date);
         this.isActivated = true;
+        this.timeOfInitialization = date;
     }
-
+    
+    /**
+     * 
+     * @return date of which the card was initialized
+     */
+    public LocalDate getTimeInitialized() {
+    	return this.timeOfInitialization;
+    }
     /**
      * @return if the card is active
      */
@@ -65,9 +77,9 @@ public class Card {
      * Add an amount to the Card and update the Transit revenue
      * @param amount to be added
      */
-    public void addBalance(double amount) {
+    public void addBalance(double amount, LocalDate date) {
         this.balance += amount;
-        AdminUser.addRevenue(amount);
+        AdminUser.addRevenue(amount, date);
     }
 
     /**
