@@ -220,7 +220,7 @@ public class CardHolder {
             	
             	if (this.currTrip.getMoneySpentOnTrip() == this.currTrip.getMaxCost()) {
             		if (!load) {
-            		Writer.writeEvent("tapOn", "?" + location.getLocation(), time, this.email);
+            		Writer.writeEvent("tapOn", "?" + location.getLocation(), card_id, time, this.email);
             		}
             		return true;
                     	
@@ -232,7 +232,7 @@ public class CardHolder {
             			}
                         this.currTrip.addMoneySpentOnTrip(findFare(location));
                         if (!load) {
-                    		Writer.writeEvent("tapOn", "?" + location.getLocation(), time, this.email);
+                    		Writer.writeEvent("tapOn", "?" + location.getLocation(), card_id, time, this.email);
                     	}
                         return true;
             		} else {
@@ -241,14 +241,14 @@ public class CardHolder {
             			}
                         this.currTrip.addMoneySpentOnTrip(this.currTrip.getMaxCost() - this.currTrip.getMoneySpentOnTrip());
                         if (!load) {
-                    		Writer.writeEvent("tapOn", "?" + location.getLocation(), time, this.email);
+                    		Writer.writeEvent("tapOn", "?" + location.getLocation(), card_id, time, this.email);
                     	}
                         return true;
             		}
             	}
             }
             if (!load) {
-        		Writer.writeEvent("tapOn", "?" + location.getLocation(), time, this.email);
+        		Writer.writeEvent("tapOn", "?" + location.getLocation(), card_id, time, this.email);
         	}
             return true;
         }
@@ -298,7 +298,7 @@ public class CardHolder {
             	current_card.deductFare(cost);
             }
             if (!load) {
-            Writer.writeEvent("tapOff", "!" + location.getLocation(), time, this.email);
+            Writer.writeEvent("tapOff", "!" + location.getLocation(), card_id, time, this.email);
             }
             this.currTrip.updateTimeOnTrip();
             this.currTrip.addMoneySpentOnTrip(cost);
