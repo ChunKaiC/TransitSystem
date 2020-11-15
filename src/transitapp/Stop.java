@@ -6,7 +6,7 @@ import java.util.Observer;
 
 public class Stop extends Location implements Observer {
 
-	public static ArrayList<Stop> ALL_STOPS = new ArrayList<Stop>();
+	private static ArrayList<Stop> ALL_STOPS = new ArrayList<Stop>();
 	
 	public Stop(String location, boolean atInjunction) {
 		super(location, atInjunction);
