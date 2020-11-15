@@ -12,38 +12,12 @@ import java.util.Scanner;
 
 public class StartUp {
 		public static void main(String[] args) throws FileNotFoundException {
-//		HashMap<String, Stop> stops = loadStops();
-//		HashMap<String, Station> stations = loadStation();
-//		System.out.println(stops.get("Chung Chung Go"));
-//		System.out.println(stations.get("Chung Chung Go"));
-//		ArrayList<TransitRoutes> busRoutes = loadBusRoutes();
-//		ArrayList<TransitRoutes> subwayRoutes = loadSubwayRoute();
-//		HashMap<String, CardHolder> cardHolders = loadCardHolders();
-//
-//
-//
-//		for(int i = 0; i < busRoutes.size(); i++) {
-//			System.out.println(busRoutes.get(i).getRoute());
-//			System.out.println(busRoutes.get(i).getSchedule());
-//		}
-//		for(int i = 0; i < subwayRoutes.size(); i++) {
-//			System.out.println(subwayRoutes.get(i).getRoute());
-//			System.out.println(subwayRoutes.get(i).getSchedule());
-//		}
-//
-//		for(String email: cardHolders.keySet()) {
-//			System.out.println(email);
-//			System.out.println(cardHolders.get(email).getCards());
-//			System.out.println(cardHolders.get(email).getCards().get(0).getBalance());
-//		}
-//			HashMap<String, ArrayList<Trip>> trips = loadEvents();
-//			System.out.println(trips.get("parlefrancais@gmail.com"));
-//			System.out.println(trips.get("Hello@DingDong.com"));
-//			System.out.println(trips.get("DannyBadBoi@Yessir.com").get(0).getLocations());
-//		
+		HashMap<String, Stop> stops = loadStops();
+		HashMap<String, Station> stations = loadStation();
+		HashMap<String, CardHolder> cardHolders= loadCardHolders();
 		
-//			HashMap<String, ArrayList<Card>> l = loadCards();
-//			System.out.println(l.get("parlefrancais@gmail.com").get(0).isActivated());
+		loadEvents(cardHolders, stops, stations);
+		System.out.println(cardHolders.get("parlefrancais@gmail.com").getTrips());
 	}
 
 	public static HashMap<String, Stop> loadStops() throws FileNotFoundException{
@@ -56,7 +30,7 @@ public class StartUp {
 			String[] data = line.split(",");
 			stops.put(data[0], new Stop(data[0], Boolean.parseBoolean(data[1])));
 		}
-
+		scanStops.close();
 		return stops;
 	}
 
@@ -71,6 +45,7 @@ public class StartUp {
 			stations.put(data[0], new Station(data[0], Boolean.parseBoolean(data[1])));
 		}
 
+		scanStations.close();
 		return stations;
 	}
 
@@ -96,7 +71,7 @@ public class StartUp {
 			busRoutes.add(r);
 			System.out.println(r.countObservers());
 		}
-
+		scanBusRoutes.close();
 		return busRoutes;
 	}
 
@@ -120,6 +95,7 @@ public class StartUp {
 			}
 			subwayRoutes.add(new TransitRoutes(data.get(0), destinations, schedule));
 		}
+		scanStationRoutes.close();
 		return subwayRoutes;
 	}
 
@@ -144,9 +120,9 @@ public class StartUp {
 			}
 		}
 		
+		scanCardHolders.close();
 		return cardHolders;
 	}
-
 
 	public static HashMap<String, ArrayList<Card>> loadCards() throws FileNotFoundException{
 		HashMap<String, ArrayList<Card>> cards = new HashMap<String, ArrayList<Card>>();
@@ -172,6 +148,7 @@ public class StartUp {
 			}
 		}
 
+		scanCards.close();
 		return cards;
 
 	}
@@ -210,6 +187,7 @@ public class StartUp {
 			}
 				
 		}
+		scanEvents.close();
 
 	}
 
@@ -235,6 +213,7 @@ public class StartUp {
 			
 			
 		}
+		scanSettings.close();
 	}
 	
 }
