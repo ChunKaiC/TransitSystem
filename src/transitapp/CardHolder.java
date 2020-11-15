@@ -155,6 +155,8 @@ public class CardHolder {
     public double averageMonthlyCost() {
         ArrayList<LocalDate> months = new ArrayList<LocalDate>();
         double cost = 0.0;
+        
+        // System.out.println(this.trips);
 
         for (Trip trip : this.trips) {
             LocalDate date = LocalDate.of(trip.getTimes().get(0).getYear(), trip.getTimes().get(0).getMonth(), 1);
@@ -163,6 +165,8 @@ public class CardHolder {
             }
             cost += trip.getMoneySpentOnTrip();
         }
+        // System.out.println("Cost: " + cost + ", num months: " + months.size());
+        
         if (months.size() == 0) {
             return 0.0;
         }
