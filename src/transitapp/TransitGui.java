@@ -455,7 +455,7 @@ public class TransitGui extends Application {
 		pane.getChildren().add(back2);
 		
 		GridPane grid = new GridPane();
-		Label label = new Label("Please Input the date you would like to check out (Format: YY-MM-DD):");
+		Label label = new Label("Please Input the date you would like to check out (Format: YYYY-MM-DD):");
 		label.setTextFill(Color.web("#fbfbfb"));
 		TextField tf = new TextField();
 		Button rep = new Button("Show Daily Report");
