@@ -195,6 +195,7 @@ public class CardHolder {
         		this.trips.add(this.currTrip);
         	}
             this.currTrip = new Trip();
+            this.trips.add(this.currTrip);
         }
 
         if (tapOnLocation != null && !(this.tapOnLocation instanceof Stop)) {

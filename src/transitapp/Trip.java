@@ -184,6 +184,22 @@ public class Trip {
     	return this.locationsTravelled;
     }
     
+
+//    @Override 
+//    public String toString() {
+//    	String string = this.startTime.getMonth().getValue() + "/" + 
+//    			this.startTime.getDayOfWeek().getValue() + "/"+ 
+//    			this.startTime.getYear() + ",";
+//    	
+//    	for (int i = 0; i < this.locationsTravelled.size(); i++) {
+//    		if (i != this.locationsTravelled.size() - 1) {
+//    			string = string + this.locationsTravelled.get(i).getLocation() + "->";
+//    		} else {
+//    			string = string + this.locationsTravelled.get(i).getLocation();
+//    		}
+//    	}
+//    	return string;
+//    }
     @Override
     /**
      * @return A string representation of the trip

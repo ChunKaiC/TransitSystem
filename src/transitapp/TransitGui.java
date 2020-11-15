@@ -19,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -303,11 +304,12 @@ public class TransitGui extends Application {
 		// do the same thing as userUI but dont load, just pass in stops and stations
 		//StartUp.loadBusRoutes();
 		//StartUp.loadSubwayRoute();
-		StackPane pane = new StackPane();
+		Pane pane = new StackPane();
 		Image back = new Image("file:resources/backdrop.png");
 		ImageView back2 = new ImageView();
 		back2.setImage(back);
 		pane.getChildren().add(back2);
+		
 		
 		// combo box
 		GridPane center = new GridPane();
@@ -378,7 +380,6 @@ public class TransitGui extends Application {
 		// add list above everything else
 		//pane.getChildren().add(list);
 		pane.getChildren().add(center);
-		
 		Scene scene = new Scene(pane);
 		
 		stage.setScene(scene);
@@ -396,6 +397,11 @@ public class TransitGui extends Application {
 		
 		//All Buttons
 		Button go = new Button("GO");
+		Button backButton = new Button("Back");
+		VBox vb = new VBox();
+		backButton.setAlignment(Pos.TOP_LEFT);
+		
+		
 		Label action = new Label("Please Select An Admin Function From The List Below, Then Click Go:");
 		action.setTextFill(Color.web("#fbfbfb"));
 		GridPane gp = new GridPane();
@@ -406,11 +412,14 @@ public class TransitGui extends Application {
         gp.add(actionList, 1, 1);
         gp.add(go, 1, 2);
         gp.setAlignment(Pos.CENTER);
-        l.setTranslateY(20);
-        pane.getChildren().add(gp);
-        pane.getChildren().add(l);
+        gp.setTranslateY(300);
+        vb.getChildren().add(backButton);
+        vb.getChildren().add(gp);
+        pane.getChildren().add(vb);
+        
         
         actionList.setOnAction(new AdminFunctionsHandler(actionList));
+        backButton.setOnAction(new BackButtonsHandler(this, stage, "HomePage"));
         go.setOnAction(new AdminFunctionsHandler(this, stage));
         Scene scene = new Scene(pane);
 		stage.setScene(scene);
@@ -500,21 +509,24 @@ public class TransitGui extends Application {
 
 	public void showDailyReport(Stage stage, LocalDate ld) throws FileNotFoundException {
 		// TODO Auto-generated method stub
-		StackPane pane = new StackPane();
+		Pane pane = new Pane();
 		Image back = new Image("file:resources/backdrop.png");
 		ImageView back2 = new ImageView();
 		back2.setImage(back);
 		pane.getChildren().add(back2);
 		
 		Button backButton = new Button("Back");
-		backButton.setLayoutX(0);
-		backButton.setLayoutX(10);
+		backButton.setAlignment(Pos.TOP_LEFT);
 		TextArea ta = new TextArea();
-		
-		
+		ta.setMaxHeight(300);
+		ta.setMaxWidth(300);
+		ta.setLayoutX(275);
+		ta.setLayoutY(200);
 		ta.setText(AdminUser.showDailyReport(ld));
 		pane.getChildren().add(ta);
-		pane.getChildren().add(backButton);		
+		pane.getChildren().add(backButton);	
+		
+		backButton.setOnAction(new BackButtonsHandler(this, stage, "Admin"));
 		
 		Scene scene = new Scene(pane);
 		stage.setScene(scene);
