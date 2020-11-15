@@ -35,6 +35,7 @@ public class StartUp {
 		
 		loadSettings();
 		loadEvents(cardHolders, stops, stations);
+		System.out.println(AdminUser.getMonthlyRev().get(LocalDate.of(2019, 10, 1)));
 	}
 
 	/**
@@ -178,7 +179,8 @@ public class StartUp {
 		while(scanCards.hasNextLine()) {
 			String line = scanCards.nextLine();
 			String[] data = line.split(",");
-			Card c = new Card(Double.parseDouble(data[1]), Integer.parseInt(data[2]));
+			String[] dateInfo = data[4].split("-");
+			Card c = new Card(Double.parseDouble(data[1]), Integer.parseInt(data[2]), LocalDate.of(Integer.parseInt(dateInfo[0]), Integer.parseInt(dateInfo[1]),Integer.parseInt(dateInfo[2])));
 			if(data[3].equals("true")) {
 				c.activate();
 			}

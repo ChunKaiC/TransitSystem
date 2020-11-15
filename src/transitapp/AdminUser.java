@@ -9,6 +9,7 @@ import java.text.DecimalFormat;
 public class AdminUser {
 	private static String transitName;
 	private static double totalRevenue;
+	private static HashMap<LocalDate, Double> monthlyRevenue = new HashMap<LocalDate, Double>();
 	private static double totalCost;
 	private static int numBuses;
 	private static double busPrice;
@@ -36,9 +37,13 @@ public class AdminUser {
 		AdminUser.busTravelCost = busTravelCost;
 		AdminUser.busRoutes = busRoutes;
 		AdminUser.transitName = transitName;
+		AdminUser.monthlyRevenue = new HashMap<LocalDate, Double>();
 	}
 	
 	
+	public static HashMap<LocalDate, Double> getMonthlyRev(){
+		return AdminUser.monthlyRevenue;
+	}
 	/**
 	 * Sets the cost of getting onto a bus
 	 * @param fare to be changed to 
@@ -79,40 +84,33 @@ public class AdminUser {
 	 * @return Returns string representation of daily report
 	 */
 	public static String showDailyReport(LocalDate date) throws FileNotFoundException {
-		HashMap<String, CardHolder> cardHolders = StartUp.loadCardHolders();
-		ArrayList<TransitRoutes> busRoutes = StartUp.loadBusRoutes();
-		ArrayList<TransitRoutes> subwayRoutes = StartUp.loadSubwayRoute();
+		double revenue = 0;
 		String line = "";
 		int rides = 0;
-		double revenue = 0.0;
+		if(AdminUser.monthlyRevenue.containsKey(LocalDate.of(date.getYear(), date.getMonth(), 1))) {
+			revenue= AdminUser.monthlyRevenue.get(LocalDate.of(date.getYear(), date.getMonth(), 1));
+		}
+		
+		
 		DecimalFormat df2 = new DecimalFormat("0.00");
 
-		for (String customer : cardHolders.keySet()) {
-			for (Trip trip : cardHolders.get(customer).getTrips()) {
-				if (trip.getStartTime().toLocalDate().equals(date)) {
-					revenue += trip.getMoneySpentOnTrip();
+		for (String customer : StartUp.cardHolders.keySet()) {
+			for (Trip trip : StartUp.cardHolders.get(customer).getTrips()) {
+				
+				if (trip.getTimes().get(0).toLocalDate().equals(date)) {
 					rides ++;
 				}
 			}
 		}
 
-		
-		System.out.println("Report " + getTransitName() + "'s summary for " + date + ":");
-		System.out.println("Number of rides: " + rides);
-		System.out.println("Total revenue: $" + df2.format(revenue));
-		System.out.println("\nBus Routes: (Fare : " +  df2.format(TransitRoutes.getBusFare()) + ")");
-
 		line = "Report " + getTransitName() + "'s summary for " + date + ":\n" + "Number of rides: " + rides
 				+"\nTotal revenue: $" +  df2.format(revenue) + "\nBus Routes: (Fare : " +  df2.format(TransitRoutes.getBusFare()) + ")";
-		for (TransitRoutes busRoute : busRoutes) {
+		for (TransitRoutes busRoute : StartUp.busRoutes) {
 			line = line + "\nRoute: " + busRoute.getName();
-			System.out.println("Route: " + busRoute.getName());
 		}
 		System.out.println("\nBus Routes: (Fare : " +  df2.format(TransitRoutes.getSubwayFare()) + ")");
-		for (TransitRoutes subRoute : subwayRoutes) {
+		for (TransitRoutes subRoute : StartUp.subwayRoutes) {
 			line = line + "\nRoute: " + subRoute.getName();
-			
-			System.out.println("Route: " + subRoute.getName());
 		}
 
 		return line;
@@ -122,8 +120,14 @@ public class AdminUser {
 	 * Add revenue to the total revenue
 	 * @param rev: the amount to add to the total revenue
 	 */
-	public static void addRevenue(double rev) {
+	public static void addRevenue(double rev, LocalDate date) {
 		totalRevenue += rev;
+		LocalDate key = LocalDate.of(date.getYear(), date.getMonth(), 1);
+		if(AdminUser.monthlyRevenue.containsKey(key)) {
+			AdminUser.monthlyRevenue.put(key, rev + AdminUser.monthlyRevenue.get(key));
+		}else {
+			AdminUser.monthlyRevenue.put(key, rev);
+		}
 	}
 
 	/**
