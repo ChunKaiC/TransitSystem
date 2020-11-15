@@ -293,6 +293,24 @@ public class TransitGui extends Application {
 		begin.setTranslateY(50);
 		pane.getChildren().add(finalPane);
 		
+		
+		Button ten = new Button("Add $10 To Balance");
+		Button twenty = new Button("Add $20 To Balance");
+		Button fifty = new Button("Add $50 To Balance");
+		ComboBox<Card> balanceList = new ComboBox<Card>(cList);
+		ten.setOnAction(new balanceHandler(balanceList, user));
+		twenty.setOnAction(new balanceHandler(balanceList, user));
+		fifty.setOnAction(new balanceHandler(balanceList, user));
+		
+		
+		VBox add = new VBox(balanceList, ten, twenty, fifty);
+		finalPane.getChildren().add(add);
+		//add.setTranslateY(-50);
+		add.setAlignment(Pos.TOP_RIGHT);
+		add.setTranslateY(-450);
+		
+		
+		
 		Scene scene =  new Scene(pane);
 		stage.setScene(scene);
 		stage.show();
