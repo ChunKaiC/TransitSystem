@@ -188,12 +188,8 @@ public class CardHolder {
             return false;
         }
 
-        // create a new trip if tapping on at a different location then tapped off location or passed grace period
+        // create a new trip if tapping on at a different location then tapped off location or passed grace period or new trip
         if (this.tapOffLocation != location || this.currTrip.getTimeOnTrip() > this.currTrip.getMINUTE_GRACE_PERIOD()) {
-        	
-        	if (this.currTrip != null) {
-        		this.trips.add(this.currTrip);
-        	}
             this.currTrip = new Trip();
             this.trips.add(this.currTrip);
         }
@@ -266,28 +262,27 @@ public class CardHolder {
             double cost = numStations * fare;
 
             // The cardHolder never tapped on, or used the wrong card, so we will charge them the max cost
-            if (tapOnLocation == null || this.currTrip.getCardUSed().size() == 0 || 
-            		this.currTrip.getCardUSed().get(this.currTrip.getCardUSed().size() - 1) != card_id) {
+            if (tapOnLocation == null || this.currTrip.getCardUsed().size() == 0 || 
+            		this.currTrip.getCardUsed().get(this.currTrip.getCardUsed().size() - 1) != card_id) {
             	          
                 cost = location.getAllStations().indexOf(location) * fare;
             }
             
-            int size = this.currTrip.getTimes().size();
+            //int size = this.currTrip.getTimes().size();
             
-            int travelTime = (int) (Duration.between(time, this.currTrip.getTimes().get(size - 1)).toMinutes());
+            //int travelTime = (int) (Duration.between(time, this.currTrip.getTimes().get(size - 1)).toMinutes());
             
-            if (cost > this.currTrip.getMaxCost() || travelTime > this.currTrip.getMAX_RIDE_TIME())
+            if (cost  + this.currTrip.getMoneySpentOnTrip() > this.currTrip.getMaxCost())
             // if the trip costs more than the max ($6) or the person has been riding for
             // more than 3 hours (180 minutes)
             {
-                cost = this.currTrip.getMaxCost();
-            }
-
-            this.currTrip.updateTimeOnTrip();
+                cost = this.currTrip.getMaxCost() - this.currTrip.getMoneySpentOnTrip();
+            } 
             
             if (!load) {
             	current_card.deductFare(cost);
             }
+            this.currTrip.updateTimeOnTrip();
             this.currTrip.addMoneySpentOnTrip(cost);
             this.tapOnLocation = null;
             this.tapOffLocation = location;
@@ -332,7 +327,6 @@ public class CardHolder {
      * @param the new name
      */
 	public void setName(String text) {
-		// TODO Auto-generated method stub
 		this.name = text;
 	}
 	
