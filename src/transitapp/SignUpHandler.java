@@ -2,6 +2,7 @@ package transitapp;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.HashMap;
 
 import javafx.event.ActionEvent;
@@ -34,9 +35,17 @@ public class SignUpHandler implements EventHandler<ActionEvent>{
 		if (users.get(emailTxt) == null) {
 			if ((nameTxt.length() > 0) && (emailTxt.length() > 0) && (emailTxt.contains("@"))) {
 				CardHolder newUser = new CardHolder(nameTxt, emailTxt);
+				Card card = newUser.getCards().get(0);
 				// WRITE TO FILE
 				try {
+					Writer.writeCard(emailTxt, "19", "" + card.getCard_id(), card.isActivated(), LocalDate.now());
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				try {
 					Writer.writeCardHolder(newUser);
+					StartUp.main();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
