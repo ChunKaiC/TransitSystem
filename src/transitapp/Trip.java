@@ -11,8 +11,8 @@ public class Trip {
     public static int MINUTE_GRACE_PERIOD = 120;
     public static int MAX_RIDE_TIME = 180; // in minutes
     
-    private int timeOnTrip; // in minutes
-    private double moneySpentOnTrip;
+    private int timeOnTrip = 0; // in minutes
+    private double moneySpentOnTrip = 0.0;
     // ^ if it reaches 2 hours, make a new trip, otherwise free if spent $6 already
     private ArrayList<Location> locationsTravelled = new ArrayList<Location>();
     private ArrayList<String> taps = new ArrayList<String>();
@@ -35,7 +35,7 @@ public class Trip {
      */
     public void updateTimeOnTrip() {
     	if (this.times.size() > 1) {
-    		this.timeOnTrip = (int) (Duration.between(this.times.get(0), this.times.get(this.times.size())).toMinutes());
+    		this.timeOnTrip = (int) (Duration.between(this.times.get(0), this.times.get(this.times.size() - 1)).toMinutes());
     	}
     }
 
@@ -58,7 +58,7 @@ public class Trip {
      * A getter for the cards used
      * @return an ArrayList of cards used
      */
-    public ArrayList<Integer> getCardUSed(){
+    public ArrayList<Integer> getCardUsed(){
     	return this.cardUsed;
     }
 
