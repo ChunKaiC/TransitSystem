@@ -30,6 +30,7 @@ public class TransitGui extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		StartUp.main();
 		// TODO Auto-generated method stub
 		// DATA LOADING
 		//StartUp.loadStops();
@@ -90,10 +91,10 @@ public class TransitGui extends Application {
 		//login.setStyle("fx-border-color: black;");
 		login.setPrefWidth(100);
 		//login.setBlendMode(Color.web("#a1ad8a"));
-		login.setOnAction(new LoginHandler(name, email, stage, this, users));
+		login.setOnAction(new LoginHandler(name, email, stage, this, StartUp.cardHolders));
 		Button signup = new Button("Sign Up");
 		signup.setPrefWidth(100);
-		signup.setOnAction(new SignUpHandler(stage, this, name, email, users));
+		signup.setOnAction(new SignUpHandler(stage, this, name, email, StartUp.cardHolders));
 		//signup.setOnAction(new LoginHandler(name, email));
 		Button adminin = new Button("Admin Log In");
 		adminin.setPrefWidth(100);
