@@ -3,38 +3,3 @@ visanaxe visanaxel Axel Visan
 chenc340 ChunKaiC Chun-Kai Chen
 masalhaf TrueDescription Faisal Masalha
 segovian NickSego Nicholas Segovia
-
-- 
-
-Cardholders
-# Name, email
-Nick segovia, nick@gmail.com
-Jeff, jeff@bezos.com
-
-Bus Routes
-2.0 # Fare
-# Route name, Stop1, Stop2, Stop3...
-Route1, Toronto Plaza, UTM bus stop, Lollipop stop
-Route2, PC Plaza, Jackson boulevard, Segovia land
-
-Subway Route (Only one)
-0.5 # Fare
-# Route name, Station1, Station2, Station3...
-SubRoute1, Station1Name, Station2Name, Station3name
-
-Stops
-# Stop name
-Stop 1
-Stop 2
-Stop 3
-
-Stations
-# Station name
-Station 1
-Station 2
-Station 3
-
-Events
-# time/date, card_id, tapOn/tapOff, bus/subway, Location
-Nov 1 17:00:31, 1001, tapOn, subway, Station 2
-Nov 1 17:10:20, 1001, tapOff, subway, Station 1
