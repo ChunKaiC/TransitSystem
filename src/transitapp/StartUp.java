@@ -14,21 +14,22 @@ import java.util.Scanner;
 		
 public class StartUp {
 		
-		public static HashMap<String, Stop> stops;
-		public static HashMap<String, Station> stations;
-		public static ArrayList<TransitRoutes> busRoutes;
-		public static ArrayList<TransitRoutes> subwayRoutes;
-		public static HashMap<String, CardHolder> cardHolders;
-		public static HashMap<String, ArrayList<Card>> cards;
+		public static HashMap<String, Stop> stops = new HashMap<String, Stop>();
+		public static HashMap<String, Station> stations = new HashMap<String, Station>();
+		public static ArrayList<TransitRoutes> busRoutes = new ArrayList<TransitRoutes>();
+		public static ArrayList<TransitRoutes> subwayRoutes = new ArrayList<TransitRoutes>();
+		public static HashMap<String, CardHolder> cardHolders = new HashMap<String, CardHolder>();
+		public static HashMap<String, ArrayList<Card>> cards = new HashMap<String, ArrayList<Card>>();
 		
 		
 		public static void main() throws FileNotFoundException {
-		HashMap<String, Stop> stops = loadStops();
-		HashMap<String, Station> stations = loadStation();
-		ArrayList<TransitRoutes> busRoutes = loadBusRoutes();
-		ArrayList<TransitRoutes> subwayRoutes = loadSubwayRoute();
-		HashMap<String, ArrayList<Card>> cards = loadCards();
-		HashMap<String, CardHolder> cardHolders= loadCardHolders(cards);
+		stops = loadStops();
+		stations = loadStation();
+		busRoutes = loadBusRoutes();
+		subwayRoutes = loadSubwayRoute();
+		cards = loadCards();
+		cardHolders = loadCardHolders(cards);
+		//System.out.println(cardHolders);
 		
 		loadSettings();
 		loadEvents(cardHolders, stops, stations);

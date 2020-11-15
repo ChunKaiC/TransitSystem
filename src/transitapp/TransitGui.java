@@ -28,7 +28,9 @@ import javafx.stage.Stage;
 
 public class TransitGui extends Application {
 	
-	
+	public static void main(String[] args) throws FileNotFoundException {
+		launch(args);
+	}
 	
 
 	@Override
@@ -38,8 +40,11 @@ public class TransitGui extends Application {
 		//StartUp.loadStops();
 		//StartUp.loadStation();
 		//StartUp.l
-		HashMap<String, CardHolder> users = StartUp.loadCardHolders();
-		
+		StartUp data = new StartUp();
+		StartUp.main();
+		HashMap<String, CardHolder> users = StartUp.cardHolders;
+		//System.out.println(users);
+		//System.out.println(StartUp.cardHolders);
 		//
 		stage.setTitle("UTM Metro");
 		//stage.setWidth(900);
@@ -148,8 +153,6 @@ public class TransitGui extends Application {
 		
 		//HashMap<String, Stop> stops = StartUp.loadStops();
 		//HashMap<String, Station> stations = StartUp.loadStation();
-		StartUp.loadBusRoutes();
-		StartUp.loadSubwayRoute();
 		
 		this.UserUIAfter( stage, user, Stop.getAllStops(), Station.getAllStations());
 		
@@ -162,9 +165,7 @@ public class TransitGui extends Application {
 		// change name
 		
 		//Loading
-		HashMap<String, CardHolder> cardHolders = StartUp.loadCardHolders();
-		StartUp.loadEvents(cardHolders, Stop.getAllStops(), Station.getAllStations());
-		
+		HashMap<String, CardHolder> cardHolders = StartUp.cardHolders;
 		
 		
 		
@@ -427,10 +428,6 @@ public class TransitGui extends Application {
         
 	}
 
-	
-	public static void main(String[] args) {
-		launch(args);
-	}
 
 	public void showDR(Stage stage) {
 		StackPane pane = new StackPane();
@@ -538,8 +535,8 @@ public class TransitGui extends Application {
 		
 		//HashMap<String, Stop> stops = StartUp.loadStops();
 		//HashMap<String, Station> station = StartUp.loadStation();
-		ArrayList<TransitRoutes> busRoutes = StartUp.loadBusRoutes();
-		ArrayList<TransitRoutes> subwayRoutes = StartUp.loadSubwayRoute();
+		ArrayList<TransitRoutes> busRoutes = StartUp.busRoutes;
+		ArrayList<TransitRoutes> subwayRoutes = StartUp.subwayRoutes;
 		System.out.println(Stop.getAllStops());
 		
 		
