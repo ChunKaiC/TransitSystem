@@ -204,11 +204,11 @@ public class Writer {
         }
     }
     
-    public static void writeEvent(String tap, String location, LocalDateTime time, String email) throws IOException{
+    public static void writeEvent(String tap, String location, int card_id, LocalDateTime time, String email) throws IOException{
     	File eventFile = new File("Resources/events.txt");
         FileWriter writeEvent = new FileWriter(eventFile, true);
         PrintWriter pw = new PrintWriter(writeEvent);
-        String line = tap + "," + location + "," + time.getYear() + "," + time.getMonthValue() + "," + 
+        String line = tap + "," + location + "," + "," + card_id + "," + time.getYear() + "," + time.getMonthValue() + "," + 
         		time.getDayOfMonth() + "," + time.getHour() + "," + time.getHour() + "," + email;
         		
         pw.println(line);
