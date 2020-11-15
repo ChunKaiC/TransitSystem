@@ -299,9 +299,9 @@ public class TransitGui extends Application {
 		Button twenty = new Button("Add $20 To Balance");
 		Button fifty = new Button("Add $50 To Balance");
 		ComboBox<Card> balanceList = new ComboBox<Card>(cList);
-		ten.setOnAction(new balanceHandler(balanceList, user));
-		twenty.setOnAction(new balanceHandler(balanceList, user));
-		fifty.setOnAction(new balanceHandler(balanceList, user));
+		//ten.setOnAction(new balanceHandler(balanceList, user));
+		//twenty.setOnAction(new balanceHandler(balanceList, user));
+		//fifty.setOnAction(new balanceHandler(balanceList, user));
 		
 		
 		VBox add = new VBox(balanceList, ten, twenty, fifty);

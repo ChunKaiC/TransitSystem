@@ -131,7 +131,6 @@ public class Writer {
     	for(String key: StartUp.cardHolders.keySet()) {
     		writeCardHolder(StartUp.cardHolders.get(key));
     	}
-    	StartUp.main();
     }
     
     public static void removeCard(Card c, CardHolder client) throws IOException{
@@ -147,7 +146,6 @@ public class Writer {
     	}
         fw2.close();
         pw2.close();
-        StartUp.main();
     	
     }
     
@@ -161,7 +159,6 @@ public class Writer {
         for(String key: StartUp.stops.keySet()) {
         	writeBusStop(StartUp.stops.get(key));
         }
-        StartUp.main();
     }
     
     public static void removeStation(Station station) throws IOException{
@@ -173,7 +170,6 @@ public class Writer {
         for(String key: StartUp.stations.keySet()) {
         	writeStation(StartUp.stations.get(key));
         }
-        StartUp.main();
     }
     
     
@@ -187,7 +183,6 @@ public class Writer {
         for(TransitRoutes route: StartUp.busRoutes) {
         	writesBusRoute(route);
         }
-        StartUp.main();
     }
     
     public static void removeSubwayRoute(TransitRoutes subwayRoute) throws IOException{
@@ -199,7 +194,6 @@ public class Writer {
         for(TransitRoutes route: StartUp.subwayRoutes) {
         	writeSubwayRoute(route);
         }
-        StartUp.main();
     }
     
     public static void writeEvent(String tap, String location, int card_id, LocalDateTime time, String email) throws IOException{
