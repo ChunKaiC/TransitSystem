@@ -24,15 +24,15 @@ public class Writer {
 //        TransitRoutes route = new TransitRoutes("Route number 100", new ArrayList<Location>(Arrays.asList(station, station2)), new ArrayList<LocalTime>(Arrays.asList(t1, t2)));
 //
 //		removeCardHolder(c.get("BogMan@CS.com"));
-        StartUp.main();
+//    	StartUp.main();
 //        System.out.println(StartUp.subwayRoutes.get(0).getRoute());
 //        System.out.println(StartUp.cards.get("parlefrancais@gmail.com"));
 //        StartUp.cards.get("parlefrancais@gmail.com").get(0).desactivate();
-//        Card temp = StartUp.cards.get("parlefrancais@gmail.com").get(0);
 //        removeCard(StartUp.cards.get("parlefrancais@gmail.com").get(0), StartUp.cardHolders.get("parlefrancais@gmail.com"));
-//        writeCard("parlefrancais@gmail.com", Double.toString(temp.getBalance()), Integer.toString(temp.getCard_id()), temp.isActivated(), temp.getTimeInitialized());
+//        writeCard("parlefrancais@gmail.com", "25.0", "1", false, LocalDate.of(2019, 10, 12));
+//        StartUp.main();
 //        System.out.println(StartUp.cards.get("parlefrancais@gmail.com"));
-        
+//        
     }
 	
 	
@@ -48,7 +48,7 @@ public class Writer {
         File cardFile = new File("Resources/Cards.txt");
         FileWriter writeCard = new FileWriter(cardFile, true);
         PrintWriter pw = new PrintWriter(writeCard);
-        pw.println(email + "," + balance + "," + id + ","+Boolean.toString(active)
+        pw.println(email + "," + balance + "," + id + ","+Boolean.toString(active) + ","
         +Integer.toString(date.getYear()) +"-"+ Integer.toString(date.getMonthValue()) 
         + "-" + Integer.toString(date.getDayOfMonth()));
         pw.close();
@@ -150,6 +150,8 @@ public class Writer {
     			writeCard(key,Double.toString(card.getBalance()) , Integer.toString(card.getCard_id()), card.isActivated(), card.getTimeInitialized());
     		}
     	}
+        fw2.close();
+        pw2.close();
         StartUp.main();
     	
     }
@@ -220,6 +222,5 @@ public class Writer {
         pw.close();
     	
     }
-    
     
 }

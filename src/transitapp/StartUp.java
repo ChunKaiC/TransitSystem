@@ -3,6 +3,8 @@ package transitapp;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class StartUp {
 		public static HashMap<String, ArrayList<Card>> cards = new HashMap<String, ArrayList<Card>>();
 		
 		
-		public static void main() throws FileNotFoundException {
+		public static void main() throws IOException {
 		stops = loadStops();
 		stations = loadStation();
 		busRoutes = loadBusRoutes();
@@ -33,6 +35,7 @@ public class StartUp {
 		
 		loadSettings();
 		loadEvents(cardHolders, stops, stations);
+		System.out.println(AdminUser.getMonthlyRev().get(LocalDate.of(2019, 10, 1)));
 	}
 
 	/**
@@ -176,7 +179,8 @@ public class StartUp {
 		while(scanCards.hasNextLine()) {
 			String line = scanCards.nextLine();
 			String[] data = line.split(",");
-			Card c = new Card(Double.parseDouble(data[1]), Integer.parseInt(data[2]));
+			String[] dateInfo = data[4].split("-");
+			Card c = new Card(Double.parseDouble(data[1]), Integer.parseInt(data[2]), LocalDate.of(Integer.parseInt(dateInfo[0]), Integer.parseInt(dateInfo[1]),Integer.parseInt(dateInfo[2])));
 			if(data[3].equals("true")) {
 				c.activate();
 			}
@@ -202,10 +206,10 @@ public class StartUp {
 	 * @param cardHolders A HashMap of the existing card holders
 	 * @param stops A HashMap of the existing bus stops
 	 * @param stations A HashMap of the existing subway stations
-	 * @throws FileNotFoundException
+	 * @throws IOException 
 	 */
 	public static void loadEvents(HashMap<String, CardHolder> cardHolders,
-			HashMap<String, Stop> stops, HashMap<String, Station> stations) throws FileNotFoundException{
+			HashMap<String, Stop> stops, HashMap<String, Station> stations) throws IOException{
 		
 		BufferedReader fileEvents = new BufferedReader(new FileReader("Resources/events.txt"));
 		Scanner scanEvents = new Scanner(fileEvents);
