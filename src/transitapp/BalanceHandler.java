@@ -41,7 +41,7 @@ public class BalanceHandler implements EventHandler<ActionEvent> {
 				e.printStackTrace();
 			}
 		}
-		if (source.equals("Add $20 To Balance")) {
+		else if (source.equals("Add $20 To Balance")) {
 			currCard.addBalance(20, LocalDate.now());
 			try {
 				Writer.removeCard(currCard, user);
@@ -56,7 +56,7 @@ public class BalanceHandler implements EventHandler<ActionEvent> {
 				e.printStackTrace();
 			}
 		}
-		if (source.equals("Add $50 To Balance")) {
+		else if (source.equals("Add $50 To Balance")) {
 			currCard.addBalance(50, LocalDate.now());
 			try {
 				Writer.removeCard(currCard, user);

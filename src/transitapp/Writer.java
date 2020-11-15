@@ -42,6 +42,7 @@ public class Writer {
         PrintWriter pw = new PrintWriter(writeCardHolders);
         pw.println(client.getName() + "," + client.getEmail());
         pw.close();
+        writeCardHolders.close();
     }
 
     public static void writeCard(String email, String balance, String id, boolean active, LocalDate date) throws IOException{
@@ -52,6 +53,8 @@ public class Writer {
         +Integer.toString(date.getYear()) +"-"+ Integer.toString(date.getMonthValue()) 
         + "-" + Integer.toString(date.getDayOfMonth()));
         pw.close();
+        writeCard.close();
+        
     }
 
     public static void writeBusStop(Stop busStop) throws IOException{
@@ -60,6 +63,7 @@ public class Writer {
         PrintWriter pw = new PrintWriter(writeBusStop);
         pw.println(busStop.getLocation() + "," + busStop.getAtInjuction());
         pw.close();
+        writeBusStop.close();
 
     }
 
@@ -69,6 +73,7 @@ public class Writer {
         PrintWriter pw = new PrintWriter(writeStationStop);
         pw.println(station.getLocation() + "," + station.getAtInjuction());
         pw.close();
+        writeStationStop.close();
     }
 
     public static void writesBusRoute(TransitRoutes route) throws IOException{
@@ -85,6 +90,7 @@ public class Writer {
         }
         pw.println(line);
         pw.close();
+        writeBusRoutes.close();
     }
 
     public static void writeSubwayRoute(TransitRoutes route) throws IOException{
@@ -100,6 +106,7 @@ public class Writer {
         }
         pw.println(line);
         pw.close();
+        writeSubwayRoutes.close();
     }
     
     public static void writeFare(double fare, boolean indication) throws IOException {
@@ -118,6 +125,7 @@ public class Writer {
         pw.println("Minute Grace Period:" + Integer.toString(Trip.MINUTE_GRACE_PERIOD));
         pw.println("Max Cost:" + Double.toString(Trip.MAX_COST));
         pw.close();
+        writeSettingsFile.close();
     }
     
     
@@ -131,6 +139,7 @@ public class Writer {
     	for(String key: StartUp.cardHolders.keySet()) {
     		writeCardHolder(StartUp.cardHolders.get(key));
     	}
+    
     }
     
     public static void removeCard(Card c, CardHolder client) throws IOException{
@@ -144,8 +153,6 @@ public class Writer {
     			writeCard(key,Double.toString(card.getBalance()) , Integer.toString(card.getCard_id()), card.isActivated(), card.getTimeInitialized());
     		}
     	}
-        fw2.close();
-        pw2.close();
     	
     }
     
