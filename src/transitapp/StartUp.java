@@ -22,7 +22,7 @@ public class StartUp {
 		public static HashMap<String, ArrayList<Card>> cards;
 		
 		
-		public static void main(String[] arg0) throws FileNotFoundException {
+		public static void main() throws FileNotFoundException {
 		HashMap<String, Stop> stops = loadStops();
 		HashMap<String, Station> stations = loadStation();
 		ArrayList<TransitRoutes> busRoutes = loadBusRoutes();
