@@ -229,20 +229,21 @@ public class StartUp {
 				location = stops.get(data.get(1).substring(1));
 			}
 			
-			System.out.println(data);
-			CardHolder cardHolder = cardHolders.get(data.get(8));
-			int cardID = Integer.parseInt(data.get(2));
+			if (!(data.get(0).equals("tapOff") && location instanceof Stop)){
+					System.out.println(data);
+				CardHolder cardHolder = cardHolders.get(data.get(8));
+				int cardID = Integer.parseInt(data.get(2));
 				
-			LocalDateTime time = LocalDateTime.of(Integer.parseInt(data.get(3)), 
-					Integer.parseInt(data.get(4)), Integer.parseInt(data.get(5)), 
-					Integer.parseInt(data.get(6)), Integer.parseInt(data.get(7)));
-			System.out.println(data.get(0));
-			if (data.get(0).equals("tapOn")) {
-				cardHolder.tapOn(location, cardID, time, true);
-			} else {
-				cardHolder.tapOff((Station) location, cardID, time, true);
+				LocalDateTime time = LocalDateTime.of(Integer.parseInt(data.get(3)), 
+						Integer.parseInt(data.get(4)), Integer.parseInt(data.get(5)), 
+						Integer.parseInt(data.get(6)), Integer.parseInt(data.get(7)));
+				System.out.println(data.get(0));
+				if (data.get(0).equals("tapOn")) {
+					cardHolder.tapOn(location, cardID, time, true);
+				} else {
+					cardHolder.tapOff((Station) location, cardID, time, true);
+				}
 			}
-				
 		}
 		fileEvents.close();
 		scanEvents.close();

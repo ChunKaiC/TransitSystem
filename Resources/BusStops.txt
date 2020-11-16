@@ -6,3 +6,13 @@ Lorne Park,false
 Erin Mills,false
 Chung Chung Go,true
 Pajdakov Go,true
+Faishalal,false
+Oakville Union,false
+Niagara Go,false
+Christmas place,true
+University Plaza,false
+Cherry Go,true
+Lion Valley Park,false
+Jupiter Stop,true
+Truxton,true
+Lala Go,false
