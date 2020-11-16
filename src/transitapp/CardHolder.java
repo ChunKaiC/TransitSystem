@@ -191,7 +191,7 @@ public class CardHolder {
      */
     public boolean tapOn(Location location, int card_id, LocalDateTime time,  boolean load) throws IOException {
         Card current_card = findCard(this.cards, card_id); // Must be able to get card from the list based on its id.
-        
+         System.out.println(this.trips.size());
         if(current_card == null) {
         	return false;
         }
@@ -219,18 +219,26 @@ public class CardHolder {
             // so at this point, the person may not have balance to tap on again
         
         // check if grace period has ended at this time, if so create a new trip  
-        } else if (this.currTrip.getTimes().size() > 0) {
+        } 
+        
+        if (this.currTrip.getTimes().size() > 0) {
+        	System.out.println("CHECKING GRACE");
         	int temp = (int) (Duration.between(this.currTrip.getTimes().get(0), time).toMinutes());
+        	System.out.println(temp + " and " + this.currTrip.getMINUTE_GRACE_PERIOD());
         	if (temp > this.currTrip.getMINUTE_GRACE_PERIOD()) {
         		this.currTrip = new Trip();
                 this.trips.add(this.currTrip);
         	}
         // Check if tapping on from different location, if so create a new trip
-        } else if (this.tapOffLocation != location) {
-            this.currTrip = new Trip();
-            this.trips.add(this.currTrip);
-        }
-
+        	
+        } else if (this.tapOffLocation != null) {
+        	if (!(this.tapOffLocation.getLocation() == location.getLocation())) {
+                this.currTrip = new Trip();
+                this.trips.add(this.currTrip);
+        	}
+        } 
+        System.out.println("MAX COST IS " + this.currTrip.getMaxCost());
+        System.out.println("GRACE IS " + this.currTrip.getMINUTE_GRACE_PERIOD());
         if (current_card.hasBalance()) {
         	
         	this.tapOnLocation = location;
@@ -319,7 +327,7 @@ public class CardHolder {
 		        this.currTrip.updateTimeOnTrip();
 		        this.currTrip.addMoneySpentOnTrip(cost);
 		        this.tapOnLocation = null;
-		        this.tapOffLocation = location;
+		        this.tapOffLocation = tempLocation;
 		    }
 		    
         } else if (location instanceof Stop) {
@@ -376,5 +384,9 @@ public class CardHolder {
 	
 	public static void main(String[] args) { 
     	System.out.println((int) (Duration.between(LocalDateTime.of(1, 1, 1, 1, 1), LocalDateTime.of(1, 1, 1, 1, 30)).toMinutes()));
+    	LocalDateTime time = LocalDateTime.now();
+    	System.out.println(time);
+    	System.out.println(time.getYear() + "/" + time.getMonthValue() + "/" + time.getDayOfMonth() + "/" + time.getHour() + "/" + time.getMinute());
+    	System.out.println("Apples".equals("Apples"));
     }
 }
