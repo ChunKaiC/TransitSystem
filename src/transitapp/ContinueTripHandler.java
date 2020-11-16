@@ -29,6 +29,12 @@ public class ContinueTripHandler implements EventHandler<ActionEvent> {
 	private Button tapOn;
 	private Button tapOff;
 
+	
+	/*
+	 * Takes in all information that is required when rendering the gui
+	 * @param stage the stage of the gui that needs to be loaded
+	 * @param
+	 */
 	public ContinueTripHandler(Stage stage, Card selectedCard, Location currL, CardHolder user,
 			ComboBox<Location> posibleDest, Label balance, Label currLocation, Label atInjuction, Button tapOn, Button tapOff) {
 		// TODO Auto-generated constructor stub
@@ -44,8 +50,9 @@ public class ContinueTripHandler implements EventHandler<ActionEvent> {
 		this.tapOff = tapOff;
 	}
 
-	// Take in chosen destination from combobox when tapon clicked, set tapoff to not clickable if subway not tapped on. render gui with new currlocation and new balance
-	// write to file card, 
+	/**
+	 * Handles Trip methods like tapOn and tapOff for the gui
+	 */
 	@Override
 	public void handle(ActionEvent arg0) {
 		// TODO Auto-generated method stub
@@ -97,13 +104,14 @@ public class ContinueTripHandler implements EventHandler<ActionEvent> {
 				}
 				else {
 					try {
-						// Remove card, tapoff then write card
+						Writer.removeCard(this.selectedCard, this.user);
 						this.user.tapOff((Station)this.currL, this.selectedCard.getCard_id(), LocalDateTime.now(), false);
+						Writer.writeCard(this.user.getEmail(), "" + this.selectedCard.getBalance(), "" + this.selectedCard.getCard_id(), true, this.selectedCard.getTimeInitialized());
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 				}
-				
+				this.balance.setText("Balance on Card: " + this.selectedCard.getBalance());
 				
 			}
 			if (source.getText().equals("End Trip")) {

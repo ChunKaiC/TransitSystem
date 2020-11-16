@@ -2,6 +2,7 @@ package transitapp;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class TransitGui extends Application {
@@ -224,7 +226,8 @@ public class TransitGui extends Application {
 		Label email = new Label("Email: " + currUser.getEmail());
 		email.setTextFill(Color.web("#fbfbfb"));
 		email.setFont(new Font(20));
-		Label mCost = new Label("Average Monthly Cost:" + currUser.averageMonthlyCost());
+		DecimalFormat df2 = new DecimalFormat("0.00");
+		Label mCost = new Label("Average Monthly Cost: $" + df2.format(currUser.averageMonthlyCost()));
 		mCost.setTextFill(Color.web("#fbfbfb"));
 		mCost.setFont(new Font(20));
 		
@@ -271,7 +274,7 @@ public class TransitGui extends Application {
 		String total = "Recent Trips:\n";
 		int i = 1;
 		for (Trip t : recent) {
-			total =  total + "Trip" + i + ": " + t.toString() + "\n";
+			total =  total + "Trip " + i + ": " + t.toString() + "\n";
 			i++;
 		}
 		rt.setText(total);
@@ -315,20 +318,29 @@ public class TransitGui extends Application {
 		
 		
 		Button ten = new Button("Add $10 To Balance");
+		ten.setPrefWidth(180);
 		Button twenty = new Button("Add $20 To Balance");
+		twenty.setPrefWidth(180);
 		Button fifty = new Button("Add $50 To Balance");
+		fifty.setPrefWidth(180);
+		Label update = new Label("Choose A Card Above to Add Balance");
+		update.setTextAlignment(TextAlignment.CENTER);
+		update.setTextFill(Color.web("#fbfbfb"));
+		update.setAlignment(Pos.CENTER);
 		ComboBox<Card> balanceList = new ComboBox<Card>(cList);
+		balanceList.setPrefWidth(180);
 		
-		ten.setOnAction(new BalanceHandler(balanceList, user));
-		twenty.setOnAction(new BalanceHandler(balanceList, user));
-		fifty.setOnAction(new BalanceHandler(balanceList, user));
+		ten.setOnAction(new BalanceHandler(balanceList, user, update));
+		twenty.setOnAction(new BalanceHandler(balanceList, user, update));
+		fifty.setOnAction(new BalanceHandler(balanceList, user, update));
 		
 		
-		VBox add = new VBox(balanceList, ten, twenty, fifty);
+		VBox add = new VBox(balanceList, ten, twenty, fifty, update);
 		finalPane.getChildren().add(add);
 		//add.setTranslateY(-50);
 		add.setAlignment(Pos.TOP_RIGHT);
-		add.setTranslateY(-450);
+		add.setTranslateY(-420);
+		add.setTranslateX(-20);
 		
 		
 		

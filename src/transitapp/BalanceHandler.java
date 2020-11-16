@@ -7,20 +7,24 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 
 public class BalanceHandler implements EventHandler<ActionEvent> {
 
 	private ComboBox<Card> value;
 	private CardHolder user;
+	private Label update;
 
 	/**
 	 * The constructor that takes the combo box and cardholder being acted on
 	 * @param balanceList The combo box that holds the balance
 	 * @param user The user that is logged in
+	 * @param update the label that changes in gui that confirms balance has been changed
 	 */
-	public BalanceHandler(ComboBox<Card> balanceList, CardHolder user) {
+	public BalanceHandler(ComboBox<Card> balanceList, CardHolder user, Label update) {
 		this.value = balanceList;
 		this.user = user;
+		this.update = update;
 	}
 
 	
@@ -29,49 +33,56 @@ public class BalanceHandler implements EventHandler<ActionEvent> {
 	 */
 	@Override
 	public void handle(ActionEvent arg0) {
-		System.out.println("!");
-		Card currCard = this.value.getValue();
+		//Card this.value.getValue() = this.value.getValue();
 		String source = ((Button) arg0.getSource()).getText();
-		if (!(currCard==null)) {
+		if (!(this.value.getValue()==null)) {
 			if (source.equals("Add $10 To Balance")) {
-				currCard.addBalance(10, LocalDate.now());
-				System.out.println("@");
+				this.value.getValue().addBalance(10, LocalDate.now());
 				try {
-					Writer.removeCard(currCard, user);
+					System.out.println("Remove" + this.value.getValue());
+					Writer.removeCard(this.value.getValue(), user);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 				try {
-					Writer.writeCard(user.getEmail(), "" + (currCard.getBalance()), "" + currCard.getCard_id(), currCard.isActivated(), currCard.getTimeInitialized());
+					//System.out.println("Card Writter Broken???????????");
+					System.out.println("Write" + this.value.getValue());
+					Writer.writeCard(user.getEmail(), "" + (this.value.getValue().getBalance()), "" + this.value.getValue().getCard_id(), this.value.getValue().isActivated(), this.value.getValue().getTimeInitialized());
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				//this.update.setText("Successfully Added $10 to Balance\n" + "New Balance: " + this.value.getValue().getBalance());
+				this.update.setText("Successfully Added $10 to Balance");
 			}
 			else if (source.equals("Add $20 To Balance")) {
-				currCard.addBalance(20, LocalDate.now());
+				this.value.getValue().addBalance(20, LocalDate.now());
 				try {
-					Writer.removeCard(currCard, user);
+					Writer.removeCard(this.value.getValue(), user);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 				try {
-					Writer.writeCard(user.getEmail(), "" + (currCard.getBalance()), "" + currCard.getCard_id(), currCard.isActivated(), currCard.getTimeInitialized());
+					Writer.writeCard(user.getEmail(), "" + (this.value.getValue().getBalance()), "" + this.value.getValue().getCard_id(), this.value.getValue().isActivated(), this.value.getValue().getTimeInitialized());
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				//this.update.setText("Successfully Added $20 to Balance\n" + "New Balance: " + this.value.getValue().getBalance());
+				this.update.setText("Successfully Added $20 to Balance");
 			}
 			else if (source.equals("Add $50 To Balance")) {
-				currCard.addBalance(50, LocalDate.now());
+				this.value.getValue().addBalance(50, LocalDate.now());
 				try {
-					Writer.removeCard(currCard, user);
+					Writer.removeCard(this.value.getValue(), user);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 				try {
-					Writer.writeCard(user.getEmail(), "" + (currCard.getBalance()), "" + currCard.getCard_id(), currCard.isActivated(), currCard.getTimeInitialized());
+					Writer.writeCard(user.getEmail(), "" + (this.value.getValue().getBalance()), "" + this.value.getValue().getCard_id(), this.value.getValue().isActivated(), this.value.getValue().getTimeInitialized());
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				//this.update.setText("Successfully Added $50 to Balance\n" + "New Balance: " + this.value.getValue().getBalance());
+				this.update.setText("Successfully Added $50 to Balance");
 			}
 			
 		}

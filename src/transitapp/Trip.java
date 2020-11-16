@@ -126,7 +126,15 @@ public class Trip {
      * @return the number of stations travelled
      */
     public int stationsTravelled(Station start, Station end, ArrayList<Station> stations) {
-        return Math.abs(stations.indexOf(start) -  stations.indexOf(end));
+    	int i = 0;
+    	while (!(start.getLocation().equals(stations.get(i).getLocation()))) {
+    		i++;
+    	}
+    	int j = 0;
+    	while (!(end.getLocation().equals(stations.get(j).getLocation()))) {
+    		j++;
+    	}
+        return Math.abs(i - j);
     }
 
     /**
@@ -207,11 +215,11 @@ public class Trip {
     public String toString() {
     	StringBuilder string = new StringBuilder(this.getTimes().get(0).getMonth().getValue() + "/" +
                 this.getTimes().get(0).getDayOfWeek().getValue() + "/" +
-                this.getTimes().get(0).getYear() + ",");
+                this.getTimes().get(0).getYear() + ", ");
     	
     	for (int i = 0; i < this.locationsTravelled.size(); i++) {
     		if (i != this.locationsTravelled.size() - 1) {
-    			string.append(this.locationsTravelled.get(i).getLocation()).append("->");
+    			string.append(this.locationsTravelled.get(i).getLocation()).append(" -> ");
     		} else {
     			string.append(this.locationsTravelled.get(i).getLocation());
     		}
