@@ -273,6 +273,7 @@ public class CardHolder {
      */
     public void tapOff(Station location, int card_id, LocalDateTime time, boolean load) throws IOException {
         // Only for subway stations
+    	
         Card current_card = findCard(this.cards, card_id); // Must be able to get card from the list based on its id.
         
         if (current_card.isActivated()){
