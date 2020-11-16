@@ -111,7 +111,7 @@ public class ContinueTripHandler implements EventHandler<ActionEvent> {
 						e.printStackTrace();
 					}
 				}
-				
+				this.balance.setText("Balance on Card: " + this.selectedCard.getBalance());
 				
 			}
 			if (source.getText().equals("End Trip")) {

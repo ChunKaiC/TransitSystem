@@ -219,7 +219,7 @@ public class Trip {
     	
     	for (int i = 0; i < this.locationsTravelled.size(); i++) {
     		if (i != this.locationsTravelled.size() - 1) {
-    			string.append(this.locationsTravelled.get(i).getLocation()).append(" → ");
+    			string.append(this.locationsTravelled.get(i).getLocation()).append(" -> ");
     		} else {
     			string.append(this.locationsTravelled.get(i).getLocation());
     		}

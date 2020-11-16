@@ -323,7 +323,7 @@ public class TransitGui extends Application {
 		twenty.setPrefWidth(180);
 		Button fifty = new Button("Add $50 To Balance");
 		fifty.setPrefWidth(180);
-		Label update = new Label("Choose A Card Above to Add Balance\n" + "Then Add The Balance You Wish");
+		Label update = new Label("Choose A Card Above to Add Balance");
 		update.setTextAlignment(TextAlignment.CENTER);
 		update.setTextFill(Color.web("#fbfbfb"));
 		update.setAlignment(Pos.CENTER);
@@ -339,7 +339,7 @@ public class TransitGui extends Application {
 		finalPane.getChildren().add(add);
 		//add.setTranslateY(-50);
 		add.setAlignment(Pos.TOP_RIGHT);
-		add.setTranslateY(-400);
+		add.setTranslateY(-420);
 		add.setTranslateX(-20);
 		
 		
