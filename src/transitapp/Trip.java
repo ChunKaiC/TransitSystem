@@ -215,11 +215,11 @@ public class Trip {
     public String toString() {
     	StringBuilder string = new StringBuilder(this.getTimes().get(0).getMonth().getValue() + "/" +
                 this.getTimes().get(0).getDayOfWeek().getValue() + "/" +
-                this.getTimes().get(0).getYear() + ",");
+                this.getTimes().get(0).getYear() + ", ");
     	
     	for (int i = 0; i < this.locationsTravelled.size(); i++) {
     		if (i != this.locationsTravelled.size() - 1) {
-    			string.append(this.locationsTravelled.get(i).getLocation()).append("->");
+    			string.append(this.locationsTravelled.get(i).getLocation()).append(" → ");
     		} else {
     			string.append(this.locationsTravelled.get(i).getLocation());
     		}

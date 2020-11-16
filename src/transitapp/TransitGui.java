@@ -2,6 +2,7 @@ package transitapp;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -224,7 +225,8 @@ public class TransitGui extends Application {
 		Label email = new Label("Email: " + currUser.getEmail());
 		email.setTextFill(Color.web("#fbfbfb"));
 		email.setFont(new Font(20));
-		Label mCost = new Label("Average Monthly Cost:" + currUser.averageMonthlyCost());
+		DecimalFormat df2 = new DecimalFormat("0.00");
+		Label mCost = new Label("Average Monthly Cost: $" + df2.format(currUser.averageMonthlyCost()));
 		mCost.setTextFill(Color.web("#fbfbfb"));
 		mCost.setFont(new Font(20));
 		
@@ -271,7 +273,7 @@ public class TransitGui extends Application {
 		String total = "Recent Trips:\n";
 		int i = 1;
 		for (Trip t : recent) {
-			total =  total + "Trip" + i + ": " + t.toString() + "\n";
+			total =  total + "Trip " + i + ": " + t.toString() + "\n";
 			i++;
 		}
 		rt.setText(total);
