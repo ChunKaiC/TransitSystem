@@ -1,5 +1,4 @@
 sadia@uoft.com,13.24,23,true,2020-5-12
-@,8.0,55,true,2020-11-15
 TrueDescription@gmail.com,2.0,22,true,2020-12-31
 Hello@DingDong.com,45.0,4,true,2019-10-21
 Hello@DingDong.com,17.5,7,true,2019-11-21
