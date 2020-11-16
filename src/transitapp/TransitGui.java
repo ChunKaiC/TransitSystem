@@ -273,7 +273,7 @@ public class TransitGui extends Application {
 		String total = "Recent Trips:\n";
 		int i = 1;
 		for (Trip t : recent) {
-			total =  total + "Trip" + i + ": " + t.toString() + "\n";
+			total =  total + "Trip " + i + ": " + t.toString() + "\n";
 			i++;
 		}
 		rt.setText(total);
