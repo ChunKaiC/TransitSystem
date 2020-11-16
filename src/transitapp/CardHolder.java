@@ -302,26 +302,17 @@ public class CardHolder {
 		            cost = this.currTrip.getMaxCost();
 		            
 		        } else {
-		        	System.out.println(this.tapOnLocation + "and" + tempLocation.getLocation());
 		        	double numStations = this.currTrip.stationsTravelled((Station) this.tapOnLocation, tempLocation, tempLocation.getAllStations());
 			        cost = numStations * fare;
-			        System.out.println(numStations + " and " + cost);
-			        System.out.println(this.tapOnLocation.getLocation() + "->" + tempLocation.getLocation());
-			        System.out.println(tempLocation.getAllStations());
-			        System.out.println(cost);
 		        }
 		        
 		        if (cost  + this.currTrip.getMoneySpentOnTrip() > this.currTrip.getMaxCost()) {
 		        // if the trip costs more than the max ($6) or the person has been riding for
 		        // more than 3 hours (180 minutes)
 		            cost = this.currTrip.getMaxCost() - this.currTrip.getMoneySpentOnTrip();
-		            System.out.println("cost: " + cost);
-		            System.out.println("fare: " + fare);
-		            System.out.println("MAXED: " + cost);
 		        } 
 		        
 		        if (!load) {
-		        	System.out.println("load");
 		        	current_card.deductFare(cost);
 		        	Writer.writeEvent("tapOff", "!" + location.getLocation(), card_id, time, this.email);
 		        }
