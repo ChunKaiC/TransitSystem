@@ -40,9 +40,9 @@ public class StartUp {
 	/**
 	 * Load the bus stops from the file
 	 * @return a HashMap of the stops, keyed by name
-	 * @throws FileNotFoundException
+	 * @throws IOException 
 	 */
-	public static HashMap<String, Stop> loadStops() throws FileNotFoundException{
+	public static HashMap<String, Stop> loadStops() throws IOException{
 		HashMap<String, Stop> stops = new HashMap<String, Stop>();
 		BufferedReader fileStops = new BufferedReader(new FileReader("Resources/BusStops.txt"));
 		Scanner scanStops = new Scanner(fileStops);
@@ -52,6 +52,7 @@ public class StartUp {
 			String[] data = line.split(",");
 			stops.put(data[0], new Stop(data[0], Boolean.parseBoolean(data[1])));
 		}
+		fileStops.close();
 		scanStops.close();
 		return stops;
 	}
@@ -59,9 +60,9 @@ public class StartUp {
 	/**
 	 * Load the subway stations from the file
 	 * @return a HashMap of the stations, keyed by name
-	 * @throws FileNotFoundException
+	 * @throws IOException 
 	 */
-	public static HashMap<String, Station> loadStation() throws FileNotFoundException{
+	public static HashMap<String, Station> loadStation() throws IOException{
 		HashMap<String, Station> stations = new HashMap<String, Station>();
 		BufferedReader fileStations = new BufferedReader(new FileReader("Resources/Stations.txt"));
 		Scanner scanStations = new Scanner(fileStations);
@@ -72,6 +73,7 @@ public class StartUp {
 			stations.put(data[0], new Station(data[0], Boolean.parseBoolean(data[1])));
 		}
 
+		fileStations.close();
 		scanStations.close();
 		return stations;
 	}
@@ -79,9 +81,9 @@ public class StartUp {
 	/**
 	 * Load the bus routes from the file
 	 * @return an ArrayList with the bus routes
-	 * @throws FileNotFoundException
+	 * @throws IOException 
 	 */
-	public static ArrayList<TransitRoutes> loadBusRoutes() throws FileNotFoundException{
+	public static ArrayList<TransitRoutes> loadBusRoutes() throws IOException{
 		ArrayList<TransitRoutes> busRoutes = new ArrayList<TransitRoutes>();
 		BufferedReader fileBusRoutes = new BufferedReader(new FileReader("Resources/BusRoutes.txt"));
 		Scanner scanBusRoutes = new Scanner(fileBusRoutes);
@@ -103,6 +105,7 @@ public class StartUp {
 			busRoutes.add(r);
 			System.out.println(r.countObservers());
 		}
+		fileBusRoutes.close();
 		scanBusRoutes.close();
 		return busRoutes;
 	}
@@ -110,9 +113,9 @@ public class StartUp {
 	/**
 	 * Load the subway route from the file
 	 * @return An ArrayList containing (only) the subway route
-	 * @throws FileNotFoundException
+	 * @throws IOException 
 	 */
-	public static ArrayList<TransitRoutes> loadSubwayRoute() throws FileNotFoundException{
+	public static ArrayList<TransitRoutes> loadSubwayRoute() throws IOException{
 		ArrayList<TransitRoutes> subwayRoutes = new ArrayList<TransitRoutes>();
 		BufferedReader fileBusRoutes = new BufferedReader(new FileReader("Resources/StationRoutes.txt"));
 		Scanner scanStationRoutes = new Scanner(fileBusRoutes);
@@ -132,6 +135,7 @@ public class StartUp {
 			}
 			subwayRoutes.add(new TransitRoutes(data.get(0), destinations, schedule));
 		}
+		fileBusRoutes.close();
 		scanStationRoutes.close();
 		return subwayRoutes;
 	}
@@ -139,9 +143,9 @@ public class StartUp {
 	/**
 	 * Load the card holders from the file
 	 * @return A HashMap of CardHolders, keyed by name
-	 * @throws FileNotFoundException
+	 * @throws IOException 
 	 */
-	public static HashMap<String, CardHolder> loadCardHolders(HashMap<String, ArrayList<Card>> updatedCards) throws FileNotFoundException{
+	public static HashMap<String, CardHolder> loadCardHolders(HashMap<String, ArrayList<Card>> updatedCards) throws IOException{
 		loadSettings();
 		HashMap<String, CardHolder> cardHolders = new HashMap<String, CardHolder>();
 		BufferedReader fileCardHolders = new BufferedReader(new FileReader("Resources/CardHolders.txt"));
@@ -158,7 +162,7 @@ public class StartUp {
 				cardHolders.get(key).addCard(updatedCards.get(key).get(i));
 			}
 		}
-		
+		fileCardHolders.close();
 		scanCardHolders.close();
 		return cardHolders;
 	}
@@ -167,9 +171,9 @@ public class StartUp {
 	/**
 	 * Load the cards from the file
 	 * @return A HashMap of the cards
-	 * @throws FileNotFoundException
+	 * @throws IOException 
 	 */
-	public static HashMap<String, ArrayList<Card>> loadCards() throws FileNotFoundException{
+	public static HashMap<String, ArrayList<Card>> loadCards() throws IOException{
 		HashMap<String, ArrayList<Card>> cards = new HashMap<String, ArrayList<Card>>();
 		BufferedReader fileCards = new BufferedReader(new FileReader("Resources/Cards.txt"));
 		Scanner scanCards = new Scanner(fileCards);
@@ -193,7 +197,7 @@ public class StartUp {
 				cards.put(data[0], new ArrayList<Card>(Arrays.asList(c)));
 			}
 		}
-
+		fileCards.close();
 		scanCards.close();
 		return cards;
 
@@ -240,15 +244,16 @@ public class StartUp {
 			}
 				
 		}
+		fileEvents.close();
 		scanEvents.close();
 
 	}
 
 	/**
 	 * Load the parameters containing the BusFare, StationFare, Minute Grace Period and Max Cost
-	 * @throws FileNotFoundException
+	 * @throws IOException 
 	 */
-	public static void loadSettings() throws FileNotFoundException{
+	public static void loadSettings() throws IOException{
 		BufferedReader fileSettings = new BufferedReader(new FileReader("Resources/Settings.txt"));
 		Scanner scanSettings = new Scanner(fileSettings);
 		
@@ -270,6 +275,7 @@ public class StartUp {
 			
 			
 		}
+		fileSettings.close();
 		scanSettings.close();
 	}
 	
