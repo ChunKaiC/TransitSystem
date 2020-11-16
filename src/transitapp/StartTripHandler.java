@@ -39,12 +39,13 @@ public class StartTripHandler implements EventHandler<ActionEvent>{
 	 */
 	@Override
 	public void handle(ActionEvent arg0) {
+		System.out.println(StartUp.cards.get(user.getEmail()).get(0).equals(this.cardList.getValue()));
 		if (((Button) arg0.getSource()).getText().equals("Start Trip") &&
 				this.cardList.getValue() instanceof Card && this.lList.getValue() instanceof Location) {
-			Card selectedCard = this.cardList.getValue();
+			//Card selectedCard = this.cardList.getValue();
 			Location start = this.lList.getValue();
 			try {
-				this.obj.continueTrip(this.stage, selectedCard, start, this.user);
+				this.obj.continueTrip(this.stage, this.cardList.getValue(), start, this.user);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {

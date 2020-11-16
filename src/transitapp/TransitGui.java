@@ -45,8 +45,8 @@ public class TransitGui extends Application {
 		//StartUp.loadStops();
 		//StartUp.loadStation();
 		//StartUp.l
-		StartUp data = new StartUp();
-		StartUp.main();
+		//StartUp data = new StartUp();
+		//StartUp.main();
 		HashMap<String, CardHolder> users = StartUp.cardHolders;
 		//System.out.println(users);
 		//System.out.println(StartUp.cardHolders);
@@ -609,7 +609,7 @@ public class TransitGui extends Application {
 	 */
 	public void continueTrip(Stage stage, Card selectedCard, Location start, CardHolder user) throws IOException {
 		
-		StartUp.main();
+		//StartUp.main();
 		HashMap<String, Stop> stops = StartUp.stops;
 		HashMap<String, Station> stations = StartUp.stations;
 		ArrayList<TransitRoutes> busRoutes = StartUp.busRoutes;
@@ -627,8 +627,8 @@ public class TransitGui extends Application {
 		Label balance = new Label("Balance on Card: " + selectedCard.getBalance());
 		balance.setTextFill(Color.web("#fbfbfb"));
 		Location currL = start;
-		System.out.println(start.getLocation() + "Look Here");
-		Label currLocation = new Label("Current Location" + start);
+		//System.out.println(start.getLocation() + "Look Here");
+		Label currLocation = new Label("Current Location: " + start);
 		currLocation.setTextFill(Color.web("#fbfbfb"));
 		String sOrS = "";
 		Label atInjuction = new Label("");
@@ -638,27 +638,23 @@ public class TransitGui extends Application {
 			try {
 				Stop s = (Stop) currL;
 				atInjuction = new Label("This Stop Has a Station");
-				sOrS = "Stop";
 			}
 			catch(Exception e) {
 				Station s = (Station) currL;
 				atInjuction = new Label("This Station Has a Stop");
-				sOrS = "Station";
 			}
 		}
 		else {
 			try {
 				Stop s = (Stop) currL;
 				atInjuction = new Label("This Stop Does Not Have a Station");
-				sOrS = "Stop";
 			}
 			catch(Exception e) {
 				Station s = (Station) currL;
 				atInjuction = new Label("This Station Does Not Have a Stop");
-				sOrS = "Station";
 			}
 		}
-		Label sDest = new Label("Select Possible Destination");
+		Label sDest = new Label("Select Possible Destination:");
 		sDest.setTextFill(Color.web("#fbfbfb"));
 		atInjuction.setTextFill(Color.web("#fbfbfb"));
 
@@ -666,9 +662,6 @@ public class TransitGui extends Application {
 		
 		Button tapOff = new Button("Tap Off");
 		Button endTrip = new Button("End Trip");
-		tapOn.setOnAction(new ContinueTripHandler());
-		tapOff.setOnAction(new ContinueTripHandler());
-		endTrip.setOnAction(new ContinueTripHandler());
 		
 		
 		ObservableList<Location> oList = FXCollections.observableArrayList();
@@ -752,12 +745,14 @@ public class TransitGui extends Application {
 			}
 		}
 		*/
-		ComboBox<Location> posibleDest = new ComboBox<Location>(oList);
-		
-		
-		tapOn.setOnAction(new ContinueTripHandler());
-		tapOff.setOnAction(new ContinueTripHandler());
-		endTrip.setOnAction(new ContinueTripHandler());
+		ComboBox<Location> posibleDest = new ComboBox<Location>(oList);		
+		//System.out.println("Over Here Baby" + selectedCard.equals(StartUp.cards.get(user.getEmail()).get(0)));
+		System.out.println("Over Here Baby" + StartUp.cards.get(user.getEmail()).get(0).equals(selectedCard));
+		tapOn.setOnAction(new ContinueTripHandler(stage, selectedCard, currL, user, posibleDest, balance, currLocation, atInjuction, tapOn, tapOff));
+		tapOff.setOnAction(new ContinueTripHandler(stage, selectedCard, currL, user, posibleDest, balance, currLocation, atInjuction, tapOn, tapOff));
+		endTrip.setOnAction(new ContinueTripHandler(stage, selectedCard, currL, user, posibleDest, balance, currLocation, atInjuction, tapOn, tapOff));
+		tapOff.setDisable(true);
+		//System.out.println("Disabled??" + tapOff.isDisabled());
 		
 		HBox tap = new HBox();
 		tap.setAlignment(Pos.CENTER);

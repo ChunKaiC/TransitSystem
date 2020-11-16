@@ -52,7 +52,6 @@ public class SignUpHandler implements EventHandler<ActionEvent>{
 				}
 				try {
 					Writer.writeCardHolder(newUser);
-					StartUp.main();
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}

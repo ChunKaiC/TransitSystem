@@ -12,3 +12,13 @@ tapOn,!Geometry Go,19,2020,11,15,17,30,katherine.chen@kai.com
 tapOff,!Chung Chung Go,19,2020,11,15,17,45,katherine.chen@kai.com
 tapOn,!Clarkson,26,2020,11,16,10,12,Sego2@gmail.com
 tapOff,!Truxton,26,2020,11,16,18,45,Sego2@gmail.com
+tapOn,?Chung Chung Go,15,2020,11,15,20,20,zachtt@nba.com
+tapOff,?Jupiter Stop,15,2020,11,15,20,20,zachtt@nba.com
+tapOn,?Chung Chung Go,55,2020,11,15,23,23,@
+tapOff,?Jupiter Stop,55,2020,11,15,23,23,@
+tapOn,?Jupiter Stop,55,2020,11,15,23,23,@
+tapOff,?Christmas place,55,2020,11,15,23,23,@
+tapOn,?Christmas place,55,2020,11,15,23,23,@
+tapOff,?Oakville Union,55,2020,11,15,23,23,@
+tapOn,?Oakville Union,55,2020,11,15,23,23,@
+tapOff,?Faishalal,55,2020,11,15,23,23,@
