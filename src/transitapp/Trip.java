@@ -127,11 +127,11 @@ public class Trip {
      */
     public int stationsTravelled(Station start, Station end, ArrayList<Station> stations) {
     	int i = 0;
-    	while (start.getLocation().equals(stations.get(i).getLocation())) {
+    	while (!(start.getLocation().equals(stations.get(i).getLocation()))) {
     		i++;
     	}
     	int j = 0;
-    	while (end.getLocation().equals(stations.get(j).getLocation())) {
+    	while (!(end.getLocation().equals(stations.get(j).getLocation()))) {
     		j++;
     	}
         return Math.abs(i - j);
