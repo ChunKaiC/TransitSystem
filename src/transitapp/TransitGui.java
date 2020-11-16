@@ -570,8 +570,8 @@ public class TransitGui extends Application {
 		Label balance = new Label("Balance on Card: " + selectedCard.getBalance());
 		balance.setTextFill(Color.web("#fbfbfb"));
 		Location currL = start;
-		System.out.println(start.getLocation() + "Look Here");
-		Label currLocation = new Label("Current Location" + start);
+		//System.out.println(start.getLocation() + "Look Here");
+		Label currLocation = new Label("Current Location: " + start);
 		currLocation.setTextFill(Color.web("#fbfbfb"));
 		String sOrS = "";
 		Label atInjuction = new Label("");
@@ -581,27 +581,23 @@ public class TransitGui extends Application {
 			try {
 				Stop s = (Stop) currL;
 				atInjuction = new Label("This Stop Has a Station");
-				sOrS = "Stop";
 			}
 			catch(Exception e) {
 				Station s = (Station) currL;
 				atInjuction = new Label("This Station Has a Stop");
-				sOrS = "Station";
 			}
 		}
 		else {
 			try {
 				Stop s = (Stop) currL;
 				atInjuction = new Label("This Stop Does Not Have a Station");
-				sOrS = "Stop";
 			}
 			catch(Exception e) {
 				Station s = (Station) currL;
 				atInjuction = new Label("This Station Does Not Have a Stop");
-				sOrS = "Station";
 			}
 		}
-		Label sDest = new Label("Select Possible Destination");
+		Label sDest = new Label("Select Possible Destination:");
 		sDest.setTextFill(Color.web("#fbfbfb"));
 		atInjuction.setTextFill(Color.web("#fbfbfb"));
 
@@ -609,9 +605,6 @@ public class TransitGui extends Application {
 		
 		Button tapOff = new Button("Tap Off");
 		Button endTrip = new Button("End Trip");
-		tapOn.setOnAction(new ContinueTripHandler());
-		tapOff.setOnAction(new ContinueTripHandler());
-		endTrip.setOnAction(new ContinueTripHandler());
 		
 		
 		ObservableList<Location> oList = FXCollections.observableArrayList();
@@ -695,12 +688,13 @@ public class TransitGui extends Application {
 			}
 		}
 		*/
-		ComboBox<Location> posibleDest = new ComboBox<Location>(oList);
+		ComboBox<Location> posibleDest = new ComboBox<Location>(oList);		
 		
-		
-		tapOn.setOnAction(new ContinueTripHandler());
-		tapOff.setOnAction(new ContinueTripHandler());
-		endTrip.setOnAction(new ContinueTripHandler());
+		tapOn.setOnAction(new ContinueTripHandler(stage, selectedCard, currL, user, posibleDest, balance, currLocation, atInjuction, tapOn, tapOff));
+		tapOff.setOnAction(new ContinueTripHandler(stage, selectedCard, currL, user, posibleDest, balance, currLocation, atInjuction, tapOn, tapOff));
+		endTrip.setOnAction(new ContinueTripHandler(stage, selectedCard, currL, user, posibleDest, balance, currLocation, atInjuction, tapOn, tapOff));
+		tapOff.setDisable(true);
+		//System.out.println("Disabled??" + tapOff.isDisabled());
 		
 		HBox tap = new HBox();
 		tap.setAlignment(Pos.CENTER);
