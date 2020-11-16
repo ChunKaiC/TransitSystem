@@ -25,6 +25,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class TransitGui extends Application {
@@ -315,20 +316,29 @@ public class TransitGui extends Application {
 		
 		
 		Button ten = new Button("Add $10 To Balance");
+		ten.setPrefWidth(180);
 		Button twenty = new Button("Add $20 To Balance");
+		twenty.setPrefWidth(180);
 		Button fifty = new Button("Add $50 To Balance");
+		fifty.setPrefWidth(180);
+		Label update = new Label("Choose A Card Above to Add Balance\n" + "Then Add The Balance You Wish");
+		update.setTextAlignment(TextAlignment.CENTER);
+		update.setTextFill(Color.web("#fbfbfb"));
+		update.setAlignment(Pos.CENTER);
 		ComboBox<Card> balanceList = new ComboBox<Card>(cList);
+		balanceList.setPrefWidth(180);
 		
-		ten.setOnAction(new BalanceHandler(balanceList, user));
-		twenty.setOnAction(new BalanceHandler(balanceList, user));
-		fifty.setOnAction(new BalanceHandler(balanceList, user));
+		ten.setOnAction(new BalanceHandler(balanceList, user, update));
+		twenty.setOnAction(new BalanceHandler(balanceList, user, update));
+		fifty.setOnAction(new BalanceHandler(balanceList, user, update));
 		
 		
-		VBox add = new VBox(balanceList, ten, twenty, fifty);
+		VBox add = new VBox(balanceList, ten, twenty, fifty, update);
 		finalPane.getChildren().add(add);
 		//add.setTranslateY(-50);
 		add.setAlignment(Pos.TOP_RIGHT);
-		add.setTranslateY(-450);
+		add.setTranslateY(-400);
+		add.setTranslateX(-20);
 		
 		
 		
