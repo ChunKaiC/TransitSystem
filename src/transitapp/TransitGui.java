@@ -417,6 +417,11 @@ public class TransitGui extends Application {
 		userFunctions.setOnAction(new UserFunctionHandler(user, this, stage, stops, stations));
 		
 		
+		//Back button
+		Button backButton = new Button("Back");
+		backButton.setOnAction(new BackButtonsHandler(this, stage, "HomePage"));
+		backButton.setAlignment(Pos.TOP_LEFT);
+		
 		// User Info
 		VBox userInfo = new VBox();
 		Label name = new Label("Name: " + user.getName());
@@ -432,12 +437,12 @@ public class TransitGui extends Application {
 		userInfo.getChildren().addAll(name, email);
 		pane.getChildren().add(userInfo);
 		userInfo.setAlignment(Pos.TOP_CENTER);
-		
+		center.add(backButton, 0, 4);
 		//Label l1 = new Label("hello");
 		//pane.getChildren().add(l1);
 		// add list above everything else
 		//pane.getChildren().add(list);
-		pane.getChildren().add(center);
+		pane.getChildren().addAll(center);
 		Scene scene = new Scene(pane);
 		
 		stage.setScene(scene);
