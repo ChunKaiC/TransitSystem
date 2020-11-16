@@ -271,7 +271,7 @@ public class StartUp {
 			else if(data[0].equals("Minute Grace Period")) {
 				Trip.MINUTE_GRACE_PERIOD = Integer.parseInt(data[1]);
 			}
-			else if(data[0].equals("Minute Grace Period")) {
+			else if(data[0].equals("Max Cost")) {
 				Trip.MAX_COST = Double.parseDouble(data[1]);
 			}
 			

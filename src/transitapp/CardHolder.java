@@ -231,7 +231,10 @@ public class CardHolder {
         	}
         // Check if tapping on from different location, if so create a new trip
         	
-        } else if (this.tapOffLocation != null) {
+        }
+        
+        if (this.tapOffLocation != null) {
+        	System.out.println("CHECKING TAP OFF");
         	if (!(this.tapOffLocation.getLocation() == location.getLocation())) {
                 this.currTrip = new Trip();
                 this.trips.add(this.currTrip);
