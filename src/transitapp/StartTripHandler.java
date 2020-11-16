@@ -35,6 +35,7 @@ public class StartTripHandler implements EventHandler<ActionEvent>{
 		if (((Button) arg0.getSource()).getText().equals("Start Trip") &&
 				this.cardList.getValue() instanceof Card && this.lList.getValue() instanceof Location) {
 			// pass in location chosen and card chosen 
+			
 			Card selectedCard = this.cardList.getValue();
 			Location start = this.lList.getValue();
 			try {
