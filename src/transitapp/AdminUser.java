@@ -102,7 +102,8 @@ public class AdminUser {
 		for (String customer : StartUp.cardHolders.keySet()) {
 			for (Trip trip : StartUp.cardHolders.get(customer).getTrips()) {
 				
-				if (trip.getTimes().get(0).toLocalDate().equals(date)) {
+				System.out.println("Trip Times" + trip.getTimes());
+				if ((trip.getTimes().size() > 0) && trip.getTimes().get(0).toLocalDate().equals(date)) {
 					rides ++;
 				}
 			}

@@ -52,6 +52,7 @@ public class ContinueTripHandler implements EventHandler<ActionEvent> {
 		Button source = (Button) arg0.getSource();
 		if (!(this.combo.getValue() == null)) {
 			if (source.getText().equals("Tap On")) {
+				//System.out.println(user.getTrips());
 				this.tapOff.setDisable(false);
 				this.tapOn.setDisable(true);
 				this.combo.setDisable(true);
@@ -88,6 +89,7 @@ public class ContinueTripHandler implements EventHandler<ActionEvent> {
 					try {
 						System.out.println("LOOK HERE FAISAL" + this.selectedCard.getCard_id());
 						//Writer.writeEvent("tapOff", "?" + this.currL.getLocation(), this.selectedCard.getCard_id(), LocalDateTime.now(), this.user.getEmail());
+						this.user.tapOff(this.currL, this.selectedCard.getCard_id(), LocalDateTime.now(), false);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

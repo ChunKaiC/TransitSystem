@@ -288,7 +288,7 @@ public class Writer {
     	File eventFile = new File("Resources/events.txt");
         FileWriter writeEvent = new FileWriter(eventFile, true);
         PrintWriter pw = new PrintWriter(writeEvent);
-        String line = tap + "," + location + "," + "," + card_id + "," + time.getYear() + "," + time.getMonthValue() + "," + 
+        String line = tap + "," + location + "," + + card_id + "," + time.getYear() + "," + time.getMonthValue() + "," + 
         		time.getDayOfMonth() + "," + time.getHour() + "," + time.getHour() + "," + email;
         		
         pw.println(line);

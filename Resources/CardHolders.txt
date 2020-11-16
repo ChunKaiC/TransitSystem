@@ -19,3 +19,4 @@ Chun Kai Chen,chenc340@mail.utoronto.ca
 Zach Lavine,zachtt@nba.com
 Nikky Segovia,nikky@kai.com
 Monika Segovia,monika.segovia@gmail.com
+f,@
