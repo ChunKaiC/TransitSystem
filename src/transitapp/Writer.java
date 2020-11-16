@@ -289,7 +289,7 @@ public class Writer {
         FileWriter writeEvent = new FileWriter(eventFile, true);
         PrintWriter pw = new PrintWriter(writeEvent);
         String line = tap + "," + location + "," + + card_id + "," + time.getYear() + "," + time.getMonthValue() + "," + 
-        		time.getDayOfMonth() + "," + time.getHour() + "," + time.getHour() + "," + email;
+        		time.getDayOfMonth() + "," + time.getHour() + "," + time.getMinute() + "," + email;
         		
         pw.println(line);
         pw.close();
