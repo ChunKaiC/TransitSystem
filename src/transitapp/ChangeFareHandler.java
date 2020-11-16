@@ -19,6 +19,13 @@ public class ChangeFareHandler implements EventHandler<ActionEvent> {
 	private Stage stage;
 	private boolean bool;
 
+	/**
+	 * 
+	 * @param obj The main GUI that is being used
+	 * @param tf Text field that contains the users input
+	 * @param stage Stage that is being worked with
+	 * @param b True when changing bus fare false when changing station fare
+	 */
 	public ChangeFareHandler(TransitGui obj, TextField tf, Stage stage, boolean b) {
 		this.obj = obj;
 		this.tf = tf;
@@ -26,6 +33,9 @@ public class ChangeFareHandler implements EventHandler<ActionEvent> {
 		this.bool = b;
 	}
 	
+	/**
+	 * The handle method that handles the actions once the "Go" button is clicked
+	 */
 	@Override
 	public void handle(ActionEvent arg0) {
 		Label l = new Label("Successfully Changed Fare");
@@ -49,10 +59,8 @@ public class ChangeFareHandler implements EventHandler<ActionEvent> {
 		try {
 			Writer.writeFare(Double.parseDouble(this.tf.getText()), this.bool);
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

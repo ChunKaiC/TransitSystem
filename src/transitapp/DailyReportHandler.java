@@ -14,15 +14,24 @@ public class DailyReportHandler implements EventHandler<ActionEvent> {
 	private TransitGui transitGui;
 	private Stage stage;
 
+	
+	/**
+	 * Constructor for the report buttons
+	 * @param tf Text Field that contains input from the user
+	 * @param transitGui The main application object
+	 * @param stage The stage to be changed
+	 */
 	public DailyReportHandler(TextField tf, TransitGui transitGui, Stage stage) {
 		this.tf = tf;
 		this.transitGui = transitGui;
 		this.stage = stage;
 	}
 	
+	/**
+	 * handles the users input and accesses the appropriate daily report
+	 */
 	@Override
 	public void handle(ActionEvent arg0) {
-		// TODO Auto-generated method stub
 		if(this.tf.getText().equals("")) {
 			this.tf.setText("Please enter a valid Input");
 		}
@@ -35,7 +44,6 @@ public class DailyReportHandler implements EventHandler<ActionEvent> {
 			try {
 				this.transitGui.showDailyReport(this.stage, ld);
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

@@ -34,6 +34,9 @@ public class TransitGui extends Application {
 	}
 	
 
+	/**
+	 * Renders the opening scene of the GUI Application
+	 */
 	@Override
 	public void start(Stage stage) throws Exception {
 		StartUp.main();
@@ -143,6 +146,12 @@ public class TransitGui extends Application {
 		stage.show();
 	}
 	
+	/**
+	 * Renders the user side of the application once a user logs in from the start page
+	 * @param stage the stage being rendered
+	 * @param user the card holder that has signed in
+	 * @throws FileNotFoundException
+	 */
 	public void userUI(Stage stage, CardHolder user) throws FileNotFoundException {
 		StackPane pane = new StackPane();
 		Image back = new Image("file:resources/backdrop.png");
@@ -160,6 +169,15 @@ public class TransitGui extends Application {
 		
 	}
 	
+	
+	/**
+	 * Renders the userFunction for the user that is currently logged in
+	 * @param stage the stage that is being rendered
+	 * @param user the user that the page is currently logged into
+	 * @param stops A Hashmap key is stop name and value is the stop object
+	 * @param stations A Hashmap key is a station name and value is the station object
+	 * @throws FileNotFoundException
+	 */
 	public void userFunctionsUI(Stage stage, CardHolder user, HashMap<String, Stop> stops, HashMap<String, Station> stations) throws FileNotFoundException {
 		// show monthly cost
 		// show recent trips
@@ -320,6 +338,14 @@ public class TransitGui extends Application {
 	}
 	
 	
+	/**
+	 * Renders the stage where a user can plan a trip
+	 * @param stage The stage that is being modified by this method
+	 * @param user The user that is currently logged in
+	 * @param stops A Hashmap key is stop name and value is the stop object
+	 * @param stations A Hashmap key is a station name and value is the station object
+	 * @throws FileNotFoundException
+	 */
 	public void UserUIAfter(Stage stage, CardHolder user, HashMap<String, Stop> stops,
 			HashMap<String, Station> stations) throws FileNotFoundException {
 		// TODO Auto-generated method stub
@@ -407,6 +433,11 @@ public class TransitGui extends Application {
 	}
 
 	
+	/**
+	 * Renders the admin side of the GUI Application
+	 * @param stage The stage to be changed and renders
+	 * @param l the label that is printed to the screen
+	 */
 	public void adminUI(Stage stage, Label l) {
 		StackPane pane = new StackPane();
 		Image back = new Image("file:resources/backdrop.png");
@@ -448,7 +479,10 @@ public class TransitGui extends Application {
         
 	}
 
-
+	/**
+	 * Renders the stage where an Admin can request a daily report for a certain day
+	 * @param stage The stage that is being changed and rendered
+	 */
 	public void showDR(Stage stage) {
 		StackPane pane = new StackPane();
 		Image back = new Image("file:resources/backdrop.png");
@@ -457,7 +491,7 @@ public class TransitGui extends Application {
 		pane.getChildren().add(back2);
 		
 		GridPane grid = new GridPane();
-		Label label = new Label("Please Input the date you would like to check out (Format: YY-MM-DD):");
+		Label label = new Label("Please Input the date you would like to check out (Format: YYYY-MM-DD):");
 		label.setTextFill(Color.web("#fbfbfb"));
 		TextField tf = new TextField();
 		Button rep = new Button("Show Daily Report");
@@ -473,7 +507,11 @@ public class TransitGui extends Application {
 		stage.setScene(scene);
 		stage.show();
 	}
-
+	
+	/**
+	 * The method renders a stage where an admin can change the fare of a subway
+	 * @param stage The stage that is being changed and rendered
+	 */
 	public void showSetStation(Stage stage) {
 		StackPane pane = new StackPane();
 		Image back = new Image("file:resources/backdrop.png");
@@ -499,6 +537,10 @@ public class TransitGui extends Application {
 		
 	}
 
+	/**
+	 * The method that renders the stage where an admin can change the fare of a bus
+	 * @param stage The stage that is being changed and rendered
+	 */
 	public void showSetBusFair(Stage stage) {
 		StackPane pane = new StackPane();
 		Image back = new Image("file:resources/backdrop.png");
@@ -524,6 +566,12 @@ public class TransitGui extends Application {
 		
 	}
 
+	/**
+	 * The method renders the daily report display
+	 * @param stage The stage that is being changed and altered
+	 * @param ld the local date that is being requested
+	 * @throws FileNotFoundException
+	 */
 	public void showDailyReport(Stage stage, LocalDate ld) throws FileNotFoundException {
 		// TODO Auto-generated method stub
 		Pane pane = new Pane();
@@ -550,6 +598,15 @@ public class TransitGui extends Application {
 		stage.show();
 	}
 
+	
+	/**
+	 * The method renders the Stage that displays when creating a trip
+	 * @param stage The stage that is being altered 
+	 * @param selectedCard The card that is being charged on the trip
+	 * @param start The location that was selected
+	 * @param user The card holder that is currently logged in
+	 * @throws IOException
+	 */
 	public void continueTrip(Stage stage, Card selectedCard, Location start, CardHolder user) throws IOException {
 		
 		StartUp.main();
@@ -726,10 +783,4 @@ public class TransitGui extends Application {
 		stage.show();
 		
 	}
-
-	
-
-	
-
-	
 }

@@ -1,8 +1,21 @@
-a,aaa@gmail.com
 Tian Yu,Hello@DingDong.com
 Danny BrokenJumpshot,DannyBadBoi@Yessir.com
-Bogdan Simeon,BogMan@CS.com
-Seg4,Sego2@gmail.com
+Bogdan Simion,BogMan@CS.com
+Nick Sego,Sego2@gmail.com
 Ali Mousavidehshikh,MathMatician@algebra.com
-a,b@
 Axel Visan,parlefrancais@gmail.com
+Eric Cen,eric@MathGod.com
+Sadia Sharming,sadia@uoft.com
+Haris Idrees,DudeProX@family.com
+Faisal Masalha,TrueDescription@gmail.com
+Alex Segovia,alexseg@brocku.com
+Katherine Benitez,katherine.chen@kai.com
+Daniel Lopez,danlopez@uoft.com
+Ryan Perkins,ryan@gmail.com
+Yhandi Hugo,yhandi@uoft.com
+Michael Jen,mikejens@gmail.com
+Max Saddler,max@calculus.com
+Chun Kai Chen,chenc340@mail.utoronto.ca
+Zach Lavine,zachtt@nba.com
+Nikky Segovia,nikky@kai.com
+Monika Segovia,monika.segovia@gmail.com
