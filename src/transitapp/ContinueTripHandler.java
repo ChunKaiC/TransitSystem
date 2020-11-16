@@ -55,20 +55,23 @@ public class ContinueTripHandler implements EventHandler<ActionEvent> {
 				this.tapOff.setDisable(false);
 				this.tapOn.setDisable(true);
 				this.combo.setDisable(true);
-				Location nextDest = this.combo.getValue();
-				this.currL = nextDest;
-				this.updateAtInjuction();
-				this.currLocation.setText("Current Location: " + this.currL);
+				
 				try {
+					//StartUp.cards.get(user.getEmail()).remove(selectedCard);
+					Writer.removeCard(this.selectedCard, this.user);
+					
 					this.user.tapOn(currL, this.selectedCard.getCard_id(), LocalDateTime.now(), false);
-					Writer.removeCard(selectedCard, user);
-					Writer.writeCard(user.getEmail(), "" + selectedCard.getBalance(), "" + selectedCard.getCard_id(), true, selectedCard.getTimeInitialized());
+					Writer.writeCard(this.user.getEmail(), "" + this.selectedCard.getBalance(), "" + this.selectedCard.getCard_id(), true, this.selectedCard.getTimeInitialized());
 					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				this.balance.setText("" + this.selectedCard.getBalance());
+				Location nextDest = this.combo.getValue();
+				this.currL = nextDest;
+				this.updateAtInjuction();
+				this.currLocation.setText("Current Location: " + this.currL);
+				this.balance.setText("Balance on Card: " + this.selectedCard.getBalance());
 			}
 			if (source.getText().equals("Tap Off")) {
 				// write event to file and update current location and call getPosibleDests and add that return to combo box
@@ -83,7 +86,8 @@ public class ContinueTripHandler implements EventHandler<ActionEvent> {
 				if (this.currL instanceof Stop) {
 					//write to events
 					try {
-						Writer.writeEvent("tapOff", this.currL.getLocation(), this.selectedCard.getCard_id(), LocalDateTime.now(), this.user.getEmail());
+						System.out.println("LOOK HERE FAISAL" + this.selectedCard.getCard_id());
+						//Writer.writeEvent("tapOff", "?" + this.currL.getLocation(), this.selectedCard.getCard_id(), LocalDateTime.now(), this.user.getEmail());
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -91,7 +95,8 @@ public class ContinueTripHandler implements EventHandler<ActionEvent> {
 				}
 				else {
 					try {
-						this.user.tapOff((Station)currL, selectedCard.getCard_id(), LocalDateTime.now(), false);
+						// Remove card, tapoff then write card
+						this.user.tapOff((Station)this.currL, this.selectedCard.getCard_id(), LocalDateTime.now(), false);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -136,6 +141,7 @@ public class ContinueTripHandler implements EventHandler<ActionEvent> {
 				}
 			}
 		}
+		/**
 		ObservableList<Location> oList2 = FXCollections.observableArrayList();
 		for (Location l : oList) {
 			//Location stop = stops.get(l.getLocation());
@@ -150,6 +156,7 @@ public class ContinueTripHandler implements EventHandler<ActionEvent> {
 			}
 		}
 		oList.addAll(oList2);
+		*/
 		return oList;
 	}
 	

@@ -45,8 +45,8 @@ public class TransitGui extends Application {
 		//StartUp.loadStops();
 		//StartUp.loadStation();
 		//StartUp.l
-		StartUp data = new StartUp();
-		StartUp.main();
+		//StartUp data = new StartUp();
+		//StartUp.main();
 		HashMap<String, CardHolder> users = StartUp.cardHolders;
 		//System.out.println(users);
 		//System.out.println(StartUp.cardHolders);
@@ -609,7 +609,7 @@ public class TransitGui extends Application {
 	 */
 	public void continueTrip(Stage stage, Card selectedCard, Location start, CardHolder user) throws IOException {
 		
-		StartUp.main();
+		//StartUp.main();
 		HashMap<String, Stop> stops = StartUp.stops;
 		HashMap<String, Station> stations = StartUp.stations;
 		ArrayList<TransitRoutes> busRoutes = StartUp.busRoutes;
@@ -746,7 +746,8 @@ public class TransitGui extends Application {
 		}
 		*/
 		ComboBox<Location> posibleDest = new ComboBox<Location>(oList);		
-		
+		//System.out.println("Over Here Baby" + selectedCard.equals(StartUp.cards.get(user.getEmail()).get(0)));
+		System.out.println("Over Here Baby" + StartUp.cards.get(user.getEmail()).get(0).equals(selectedCard));
 		tapOn.setOnAction(new ContinueTripHandler(stage, selectedCard, currL, user, posibleDest, balance, currLocation, atInjuction, tapOn, tapOff));
 		tapOff.setOnAction(new ContinueTripHandler(stage, selectedCard, currL, user, posibleDest, balance, currLocation, atInjuction, tapOn, tapOff));
 		endTrip.setOnAction(new ContinueTripHandler(stage, selectedCard, currL, user, posibleDest, balance, currLocation, atInjuction, tapOn, tapOff));
