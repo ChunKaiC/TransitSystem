@@ -13,7 +13,6 @@ public class Trip {
 
 	private int timeOnTrip = 0; // in minutes
 	private double moneySpentOnTrip = 0.0;
-	// ^ if it reaches 2 hours, make a new trip, otherwise free if spent $6 already
 	private ArrayList<Location> locationsTravelled = new ArrayList<Location>();
 	private ArrayList<String> taps = new ArrayList<String>();
 	private ArrayList<LocalDateTime> times = new ArrayList<LocalDateTime>();
@@ -209,21 +208,6 @@ public class Trip {
 		return this.locationsTravelled;
 	}
 
-//    @Override 
-//    public String toString() {
-//    	String string = this.startTime.getMonth().getValue() + "/" + 
-//    			this.startTime.getDayOfWeek().getValue() + "/"+ 
-//    			this.startTime.getYear() + ",";
-//    	
-//    	for (int i = 0; i < this.locationsTravelled.size(); i++) {
-//    		if (i != this.locationsTravelled.size() - 1) {
-//    			string = string + this.locationsTravelled.get(i).getLocation() + "->";
-//    		} else {
-//    			string = string + this.locationsTravelled.get(i).getLocation();
-//    		}
-//    	}
-//    	return string;
-//    }
 	@Override
 	/**
 	 * @return A string representation of the trip
@@ -243,19 +227,5 @@ public class Trip {
 			}
 		}
 		return string.toString();
-	}
-
-	/**
-	 * The main method
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		Trip t = new Trip();
-		t.addLocation(new Stop("stop1", false));
-		t.addLocation(new Stop("stop2", false));
-		t.addLocation(new Stop("stop3", false));
-
-		System.out.println(t);
 	}
 }
