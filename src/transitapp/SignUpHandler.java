@@ -3,6 +3,7 @@ package transitapp;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javafx.event.ActionEvent;
@@ -58,6 +59,10 @@ public class SignUpHandler implements EventHandler<ActionEvent> {
 					e1.printStackTrace();
 				}
 				try {
+					StartUp.cardHolders.put(newUser.getEmail(), newUser);
+					ArrayList<Card> newList = new ArrayList<Card>();
+					newList.add(card);
+					StartUp.cards.put(newUser.getEmail(), newList);
 					obj.userUI(stage, newUser);
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
