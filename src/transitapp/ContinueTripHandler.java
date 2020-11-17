@@ -1,5 +1,6 @@
 package transitapp;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,7 +18,6 @@ import javafx.stage.Stage;
 
 public class ContinueTripHandler implements EventHandler<ActionEvent> {
 
-
 	private Stage stage;
 	private Card selectedCard;
 	private Location currL;
@@ -28,15 +28,18 @@ public class ContinueTripHandler implements EventHandler<ActionEvent> {
 	private Label atInjuction;
 	private Button tapOn;
 	private Button tapOff;
+	private TransitGui obj;
 
-	
 	/*
 	 * Takes in all information that is required when rendering the gui
+	 * 
 	 * @param stage the stage of the gui that needs to be loaded
+	 * 
 	 * @param
 	 */
-	public ContinueTripHandler(Stage stage, Card selectedCard, Location currL, CardHolder user,
-			ComboBox<Location> posibleDest, Label balance, Label currLocation, Label atInjuction, Button tapOn, Button tapOff) {
+	public ContinueTripHandler(Stage stage, TransitGui obj, Card selectedCard, Location currL, CardHolder user,
+			ComboBox<Location> posibleDest, Label balance, Label currLocation, Label atInjuction, Button tapOn,
+			Button tapOff) {
 		// TODO Auto-generated constructor stub
 		this.stage = stage;
 		this.selectedCard = selectedCard;
@@ -48,6 +51,7 @@ public class ContinueTripHandler implements EventHandler<ActionEvent> {
 		this.atInjuction = atInjuction;
 		this.tapOn = tapOn;
 		this.tapOff = tapOff;
+		this.obj = obj;
 	}
 
 	/**
@@ -55,24 +59,22 @@ public class ContinueTripHandler implements EventHandler<ActionEvent> {
 	 */
 	@Override
 	public void handle(ActionEvent arg0) {
-		// TODO Auto-generated method stub
 		Button source = (Button) arg0.getSource();
 		if (!(this.combo.getValue() == null)) {
-			if (source.getText().equals("Tap On")) {
-				//System.out.println(user.getTrips());
+			if (source.getText().equals("Tap On") && this.selectedCard.hasBalance()
+					&& this.selectedCard.isActivated()) {
 				this.tapOff.setDisable(false);
 				this.tapOn.setDisable(true);
 				this.combo.setDisable(true);
-				
+
 				try {
-					//StartUp.cards.get(user.getEmail()).remove(selectedCard);
 					Writer.removeCard(this.selectedCard, this.user);
-					
+
 					this.user.tapOn(currL, this.selectedCard.getCard_id(), LocalDateTime.now(), false);
-					Writer.writeCard(this.user.getEmail(), "" + this.selectedCard.getBalance(), "" + this.selectedCard.getCard_id(), true, this.selectedCard.getTimeInitialized());
-					
+					Writer.writeCard(this.user.getEmail(), "" + this.selectedCard.getBalance(),
+							"" + this.selectedCard.getCard_id(), true, this.selectedCard.getTimeInitialized());
+
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				Location nextDest = this.combo.getValue();
@@ -80,10 +82,15 @@ public class ContinueTripHandler implements EventHandler<ActionEvent> {
 				this.updateAtInjuction();
 				this.currLocation.setText("Current Location: " + this.currL);
 				this.balance.setText("Balance on Card: " + this.selectedCard.getBalance());
+			} else {
+				if (!this.selectedCard.isActivated()) {
+					this.balance.setText("This Card Is Not Activated");
+				} else if (!this.selectedCard.hasBalance()) {
+					this.balance.setText("Balance on Card: " + this.selectedCard.getBalance()
+							+ " -> You Will Not Be Able To Tap On Until You Add Balance In User Functions");
+				}
 			}
 			if (source.getText().equals("Tap Off")) {
-				// write event to file and update current location and call getPosibleDests and add that return to combo box
-				// re endable tap on and combo box with new possible destinations then write to file if bus, if station call tap off
 				Location nextDest = this.combo.getValue();
 				System.out.println(nextDest);
 				this.tapOff.setDisable(true);
@@ -92,36 +99,36 @@ public class ContinueTripHandler implements EventHandler<ActionEvent> {
 				this.currL = nextDest;
 				this.combo.setItems(getPosibleDests());
 				if (this.currL instanceof Stop) {
-					//write to events
 					try {
-						System.out.println("LOOK HERE FAISAL" + this.selectedCard.getCard_id());
-						//Writer.writeEvent("tapOff", "?" + this.currL.getLocation(), this.selectedCard.getCard_id(), LocalDateTime.now(), this.user.getEmail());
 						this.user.tapOff(this.currL, this.selectedCard.getCard_id(), LocalDateTime.now(), false);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				}
-				else {
+				} else {
 					try {
 						Writer.removeCard(this.selectedCard, this.user);
-						this.user.tapOff((Station)this.currL, this.selectedCard.getCard_id(), LocalDateTime.now(), false);
-						Writer.writeCard(this.user.getEmail(), "" + this.selectedCard.getBalance(), "" + this.selectedCard.getCard_id(), true, this.selectedCard.getTimeInitialized());
+						this.user.tapOff((Station) this.currL, this.selectedCard.getCard_id(), LocalDateTime.now(),
+								false);
+						Writer.writeCard(this.user.getEmail(), "" + this.selectedCard.getBalance(),
+								"" + this.selectedCard.getCard_id(), true, this.selectedCard.getTimeInitialized());
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 				}
 				this.balance.setText("Balance on Card: " + this.selectedCard.getBalance());
-				
+
 			}
-			if (source.getText().equals("End Trip")) {
-				if (this.tapOn.isDisabled()) {
-					// write event to file
-				}
+
+		}
+		if (source.getText().equals("End Trip")) {
+			try {
+				this.obj.UserUIAfter(stage, user, StartUp.stops, StartUp.stations);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
 			}
 		}
 	}
-	
+
 	public ObservableList<Location> getPosibleDests() {
 		HashMap<String, Stop> stops = StartUp.stops;
 		HashMap<String, Station> stations = StartUp.stations;
@@ -140,10 +147,8 @@ public class ContinueTripHandler implements EventHandler<ActionEvent> {
 					}
 				}
 			}
-		}
-		else {
+		} else {
 			for (TransitRoutes r : subwayRoutes) {
-				//boolean found = false;
 				for (Location l : r.getRoute()) {
 					if (!l.getLocation().equals(currL.getLocation())) {
 						oList.add(l);
@@ -151,54 +156,23 @@ public class ContinueTripHandler implements EventHandler<ActionEvent> {
 				}
 			}
 		}
-		/**
-		ObservableList<Location> oList2 = FXCollections.observableArrayList();
-		for (Location l : oList) {
-			//Location stop = stops.get(l.getLocation());
-			//Location station = stations.get(l.getLocation());
-			if (l instanceof Stop && l.getAtInjuction()) {
-				Station station = stations.get(l.getLocation());
-				oList2.add(station);
-			}
-			if (l instanceof Station && l.getAtInjuction()) {
-				Stop stop = stops.get(l.getLocation());
-				oList2.add(stop);
-			}
-		}
-		oList.addAll(oList2);
-		*/
 		return oList;
 	}
-	
+
 	public void updateAtInjuction() {
 		if (currL.getAtInjuction()) {
 			if (currL instanceof Stop) {
 				atInjuction.setText("This Stop Has a Station");
-			}
-			else {
+			} else {
 				atInjuction.setText("This Station Has a Stop");
 			}
-		}
-		else {
+		} else {
 			if (currL instanceof Stop) {
 				atInjuction.setText("This Stop Does Not Have a Station");
-			}
-			else {
+			} else {
 				atInjuction.setText("This Station Does Not Have a Stop");
 			}
 		}
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-

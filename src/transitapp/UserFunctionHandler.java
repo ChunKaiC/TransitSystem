@@ -25,11 +25,12 @@ public class UserFunctionHandler implements EventHandler<ActionEvent> {
 
 	/**
 	 * Constructor for the user fucntions
-	 * @param user The user being acted on
+	 * 
+	 * @param user       The user being acted on
 	 * @param transitGui The main application GUI obj
-	 * @param stage The stage being changed
-	 * @param stops The HashMap of stops that exist key is the name 
-	 * of the stop and value is the stop object
+	 * @param stage      The stage being changed
+	 * @param stops      The HashMap of stops that exist key is the name of the stop
+	 *                   and value is the stop object
 	 * @param stations
 	 */
 	public UserFunctionHandler(CardHolder user, TransitGui transitGui, Stage stage, HashMap<String, Stop> stops,
@@ -43,21 +44,22 @@ public class UserFunctionHandler implements EventHandler<ActionEvent> {
 
 	/**
 	 * Constructor for the user functions
+	 * 
 	 * @param cardListSus List of cards associated with the current user
 	 */
 	public UserFunctionHandler(ComboBox<Card> cardListSus) {
 		this.list = cardListSus;
 	}
 
-	
 	/**
 	 * Constructor for the User functions
-	 * @param cNameTxt 
-	 * @param user The user being acted on
+	 * 
+	 * @param cNameTxt
+	 * @param user       The user being acted on
 	 * @param transitGui The main application GUI object
-	 * @param stage The stage that is being changed
-	 * @param stops The Hashmap of all stops that exist
-	 * @param stations The Hashmap of all stations that exist
+	 * @param stage      The stage that is being changed
+	 * @param stops      The Hashmap of all stops that exist
+	 * @param stations   The Hashmap of all stations that exist
 	 */
 	public UserFunctionHandler(TextField cNameTxt, CardHolder user, TransitGui transitGui, Stage stage,
 			HashMap<String, Stop> stops, HashMap<String, Station> stations) {
@@ -102,8 +104,8 @@ public class UserFunctionHandler implements EventHandler<ActionEvent> {
 					chosen.activate();
 					try {
 						System.out.println("Activate" + chosen.toString());
-						Writer.writeCard(this.user.getEmail(), "" + chosen.getBalance(), "" + chosen.getCard_id(),
-								true, chosen.getTimeInitialized());
+						Writer.writeCard(this.user.getEmail(), "" + chosen.getBalance(), "" + chosen.getCard_id(), true,
+								chosen.getTimeInitialized());
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
@@ -167,10 +169,10 @@ public class UserFunctionHandler implements EventHandler<ActionEvent> {
 			}
 
 		}
-		
+
 		else {
 			UserFunctionHandler.value = (Card) this.list.getValue();
-			
+
 		}
 
 	}

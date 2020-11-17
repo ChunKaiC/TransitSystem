@@ -10,7 +10,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class SignUpHandler implements EventHandler<ActionEvent>{
+public class SignUpHandler implements EventHandler<ActionEvent> {
 
 	private Stage stage;
 	private TransitGui obj;
@@ -20,13 +20,15 @@ public class SignUpHandler implements EventHandler<ActionEvent>{
 
 	/**
 	 * Constructor that handles the sign up action
-	 * @param stage The stage that is being changed
+	 * 
+	 * @param stage      The stage that is being changed
 	 * @param transitGui The main application transit gui object
-	 * @param name The name of the user signing in
-	 * @param email The email of the user signing in
-	 * @param users The list of all users in the system
+	 * @param name       The name of the user signing in
+	 * @param email      The email of the user signing in
+	 * @param users      The list of all users in the system
 	 */
-	public SignUpHandler(Stage stage, TransitGui transitGui, TextField name, TextField email, HashMap<String, CardHolder> users) {
+	public SignUpHandler(Stage stage, TransitGui transitGui, TextField name, TextField email,
+			HashMap<String, CardHolder> users) {
 		this.stage = stage;
 		this.obj = transitGui;
 		this.name = name;
@@ -64,15 +66,13 @@ public class SignUpHandler implements EventHandler<ActionEvent>{
 				name.setText("Enter Name Please");
 				email.setText("Enter Email Please");
 			}
-		}
-		else {
+		} else {
 			if (!(emailTxt.contains("@"))) {
 				email.setText("Email Does Not Contain '@' Symbol");
-			}
-			else {
+			} else {
 				email.setText("This Email Is Already Registered");
 			}
-			
+
 		}
 	}
 

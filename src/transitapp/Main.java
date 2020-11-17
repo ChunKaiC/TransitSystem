@@ -9,11 +9,12 @@ import java.io.FileNotFoundException;
 public class Main {
 	/**
 	 * Main method that launches the application
+	 * 
 	 * @param args
 	 * @throws FileNotFoundException
 	 */
-    public static void main(String[] args) throws FileNotFoundException {
-    	TransitGui.main(args);
-    }
+	public static void main(String[] args) throws FileNotFoundException {
+		TransitGui.main(args);
+	}
 
 }

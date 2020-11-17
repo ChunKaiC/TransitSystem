@@ -12,8 +12,6 @@ import javafx.stage.Stage;
 
 public class ChangeFareHandler implements EventHandler<ActionEvent> {
 
-	
-	
 	private TextField tf;
 	private TransitGui obj;
 	private Stage stage;
@@ -21,10 +19,10 @@ public class ChangeFareHandler implements EventHandler<ActionEvent> {
 
 	/**
 	 * 
-	 * @param obj The main GUI that is being used
-	 * @param tf Text field that contains the users input
+	 * @param obj   The main GUI that is being used
+	 * @param tf    Text field that contains the users input
 	 * @param stage Stage that is being worked with
-	 * @param b True when changing bus fare false when changing station fare
+	 * @param b     True when changing bus fare false when changing station fare
 	 */
 	public ChangeFareHandler(TransitGui obj, TextField tf, Stage stage, boolean b) {
 		this.obj = obj;
@@ -32,7 +30,7 @@ public class ChangeFareHandler implements EventHandler<ActionEvent> {
 		this.stage = stage;
 		this.bool = b;
 	}
-	
+
 	/**
 	 * The handle method that handles the actions once the "Go" button is clicked
 	 */
@@ -40,22 +38,20 @@ public class ChangeFareHandler implements EventHandler<ActionEvent> {
 	public void handle(ActionEvent arg0) {
 		Label l = new Label("Successfully Changed Fare");
 		l.setAlignment(Pos.BASELINE_RIGHT);
-		
-		if(this.tf.getText().equals("")){
+
+		if (this.tf.getText().equals("")) {
 			this.tf.setText("Please Enter A Valid Input");
 		}
-		if(this.tf.getText().equals("Please Enter A Valid Input")) {
+		if (this.tf.getText().equals("Please Enter A Valid Input")) {
 			this.tf.setText("Please Enter A Valid Input");
-		}
-		else if(this.bool == true){
+		} else if (this.bool == true) {
 			AdminUser.setBusTravelCost(Double.parseDouble(this.tf.getText()));
 			this.obj.adminUI(this.stage, l);
-		}
-		else {
+		} else {
 			AdminUser.setStaionPrice((Double.parseDouble(this.tf.getText())));
 			this.obj.adminUI(this.stage, l);
 		}
-		
+
 		try {
 			Writer.writeFare(Double.parseDouble(this.tf.getText()), this.bool);
 		} catch (NumberFormatException e) {
