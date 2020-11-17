@@ -296,7 +296,7 @@ public class TransitGui extends Application {
 		
 		
 		//Back button
-		Button backButton = new Button("Back");
+		Button backButton = new Button("Log out");
 		backButton.setOnAction(new BackButtonsHandler(this, stage, "HomePage"));
 		backButton.setAlignment(Pos.TOP_LEFT);
 		
@@ -311,13 +311,12 @@ public class TransitGui extends Application {
 		userInfo.getChildren().addAll(name, email);
 		pane.getChildren().add(userInfo);
 		userInfo.setAlignment(Pos.TOP_CENTER);
-		pane.getChildren().add(center);
 		center.add(backButton, 0, 4);
 		//Label l1 = new Label("hello");
 		//pane.getChildren().add(l1);
 		// add list above everything else
 		//pane.getChildren().add(list);
-		pane.getChildren().addAll(center);
+		pane.getChildren().add(center);
 		Scene scene = new Scene(pane);
 		stage.setScene(scene);
 		stage.show();
@@ -464,8 +463,11 @@ public class TransitGui extends Application {
 		Button backButton = new Button("Back");
 		backButton.setAlignment(Pos.TOP_LEFT);
 		TextArea ta = new TextArea();
-		ta.setMaxHeight(300);
-		ta.setMaxWidth(300);
+		//ta.setMaxHeight(300);
+		//ta.setMaxWidth(300);
+		ta.setMaxSize(450, 600);
+		ta.setMinSize(450, 600);
+		ta.setFont(new Font(18));
 		ta.setLayoutX(275);
 		ta.setLayoutY(200);
 		ta.setText(AdminUser.showDailyReport(ld));
