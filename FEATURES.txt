@@ -138,11 +138,23 @@ You may purchase a bus using the purchaseBus method, create a new bus route usin
 Design choices:
 OOP based. We have over 20 classes that interact with each other.
 Inheritance: Stop and Station are both children of Location.java (who has a some abstract classes)
-Data structures: We use several data structures in our program such as ArrayLists, HashMaps, ComboBox, ObservableLists, LocalDateTime, and LocalDate
+Data structures: We use several data structures in our program such as ArrayLists, HashMaps, ComboBox, ObservableLists
 GUI: We decided to have a working graphical user interface instead of a text/console based program. We wanted it to be a better experience for the user. We used grid panes, stack panes, VBoxes, HBoxes, Buttons, Labels, TextFields, TextAreas, ComboBox, Scenes, ImageView, Action Listeners
 Getter / Setter methods: instead of accessing attributes directly, we implemented getter and setters methods in our classes for a better overall design
+EventHandler files: we have 10 event handlers for the sake of modularity and so that we can better debugg out event handlers when we notice something went wrong
 Loader methods: These read and load our data from our text files to the program
 Writer methods: In order to always have the most up to date data, we overwrite our text files to keep our data when using the GUI
+
+Architecture design explanation:
+-Firstly, we have Location object that is an abstract class the defines the common functionality between Stop and Station objects. This was done because the objects Stop and Station had very similar functionality.
+-TransitRoutes object defines the route for all bus routes and the only subway route. This was done for the intention of extensibility in the case that the municipality that this program is done for decides to build more than one subway route.
+-The third major aspect of our program are the classes CardHolder.java Card.java and Trip.java
+  -Trip.java holds and contains all data pertaining to a trip, i.e. the static variables defined for max cost of a trip and the grace period set and the max ride time.
+  -Card.java holds data i.e. balance, if the card is activated, card id, time of initialization of the card
+    -Card.java also has a static variable CARDS_ISSUED that is used in the constructor to ensure every card has a unique identifier
+- StartUp.java contains methods that loads everthing from the files defined when StartUp.main() is called.
+- Writter.java contains methods that remove and write things like cards, events, cardholders etc.
+
 
 
 
