@@ -40,7 +40,6 @@ public class ContinueTripHandler implements EventHandler<ActionEvent> {
 	public ContinueTripHandler(Stage stage, TransitGui obj, Card selectedCard, Location currL, CardHolder user,
 			ComboBox<Location> posibleDest, Label balance, Label currLocation, Label atInjuction, Button tapOn,
 			Button tapOff) {
-		// TODO Auto-generated constructor stub
 		this.stage = stage;
 		this.selectedCard = selectedCard;
 		this.currL = currL;
