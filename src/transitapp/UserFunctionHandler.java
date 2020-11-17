@@ -129,7 +129,6 @@ public class UserFunctionHandler implements EventHandler<ActionEvent> {
 
 					try {
 						Writer.writeCardHolder(this.user);
-						StartUp.main();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
