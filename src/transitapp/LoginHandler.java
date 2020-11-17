@@ -58,8 +58,6 @@ public class LoginHandler implements EventHandler<ActionEvent> {
 		if (source.equals("Log In")) {
 			String name = this.name.getText();
 			String email = this.email.getText();
-			System.out.println("lol");
-			System.out.print(users);
 			CardHolder user = users.get(email);
 			if (!(user == null)) {
 				String userName = user.getName();
