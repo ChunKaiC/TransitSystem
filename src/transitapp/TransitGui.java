@@ -234,8 +234,10 @@ public class TransitGui extends Application {
 		VBox add = new VBox(balanceList, ten, twenty, fifty, update);
 		finalPane.getChildren().add(add);
 		add.setAlignment(Pos.TOP_RIGHT);
-		add.setTranslateY(-420);
+		add.setTranslateY(30);
 		add.setTranslateX(-20);
+		cNameTxt.setPrefWidth(150);
+		update.setFont(new Font(12));
 		Scene scene = new Scene(pane);
 		stage.setScene(scene);
 		stage.show();
@@ -293,14 +295,9 @@ public class TransitGui extends Application {
 		center.add(startTrip, 0, 3);
 		center.add(userFunctions, 1, 3);
 		userFunctions.setOnAction(new UserFunctionHandler(user, this, stage, stops, stations));
-		
-		
-		//Back button
-		Button backButton = new Button("Log out");
+		Button backButton = new Button("Back");
 		backButton.setOnAction(new BackButtonsHandler(this, stage, "HomePage"));
 		backButton.setAlignment(Pos.TOP_LEFT);
-		
-		// User Info
 		VBox userInfo = new VBox();
 		Label name = new Label("Name: " + user.getName());
 		name.setTextFill(Color.web("#fbfbfb"));
@@ -311,8 +308,8 @@ public class TransitGui extends Application {
 		userInfo.getChildren().addAll(name, email);
 		pane.getChildren().add(userInfo);
 		userInfo.setAlignment(Pos.TOP_CENTER);
-		center.add(backButton, 0, 4);
 		pane.getChildren().add(center);
+		center.add(backButton, 0, 4);
 		Scene scene = new Scene(pane);
 		stage.setScene(scene);
 		stage.show();
@@ -471,6 +468,7 @@ public class TransitGui extends Application {
 		stage.setScene(scene);
 		stage.show();
 	}
+
 
 	/**
 	 * The method renders the Stage that displays when creating a trip

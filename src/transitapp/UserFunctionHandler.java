@@ -100,7 +100,6 @@ public class UserFunctionHandler implements EventHandler<ActionEvent> {
 						e1.printStackTrace();
 					}
 					Card chosen = UserFunctionHandler.value;
-					UserFunctionHandler.value = null;
 					chosen.activate();
 					try {
 						System.out.println("Activate" + chosen.toString());
@@ -149,7 +148,6 @@ public class UserFunctionHandler implements EventHandler<ActionEvent> {
 						e1.printStackTrace();
 					}
 					Card chosen = UserFunctionHandler.value;
-					UserFunctionHandler.value = null;
 					chosen.desactivate();
 					try {
 						System.out.println("Suspend" + chosen.toString());
@@ -173,7 +171,15 @@ public class UserFunctionHandler implements EventHandler<ActionEvent> {
 			UserFunctionHandler.value = (Card) this.list.getValue();
 
 		}
-
+		
+		if (event.getSource() instanceof Button) {
+			String source = ((Button) event.getSource()).getText();
+			if (source.equals("Suspend Selected Card") || source.equals("Activate Selected Card")) {
+				StartUp.cards.get(this.user.getEmail()).add(UserFunctionHandler.value);
+				UserFunctionHandler.value = null;
+			}
+		}
+		
 	}
 
 }

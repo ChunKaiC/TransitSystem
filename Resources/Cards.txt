@@ -9,7 +9,7 @@ mikejens@gmail.com,0.02,17,true,2020-11-3
 BogMan@CS.com,12.0,2,true,2019-11-11
 Sego2@gmail.com,10.0,26,true,2020-6-5
 eric@MathGod.com,18.74,24,true,2020-6-5
-parlefrancais@gmail.com,310.0,6,true,2019-11-2
+parlefrancais@gmail.com,30.0,6,true,2019-11-2
 chenc340@mail.utoronto.ca,88.0,14,false,2020-5-5
 danlopez@uoft.com,27.5,9,true,2019-11-3
 nikky@kai.com,3.58,16,true,2020-7-20
@@ -23,4 +23,4 @@ DudeProX@family.com,98.63,21,false,2020-3-1
 max@calculus.com,48.63,13,true,2019-12-15
 MathMatician@algebra.com,36.0,3,true,2019-10-25
 monika.segovia@gmail.com,23.14,25,true,2020-6-5
-parlefrancais@gmail.com,992.0,1,true,2019-11-2
+parlefrancais@gmail.com,30.0,1,true,2019-11-21

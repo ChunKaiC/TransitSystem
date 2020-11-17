@@ -37,13 +37,14 @@ public class DailyReportHandler implements EventHandler<ActionEvent> {
 		} else if (this.tf.getText().equals("Please enter a valid Input")) {
 			this.tf.setText("Please enter a valid Input");
 		} else {
-			String[] data = tf.getText().split("-");
-			LocalDate ld = LocalDate.of(Integer.parseInt(data[0]), Integer.parseInt(data[1]),
-					Integer.parseInt(data[2]));
+			
 			try {
+				String[] data = tf.getText().split("-");			
+				LocalDate ld = LocalDate.of(Integer.parseInt(data[0]), Integer.parseInt(data[1]),
+						Integer.parseInt(data[2]));
 				this.transitGui.showDailyReport(this.stage, ld);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
+			} catch (Exception e) {
+				this.tf.setText("Invalid Date Format. Please Enter A Valid Date");
 			}
 		}
 	}

@@ -91,10 +91,7 @@ public class BalanceHandler implements EventHandler<ActionEvent> {
 				}
 				this.update.setText("Successfully Added $50 to Balance");
 			}
-			this.ten.setDisable(true);
-			this.twenty.setDisable(true);
-			this.fifty.setDisable(true);
-			this.value.setDisable(true);
+			StartUp.cards.get(this.user.getEmail()).add(this.value.getValue());
 		}
 
 	}

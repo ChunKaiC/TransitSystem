@@ -342,7 +342,7 @@ public class CardHolder {
 				this.tapOffLocation = tempLocation;
 			}
 
-		} else if (location instanceof Stop) {
+		} else if (location instanceof Stop && !(this.currTrip == null)) {
 			this.tapOnLocation = null;
 			this.tapOffLocation = (Stop) location;
 			this.currTrip.addLocation((Stop) location);
