@@ -102,7 +102,6 @@ public class UserFunctionHandler implements EventHandler<ActionEvent> {
 					Card chosen = UserFunctionHandler.value;
 					chosen.activate();
 					try {
-						System.out.println("Activate" + chosen.toString());
 						Writer.writeCard(this.user.getEmail(), "" + chosen.getBalance(), "" + chosen.getCard_id(), true,
 								chosen.getTimeInitialized());
 					} catch (IOException e1) {
@@ -150,7 +149,6 @@ public class UserFunctionHandler implements EventHandler<ActionEvent> {
 					Card chosen = UserFunctionHandler.value;
 					chosen.desactivate();
 					try {
-						System.out.println("Suspend" + chosen.toString());
 						Writer.writeCard(this.user.getEmail(), "" + chosen.getBalance(), "" + chosen.getCard_id(),
 								false, chosen.getTimeInitialized());
 					} catch (IOException e1) {

@@ -91,7 +91,6 @@ public class ContinueTripHandler implements EventHandler<ActionEvent> {
 			}
 			if (source.getText().equals("Tap Off")) {
 				Location nextDest = this.combo.getValue();
-				System.out.println(nextDest);
 				this.tapOff.setDisable(true);
 				this.tapOn.setDisable(false);
 				this.combo.setDisable(false);
