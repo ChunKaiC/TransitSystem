@@ -312,10 +312,6 @@ public class TransitGui extends Application {
 		pane.getChildren().add(userInfo);
 		userInfo.setAlignment(Pos.TOP_CENTER);
 		center.add(backButton, 0, 4);
-		//Label l1 = new Label("hello");
-		//pane.getChildren().add(l1);
-		// add list above everything else
-		//pane.getChildren().add(list);
 		pane.getChildren().add(center);
 		Scene scene = new Scene(pane);
 		stage.setScene(scene);
@@ -463,13 +459,10 @@ public class TransitGui extends Application {
 		Button backButton = new Button("Back");
 		backButton.setAlignment(Pos.TOP_LEFT);
 		TextArea ta = new TextArea();
-		//ta.setMaxHeight(300);
-		//ta.setMaxWidth(300);
-		ta.setMaxSize(450, 600);
-		ta.setMinSize(450, 600);
-		ta.setFont(new Font(18));
-		ta.setLayoutX(275);
-		ta.setLayoutY(200);
+		ta.setMinSize(450, 375);
+		ta.setFont(new Font(15));
+		ta.setLayoutX(150);
+		ta.setLayoutY(150);
 		ta.setText(AdminUser.showDailyReport(ld));
 		pane.getChildren().add(ta);
 		pane.getChildren().add(backButton);

@@ -28,7 +28,6 @@ public class StartUp {
 		subwayRoutes = loadSubwayRoute();
 		cards = loadCards();
 		cardHolders = loadCardHolders(cards);
-		// System.out.println(cardHolders);
 
 		loadSettings();
 		loadEvents(cardHolders, stops, stations);
@@ -103,7 +102,6 @@ public class StartUp {
 			}
 			TransitRoutes r = new TransitRoutes(data.get(0), destinations, schedule);
 			busRoutes.add(r);
-			System.out.println(r.countObservers());
 		}
 		fileBusRoutes.close();
 		scanBusRoutes.close();
@@ -222,7 +220,6 @@ public class StartUp {
 		while (scanEvents.hasNextLine()) {
 			String line = scanEvents.nextLine();
 			ArrayList<String> data = new ArrayList<String>(Arrays.asList(line.split(",")));
-			// Location location = new Stop(null, (Boolean) null);
 			Location location;
 
 			if (data.get(1).charAt(0) == '!') {
@@ -231,18 +228,15 @@ public class StartUp {
 				location = stops.get(data.get(1).substring(1));
 			}
 
-			// System.out.println(data);
 
 			CardHolder cardHolder = cardHolders.get(data.get(8));
 			int cardID = Integer.parseInt(data.get(2));
 
 			LocalDateTime time = LocalDateTime.of(Integer.parseInt(data.get(3)), Integer.parseInt(data.get(4)),
 					Integer.parseInt(data.get(5)), Integer.parseInt(data.get(6)), Integer.parseInt(data.get(7)));
-			// System.out.println(data.get(0));
 			if (data.get(0).equals("tapOn")) {
 				cardHolder.tapOn(location, cardID, time, true);
 			} else {
-				System.out.println(cardHolder.getTrips());
 				cardHolder.tapOff(location, cardID, time, true);
 			}
 

@@ -16,27 +16,6 @@ import java.util.HashMap;
  * This class writes existing data in their corresponding text file.
  */
 public class Writer {
-	public static void main(String[] args) throws IOException {
-//    	HashMap<String, CardHolder> c = StartUp.loadCardHolders();
-//        Stop s = new Stop("BRUH PLANET", false);
-//        Station station = new Station("YESIRRR", true);
-//        Station station2 = new Station("GEUWIB", true);
-//        LocalTime t1 = LocalTime.of(10, 15);
-//        LocalTime t2 = LocalTime.of(10, 45);
-//
-//        TransitRoutes route = new TransitRoutes("Route number 100", new ArrayList<Location>(Arrays.asList(station, station2)), new ArrayList<LocalTime>(Arrays.asList(t1, t2)));
-//
-//		removeCardHolder(c.get("BogMan@CS.com"));
-//    	StartUp.main();
-//        System.out.println(StartUp.subwayRoutes.get(0).getRoute());
-//        System.out.println(StartUp.cards.get("parlefrancais@gmail.com"));
-//        StartUp.cards.get("parlefrancais@gmail.com").get(0).desactivate();
-//        removeCard(StartUp.cards.get("parlefrancais@gmail.com").get(0), StartUp.cardHolders.get("parlefrancais@gmail.com"));
-//        writeCard("parlefrancais@gmail.com", "25.0", "1", false, LocalDate.of(2019, 10, 12));
-//        StartUp.main();
-//        System.out.println(StartUp.cards.get("parlefrancais@gmail.com"));
-//        
-	}
 
 	/**
 	 * This method writes information about a CardHolders to CardHolder.txt.

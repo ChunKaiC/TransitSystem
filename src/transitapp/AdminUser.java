@@ -107,7 +107,6 @@ public class AdminUser {
 		for (String customer : StartUp.cardHolders.keySet()) {
 			for (Trip trip : StartUp.cardHolders.get(customer).getTrips()) {
 
-				System.out.println("Trip Times" + trip.getTimes());
 				if ((trip.getTimes().size() > 0) && trip.getTimes().get(0).toLocalDate().equals(date)) {
 					rides++;
 				}
@@ -122,7 +121,6 @@ public class AdminUser {
 		for (TransitRoutes busRoute : StartUp.busRoutes) {
 			line = line + "\n\nRoute: " + busRoute.getName();
 		}
-		System.out.println("\n\nBus Routes: (Fare : " + df2.format(TransitRoutes.getSubwayFare()) + ")");
 		for (TransitRoutes subRoute : StartUp.subwayRoutes) {
 			line = line + "\n\nRoute: " + subRoute.getName();
 		}

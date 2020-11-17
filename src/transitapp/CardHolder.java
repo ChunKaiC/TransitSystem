@@ -204,7 +204,6 @@ public class CardHolder {
 	 */
 	public boolean tapOn(Location location, int card_id, LocalDateTime time, boolean load) throws IOException {
 		Card current_card = findCard(this.cards, card_id);
-		System.out.println(this.trips.size());
 		if (current_card == null) {
 			return false;
 		}
@@ -223,16 +222,13 @@ public class CardHolder {
 			this.currTrip = new Trip();
 			this.trips.add(this.currTrip);
 			if (!load) {
-				System.out.println("path1");
 				current_card.deductFare(this.currTrip.getMaxCost());
 			}
 
 		}
 
 		if (this.currTrip.getTimes().size() > 0) {
-			System.out.println("CHECKING GRACE");
 			int temp = (int) (Duration.between(this.currTrip.getTimes().get(0), time).toMinutes());
-			System.out.println(temp + " and " + this.currTrip.getMINUTE_GRACE_PERIOD());
 			if (temp > this.currTrip.getMINUTE_GRACE_PERIOD()) {
 				this.currTrip = new Trip();
 				this.trips.add(this.currTrip);
@@ -241,7 +237,6 @@ public class CardHolder {
 		}
 
 		if (this.tapOffLocation != null) {
-			System.out.println("CHECKING TAP OFF");
 			if (this.tapOffLocation.getLocation() != location.getLocation()) {
 				this.currTrip = new Trip();
 				this.trips.add(this.currTrip);
@@ -400,15 +395,5 @@ public class CardHolder {
 	 */
 	public void setName(String text) {
 		this.name = text;
-	}
-
-	public static void main(String[] args) {
-		System.out.println((int) (Duration.between(LocalDateTime.of(1, 1, 1, 1, 1), LocalDateTime.of(1, 1, 1, 1, 30))
-				.toMinutes()));
-		LocalDateTime time = LocalDateTime.now();
-		System.out.println(time);
-		System.out.println(time.getYear() + "/" + time.getMonthValue() + "/" + time.getDayOfMonth() + "/"
-				+ time.getHour() + "/" + time.getMinute());
-		System.out.println("Apples".equals("Apples"));
 	}
 }

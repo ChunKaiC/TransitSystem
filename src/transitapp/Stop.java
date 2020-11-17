@@ -1,7 +1,6 @@
 package transitapp;
 
 import java.util.ArrayList;
-//import java.util.Observable;
 import java.util.Observer;
 
 public class Stop extends Location implements Observer {
@@ -50,9 +49,6 @@ public class Stop extends Location implements Observer {
 	 */
 	private ArrayList<Location> getRouteDestinations(TransitRoutes route) {
 		ArrayList<Location> allDestinations = new ArrayList<Location>();
-		// iterate through the TransiteRoute given and add all stops after given stop to
-		// all destinations and return
-		// this.getOnRoutes();
 		for (TransitRoutes r : this.getOnRoutes()) {
 			boolean found = false;
 			for (Location l : r.getRoute()) {
