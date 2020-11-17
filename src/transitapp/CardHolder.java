@@ -399,14 +399,4 @@ public class CardHolder {
 	public void setName(String text) {
 		this.name = text;
 	}
-
-	public static void main(String[] args) {
-		System.out.println((int) (Duration.between(LocalDateTime.of(1, 1, 1, 1, 1), LocalDateTime.of(1, 1, 1, 1, 30))
-				.toMinutes()));
-		LocalDateTime time = LocalDateTime.now();
-		System.out.println(time);
-		System.out.println(time.getYear() + "/" + time.getMonthValue() + "/" + time.getDayOfMonth() + "/"
-				+ time.getHour() + "/" + time.getMinute());
-		System.out.println("Apples".equals("Apples"));
-	}
 }
