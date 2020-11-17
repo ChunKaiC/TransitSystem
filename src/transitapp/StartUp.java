@@ -102,7 +102,6 @@ public class StartUp {
 			}
 			TransitRoutes r = new TransitRoutes(data.get(0), destinations, schedule);
 			busRoutes.add(r);
-			System.out.println(r.countObservers());
 		}
 		fileBusRoutes.close();
 		scanBusRoutes.close();
@@ -221,7 +220,6 @@ public class StartUp {
 		while (scanEvents.hasNextLine()) {
 			String line = scanEvents.nextLine();
 			ArrayList<String> data = new ArrayList<String>(Arrays.asList(line.split(",")));
-			// Location location = new Stop(null, (Boolean) null);
 			Location location;
 
 			if (data.get(1).charAt(0) == '!') {
@@ -236,7 +234,6 @@ public class StartUp {
 
 			LocalDateTime time = LocalDateTime.of(Integer.parseInt(data.get(3)), Integer.parseInt(data.get(4)),
 					Integer.parseInt(data.get(5)), Integer.parseInt(data.get(6)), Integer.parseInt(data.get(7)));
-			// System.out.println(data.get(0));
 			if (data.get(0).equals("tapOn")) {
 				cardHolder.tapOn(location, cardID, time, true);
 			} else {
