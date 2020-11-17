@@ -7,11 +7,11 @@ import java.util.Observer;
 public class Stop extends Location implements Observer {
 
 	private static ArrayList<Stop> ALL_STOPS = new ArrayList<Stop>();
-	
 
 	/**
 	 * Constructor for the Stop class
-	 * @param location the name of this stop
+	 * 
+	 * @param location     the name of this stop
 	 * @param atInjunction if it is an injuction
 	 */
 	public Stop(String location, boolean atInjunction) {
@@ -31,8 +31,7 @@ public class Stop extends Location implements Observer {
 				String stop = ((Stop) s).getLocation();
 				if (found) {
 					onRoutDestinations.add(s);
-				}
-				else {
+				} else {
 					if (this.getLocation().equals(stop)) {
 						found = true;
 					}
@@ -40,25 +39,26 @@ public class Stop extends Location implements Observer {
 			}
 		}
 		return onRoutDestinations;
-		
+
 	}
 
 	/**
 	 * A helper for the above method
+	 * 
 	 * @param route the corresponding route to the stop
 	 * @return An ArrayList of all destinations
 	 */
 	private ArrayList<Location> getRouteDestinations(TransitRoutes route) {
 		ArrayList<Location> allDestinations = new ArrayList<Location>();
-		// iterate through the TransiteRoute given and add all stops after given stop to all destinations and return
-		//this.getOnRoutes();
+		// iterate through the TransiteRoute given and add all stops after given stop to
+		// all destinations and return
+		// this.getOnRoutes();
 		for (TransitRoutes r : this.getOnRoutes()) {
 			boolean found = false;
 			for (Location l : r.getRoute()) {
 				if (found) {
 					allDestinations.add(l);
-				}
-				else {
+				} else {
 					if (l.getLocation().equals(this.getLocation())) {
 						found = true;
 					}
@@ -66,7 +66,7 @@ public class Stop extends Location implements Observer {
 			}
 		}
 		return allDestinations;
-		
+
 	}
 
 	/**

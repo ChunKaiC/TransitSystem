@@ -4,7 +4,7 @@ import java.util.ArrayList;
 //import java.util.Observable;
 import java.util.Observer;
 
-public class Station extends Location implements Observer{
+public class Station extends Location implements Observer {
 	/**
 	 * Initialize all stations, empty ArrayList
 	 */
@@ -12,7 +12,8 @@ public class Station extends Location implements Observer{
 
 	/**
 	 * Constructor for Station, takes in a name and atInjuction boolean
-	 * @param location the name of the station
+	 * 
+	 * @param location     the name of the station
 	 * @param atInjunction if the station is at an injuction
 	 */
 	public Station(String location, boolean atInjunction) {
@@ -20,7 +21,7 @@ public class Station extends Location implements Observer{
 		Station.ALL_STAITIONS.add(this);
 	}
 
-	//@Override
+	// @Override
 	/**
 	 * @return an ArrayList of all the destinations for this station
 	 */
@@ -30,14 +31,15 @@ public class Station extends Location implements Observer{
 	}
 
 	/**
-	 * A private helper for the method getAllDestinations
-	 * iterate through transit route and add all locations until the location is reached
+	 * A private helper for the method getAllDestinations iterate through transit
+	 * route and add all locations until the location is reached
+	 * 
 	 * @param TransitRoute the corresponding transit route
 	 * @return an ArrayList of all location
 	 */
 	private ArrayList<Location> getAllDestinations(TransitRoutes TransitRoute) {
 		ArrayList<Location> leftDestinations = new ArrayList<Location>();
-		for (Location l: TransitRoute.getRoute()) {
+		for (Location l : TransitRoute.getRoute()) {
 			if (!(l.getLocation().equals(this.getLocation()))) {
 				leftDestinations.add(l);
 			}

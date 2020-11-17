@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-public abstract class Location implements Observer{
+public abstract class Location implements Observer {
 	/**
-	 * atInjuction
-	 * location
-	 * onRoutes
-	 * ALL_LOCATIONS
+	 * atInjuction location onRoutes ALL_LOCATIONS
 	 */
 
 	private boolean atInjunction;
@@ -19,7 +16,8 @@ public abstract class Location implements Observer{
 
 	/**
 	 * The constructor for the Location class
-	 * @param location name
+	 * 
+	 * @param location     name
 	 * @param atInjunction if the location is an injuction
 	 */
 	public Location(String location, boolean atInjunction) {
@@ -31,14 +29,16 @@ public abstract class Location implements Observer{
 
 	/**
 	 * Abstract class to get all the destinations from this location
+	 * 
 	 * @return
 	 */
 	public abstract ArrayList<Location> getAllDestinations();
-	
+
 	// Getters and setters
 
 	/**
 	 * Getter for is at an injunction
+	 * 
 	 * @return whether the location is at an injunction
 	 */
 	public boolean getAtInjuction() {
@@ -68,32 +68,28 @@ public abstract class Location implements Observer{
 
 	/**
 	 * Add this location to a route
+	 * 
 	 * @param TransitRoute the route
 	 */
 	public void addOnRoute(TransitRoutes TransitRoute) {
 		this.onRoutes.add(TransitRoute);
 	}
-	
+
 	@Override
 	/**
 	 * Called when location is added to the route
 	 */
 	public void update(Observable arg0, Object TransitRoute) {
 		boolean found = false;
-		//System.out.println((TransitRoutes) TransitRoute);
+		// System.out.println((TransitRoutes) TransitRoute);
 		TransitRoutes route = (TransitRoutes) TransitRoute;
 		this.addOnRoute(route);
-		//System.out.println(this.onRoutes);
-		//System.out.println(this.getAllDestinations());
+		// System.out.println(this.onRoutes);
+		// System.out.println(this.getAllDestinations());
 		/**
-		for (TransitRoutes r : this.getOnRoutes()) {
-			if (r.getName().equals(route.getName())) {
-				found = true;
-			}
-		}
-		if (! found) {
-			this.addOnRoute(route);
-		}
-		*/
+		 * for (TransitRoutes r : this.getOnRoutes()) { if
+		 * (r.getName().equals(route.getName())) { found = true; } } if (! found) {
+		 * this.addOnRoute(route); }
+		 */
 	}
 }
