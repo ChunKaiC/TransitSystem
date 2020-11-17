@@ -3,6 +3,8 @@ ADD INSTRUCTIONS FOR HOW TO RUN/USE YOUR PROGRAM HERE:
 e.g. What format should we use to input data or add data to events.txt? Anything else we need to know in order to use your program?
 =====
 
+When you want to run our program, run Main.java as an application.
+
 Text File Formatting:
 NOTE: For all text files in resources please ensure that they all have only 1 empty string line at the end of the file. Otherwise the loaders in StartUp.java will error and the GUI will not run.
 IMPORTANT NOTE:  If you call methods separate from the GUI (within a main method), please reset txt files to originals, we do not always write to file within the individual methods, writing is a feature of the GUI that some methods implement for ease of coding.
