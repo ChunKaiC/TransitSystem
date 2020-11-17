@@ -31,8 +31,7 @@ public class TransitRoutes extends Observable {
 		this.schedule = schedule;
 		for (Location l : this.route) {
 			this.addObserver(l);
-			System.out.println(l.getOnRoutes());
-			System.out.println(l);
+
 		}
 		this.setChanged();
 		this.notifyObservers(this);
