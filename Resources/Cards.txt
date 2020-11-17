@@ -15,7 +15,6 @@ chenc340@mail.utoronto.ca,88.0,14,false,2020-5-5
 danlopez@uoft.com,27.5,9,true,2019-11-3
 nikky@kai.com,3.58,16,true,2020-7-20
 katherine.chen@kai.com,19.65,19,true,2020-5-5
-zachtt@nba.com,40.32,15,true,2020-1-5
 DannyBadBoi@Yessir.com,4.0,5,true,2019-11-12
 ryan@gmail.com,13.09,10,false,2019-6-24
 ryan@gmail.com,22.35,11,true,2019-6-24
@@ -24,3 +23,4 @@ DudeProX@family.com,98.63,21,false,2020-3-1
 max@calculus.com,48.63,13,true,2019-12-15
 MathMatician@algebra.com,36.0,3,true,2019-10-25
 monika.segovia@gmail.com,23.14,25,true,2020-6-5
+zachtt@nba.com,100.32,15,true,2020-1-5
