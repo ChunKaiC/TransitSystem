@@ -210,13 +210,13 @@ public class CardHolder {
 		if (!current_card.isActivated()) {
 			return false;
 		}
-
+		
 		if (this.currTrip == null) {
 
 			this.currTrip = new Trip();
 			this.trips.add(this.currTrip);
 
-		} else if (!(this.tapOnLocation == null)) {
+		} else if (this.tapOnLocation != null) {
 
 			this.currTrip = new Trip();
 			this.trips.add(this.currTrip);
@@ -240,7 +240,7 @@ public class CardHolder {
 
 		if (this.tapOffLocation != null) {
 			System.out.println("CHECKING TAP OFF");
-			if (!(this.tapOffLocation.getLocation() == location.getLocation())) {
+			if (this.tapOffLocation.getLocation() != location.getLocation()) {
 				this.currTrip = new Trip();
 				this.trips.add(this.currTrip);
 			}
@@ -301,7 +301,15 @@ public class CardHolder {
 		if (location instanceof Station) {
 
 			Station tempLocation = (Station) location;
-
+			
+			if(this.currTrip.getLocations().size() == 0 || 
+        			this.currTrip.getLocations().get(this.currTrip.getLocations().size() - 1) instanceof Stop) {
+        		if (!load) {
+		        	current_card.deductFare(this.currTrip.getMaxCost());
+		        	Writer.writeEvent("tapOff", "!" + location.getLocation(), card_id, time, this.email);
+		        }
+        	}
+			
 			if (current_card.isActivated()) {
 
 				double cost;
@@ -342,6 +350,7 @@ public class CardHolder {
 			this.tapOffLocation = (Stop) location;
 			this.currTrip.addLocation((Stop) location);
 			this.currTrip.addTimes(time);
+			this.currTrip.updateTimeOnTrip();
 			if (!load) {
 				Writer.writeEvent("tapOff", "?" + location.getLocation(), card_id, time, this.email);
 			}
