@@ -237,7 +237,6 @@ public class StartUp {
 			if (data.get(0).equals("tapOn")) {
 				cardHolder.tapOn(location, cardID, time, true);
 			} else {
-				System.out.println(cardHolder.getTrips());
 				cardHolder.tapOff(location, cardID, time, true);
 			}
 
