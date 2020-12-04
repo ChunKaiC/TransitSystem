@@ -1,0 +1,31 @@
+Marked By: Ziyyad
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+If you feel there was an error in the marking of an assignment, you may request a remark using this 
+form: https://forms.gle/93YZRXawf8NfqEAm6 You must give a specific reason for the request, referring 
+to a possible error or omission by the marker. Please keep in mind that your grade may stay the same, 
+may increase, or may even decrease, after your remark request is assessed. Remark requests MUST be 
+received within one week of when the grade was released.
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+Marking Breakdown: 
+    - Functionality (based on all your working features): (3.25/3.5 points)  
+	    - You mentioned in your features.txt that I could add a card in the user functions but it wasn't there. I'll deduct
+        0.25 for this. 
+    - Code Architecture (use of object-oriented programming principles and design patterns, and a 
+	clear discussion of these design decisions in FEATURES.txt): (3/3 points)
+        - Nice!
+    - Code Style (no repetitive code, overall code is clean and easy to read): (2.5/2.5 points)
+        - Everything looks up to par here. 
+    - Documentation (complete, well-written Javadocs): (0.5/0.5 points)
+        - These are pretty good!
+    - Use of Scrum (based on your product backlog): (0.5/0.5 points)
+        - Very nicely organized!
+    - Use of git (following the workflow detailed in this handout, using properly named branches for 
+	each task, having useful commit messages, having multiple commits throughout the assignment 
+	work period rather than all at the end): (0/0.5 points)
+		- There should be a branch for every task/user story. Having two branches labeled "sprint1" and "sprint2"
+        is not very effecient and makes navigating progress difficult.
+	- BONUS: (0.5/0.5)
+        - A very pretty and satisfying gui. There are the occasional edge cases that spring errors but nothing to 
+        be concerned about :) 
+
+TOTAL: 9.75/10
